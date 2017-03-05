@@ -1,5 +1,10 @@
 @import url('bootstrap/dist/css/bootstrap.min.css');
 
+body { 
+  background: url('assets/wov.png') center center fixed; 
+  background-repeat: repeat;
+}
+
 .spinner {
   border: 4px solid #018BBB;
   border-bottom: 5px solid #f3f3f3;
@@ -17,4 +22,13 @@
 
 .jumbotron {
     background: transparent;
+}
+
+.glyphicon {
+  margin-right: 0.5em;
+}
+
+.title {
+  font-size: 3em;
+  font-weight: 700;
 }

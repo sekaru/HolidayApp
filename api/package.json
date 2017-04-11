@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API for Just Pick Somewhere",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "lowdb": "^0.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sekaru/HolidayApp.git"
+  },
+  "author": "Tudor Sandulescu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sekaru/HolidayApp/issues"
+  },
+  "homepage": "https://github.com/sekaru/HolidayApp#readme"
+}

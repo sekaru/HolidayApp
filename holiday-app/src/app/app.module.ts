@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { routing } from './app.routing';
+import { ApiService } from './api.service';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
@@ -24,7 +26,7 @@ import { LobbyComponent } from './lobby/lobby.component';
     HttpModule,
     routing
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

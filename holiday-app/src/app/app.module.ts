@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
 import { JoinComponent } from './join/join.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CreateComponent,
-    JoinComponent
+    JoinComponent,
+    LobbyComponent
   ],
   imports: [
     BrowserModule,

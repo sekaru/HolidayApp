@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { JoinComponent } from './join/join.component';
 import { CreateComponent } from './create/create.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 const appRoutes: Routes = [
   {
@@ -17,6 +18,10 @@ const appRoutes: Routes = [
   {
     path: 'create',
     component: CreateComponent
+  },
+  {
+    path: 'lobby',
+    component: LobbyComponent
   }
 ];
 

@@ -8,7 +8,7 @@
 
     <p>Share this code with whoever you're planning your holiday with so they can join your new Holiday Lobby.</p>
     <button class="btn btn-warning btn-lg" (click)="genCode()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>New Code</button>
-    <a class="btn btn-success btn-lg" routerLink="/join" skipLocationChange role="button">Join Lobby</a>
+    <a class="btn btn-success btn-lg" (click)="joinLobby()" routerLink="/join" skipLocationChange role="button">Join Lobby</a>
     <a class="btn btn-primary btn-lg" routerLink="/">Home</a>
   </div>
 </div>

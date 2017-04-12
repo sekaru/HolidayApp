@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-create',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class CreateComponent implements OnInit {
   code: string;
 
-  constructor() {
+  constructor(private api: ApiService) {
     this.genCode();
   }
 
@@ -23,5 +24,9 @@ export class CreateComponent implements OnInit {
     for(let i=0; i<len; i++) {
       this.code += possible.charAt(Math.floor(Math.random() * possible.length));
     }  
+  }
+
+  joinLobby() {
+    this.api.makeLobby(this.code).subscribe();
   }
 }

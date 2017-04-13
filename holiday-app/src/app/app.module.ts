@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
 import { JoinComponent } from './join/join.component';
 import { LobbyComponent } from './lobby/lobby.component';
+import { WhoComponent } from './who/who.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LobbyComponent } from './lobby/lobby.component';
     HomeComponent,
     CreateComponent,
     JoinComponent,
-    LobbyComponent
+    LobbyComponent,
+    WhoComponent
   ],
   imports: [
     BrowserModule,

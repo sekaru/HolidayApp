@@ -13,6 +13,10 @@ import { JoinComponent } from './join/join.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { WhoComponent } from './who/who.component';
 
+import { AlertModule } from 'ngx-bootstrap';
+import { LoginModalComponent } from './who/login-modal/login-modal.component';
+import { RegisterModalComponent } from './who/register-modal/register-modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,13 +24,16 @@ import { WhoComponent } from './who/who.component';
     CreateComponent,
     JoinComponent,
     LobbyComponent,
-    WhoComponent
+    WhoComponent,
+    LoginModalComponent,
+    RegisterModalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    AlertModule.forRoot()
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

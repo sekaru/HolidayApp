@@ -6,11 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./who.component.css']
 })
 export class WhoComponent implements OnInit {
-  users: string[] = ['tudor', 'rory', 'natalie'];
+  users: string[] = ['Tudor', 'Natalie', 'Rory'];
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }

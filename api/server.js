@@ -70,14 +70,14 @@ app.post('/make-lobby', function (req, res) {
 
 // making a user
 app.post('/make-user', function (req, res) {
-  if(!req.body.lobby || !req.body.name) {
+  if(!req.body.lobby || !req.body.name || !req.body.pass) {
     res.status(500).json({resp: false});
     return;
   }
 
   var colour = randColour();
   db.get('users')
-    .push({lobby: req.body.lobby, name: req.body.name, colour: colour})
+    .push({lobby: req.body.lobby, name: req.body.name, pass: req.body.pass, colour: colour})
     .write();
 
   console.log("Added new user: " + JSON.stringify(req.body));

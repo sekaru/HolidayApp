@@ -20,8 +20,4 @@ export class WhoComponent implements OnInit {
   getColour(index: number) {
     return this.users[index].colour;
   }
-
-  addUser() {
-    this.api.addUser().subscribe();
-  }
 }

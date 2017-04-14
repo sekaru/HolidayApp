@@ -5,10 +5,16 @@
                 <button type="button" class="close" (click)="registerModal.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Description</h4>
+                <h4 class="modal-title">Register</h4>
             </div>
+
             <div class="modal-body">
-                "Body!"
+                Just choose a few quick details:<br/><br/>
+
+                Name:<br/> <input [(ngModel)]="registerName" placeholder="Name"><br/><br/>
+                Password:<br/> <input [(ngModel)]="registerPass" placeholder="Password"><br/><br/>
+
+                <button (click)="registerUser()" class="btn btn-primary" role="button">Register</button>
             </div>
         </div>
     </div>

@@ -26,17 +26,20 @@
     {
       "lobby": "G1DAH",
       "name": "Tudor",
-      "colour": "#2666D7"
+      "pass": "hello",
+      "colour": "#081FF4"
     },
     {
       "lobby": "G1DAH",
-      "name": "Tudor",
-      "colour": "#AB3B85"
+      "name": "Rory C",
+      "pass": "hello",
+      "colour": "#0EBA82"
     },
     {
-      "lobby": "FXMQH",
-      "name": "Rory",
-      "colour": "#E66DD5"
+      "lobby": "G1DAH",
+      "name": "Natalie",
+      "pass": "hello",
+      "colour": "#B91DBB"
     }
   ]
 }

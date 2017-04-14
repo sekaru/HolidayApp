@@ -23,10 +23,10 @@ export class ApiService {
                     .map(res => res.json());
   }
 
-  addUser() {
+  registerUser(data: any) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.address + "/make-user", {lobby: this.lobbyID, name: "Tudor"}, {headers: headers})
+    return this.http.post(this.address + "/make-user", data, {headers: headers})
                     .map(res => res.json());
   }
 }

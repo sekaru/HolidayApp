@@ -22,4 +22,11 @@ export class ApiService {
     return this.http.post(this.address + "/make-lobby", {id: lobbyID}, {headers: headers})
                     .map(res => res.json());
   }
+
+  addUser() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.address + "/make-user", {lobby: this.lobbyID, name: "Tudor"}, {headers: headers})
+                    .map(res => res.json());
+  }
 }

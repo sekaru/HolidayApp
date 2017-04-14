@@ -1,7 +1,18 @@
 .avatar {
-    background-color: #eee;
-    border: 2px dotted #666;
-    padding: 1em;
-    width: 10em;
-    height: 10em;
+    /*background-color: orange;*/
+    /*border: 0.1em solid darkorange;*/
+    width: 11em;
+    height: 11em;
+    border-radius: 5.5em;
+}
+
+.name {
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    text-transform: uppercase;
+    color: white;
 }

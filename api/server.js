@@ -7,6 +7,11 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+var server = app.listen(3000, function () {
+  var port = server.address().port;
+  console.log("JPS API listening on port " + port);
+});
+
 // set defaults
 var db = low('db.json');
 db.defaults({ lobbies: [], users: [] })
@@ -60,10 +65,45 @@ app.post('/make-lobby', function (req, res) {
     .write();
 
   console.log("Created lobby ID: " + req.body.id);
-  res.status(200).json({resp: true});
+  res.json({resp: true});
 });
 
-var server = app.listen(3000, function () {
-  var port = server.address().port;
-  console.log("JPS API listening on port " + port);
+// making a user
+app.post('/make-user', function (req, res) {
+  if(!req.body.lobby || !req.body.name) {
+    res.status(500).json({resp: false});
+    return;
+  }
+
+  var colour = randColour();
+  db.get('users')
+    .push({lobby: req.body.lobby, name: req.body.name, colour: colour})
+    .write();
+
+  console.log("Added new user: " + JSON.stringify(req.body));
+  res.json({resp: true});
 });
+
+// get users
+app.get('/get-users', function (req, res) {
+  var users = db.get('users')
+                .value();
+  
+  var lobbyUsers = [];
+  for(var i=0; i<users.length; i++) {
+    if(users[i].lobby==req.query.id) {
+      lobbyUsers.push(users[i]);
+    }
+  }
+  
+  res.json(lobbyUsers);
+});
+
+function randColour() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i=0; i<6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}

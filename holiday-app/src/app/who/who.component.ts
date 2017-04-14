@@ -7,9 +7,21 @@ import { ApiService } from '../api.service';
   styleUrls: ['./who.component.css']
 })
 export class WhoComponent implements OnInit {
-  users: string[] = ['Tudor', 'Natalie', 'Rory'];
+  users: any[];
 
   constructor(private api: ApiService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.api.get('get-users?id=' + this.api.lobbyID).subscribe(data => {
+      this.users = data;
+    });
+  }
+
+  getColour(index: number) {
+    return this.users[index].colour;
+  }
+
+  addUser() {
+    this.api.addUser().subscribe();
+  }
 }

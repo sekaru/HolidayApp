@@ -12,8 +12,9 @@ import { CreateComponent } from './create/create.component';
 import { JoinComponent } from './join/join.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { WhoComponent } from './who/who.component';
+
 import { ClipboardModule } from 'ngx-clipboard';
-import { AlertModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 import { LoginModalComponent } from './who/login-modal/login-modal.component';
 import { RegisterModalComponent } from './who/register-modal/register-modal.component';
 
@@ -34,7 +35,7 @@ import { RegisterModalComponent } from './who/register-modal/register-modal.comp
     HttpModule,
     routing,
     ClipboardModule,
-    AlertModule.forRoot()
+    ModalModule.forRoot()
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

@@ -20,31 +20,23 @@
     },
     {
       "id": "XABFE"
-    },
-    {
-      "id": "MB85K"
-    },
-    {
-      "id": "AOGUV"
-    },
-    {
-      "id": "EGTB3"
-    },
-    {
-      "id": "86YNW"
-    },
-    {
-      "id": "935ST"
-    },
-    {
-      "id": "THVQG"
-    },
-    {
-      "id": "FOZ8I"
-    },
-    {
-      "id": "UR57L"
     }
   ],
-  "users": []
+  "users": [
+    {
+      "lobby": "G1DAH",
+      "name": "Tudor",
+      "colour": "#2666D7"
+    },
+    {
+      "lobby": "G1DAH",
+      "name": "Tudor",
+      "colour": "#AB3B85"
+    },
+    {
+      "lobby": "FXMQH",
+      "name": "Rory",
+      "colour": "#E66DD5"
+    }
+  ]
 }

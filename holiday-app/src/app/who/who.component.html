@@ -6,13 +6,14 @@
     <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
     <p>Who are you?</p>
     <div class="row">
-      <div class="col-md-2" *ngFor="let name of users; let index = index">
-        <div class="avatar">{{name}}</div>
+      <div class="col-md-2" *ngFor="let user of users; let index = index">
+        <div class="avatar" [style.background-color]="getColour(index)"><span class="name">{{user.name}}</span></div>
         <br/>
       </div>
     </div>
 
-    <a class="btn btn-primary btn-lg" routerLink="/who" skipLocationChange role="button">Not here? Add yourself</a>
-    <!--<alert type="success">hello</alert>-->
+    <!--<button (click)="addUser()" class="btn btn-primary btn-lg" role="button">Not here? Add yourself</button>-->
+    <button type="button" class="btn btn-primary" (click)="registerModal.showModal()">Small modal</button>
+    <register-modal #registerModal></register-modal>
   </div>
 </div>

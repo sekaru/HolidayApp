@@ -17,7 +17,6 @@ export class JoinComponent implements OnInit {
 
   joinLobby() {
     this.api.get('lobby?id=' + this.inputCode).subscribe(data => {
-      console.log(data);
       if(data.resp==true) {
         this.api.lobbyID = data.code;
         this.router.navigateByUrl('/who', { skipLocationChange: true });

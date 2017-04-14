@@ -5,14 +5,14 @@
 
     <p>Enter your lobby code below:</p>
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Lobby code">
+      <input [(ngModel)]="inputCode" (keyup.enter)="joinLobby()" class="form-control" placeholder="Lobby code">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
+        <button (click)="joinLobby()" class="btn btn-warning" type="button">Join!</button>
       </span>
     </div>
     <br/>
 
-    <a class="btn btn-success btn-lg" routerLink="/create" skipLocationChange role="button">Create Lobby</a>
+    <a class="btn btn-success btn-lg" routerLink="/create" skipLocationChange role="button">Create a Lobby</a>
     <a class="btn btn-primary btn-lg" routerLink="/">Home</a>
   </div>
 </div>

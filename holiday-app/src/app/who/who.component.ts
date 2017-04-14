@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-who',
@@ -8,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class WhoComponent implements OnInit {
   users: string[] = ['Tudor', 'Natalie', 'Rory'];
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

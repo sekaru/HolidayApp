@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ApiService {
   address: string;
+  lobbyID: string;
 
   constructor(private http: Http) {
     this.address = "http://localhost:3000";
@@ -16,11 +17,9 @@ export class ApiService {
   }
 
   makeLobby(lobbyID: string) {
-    console.log(lobbyID);
-
-    var headers = new Headers();
+    let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.address + "/make-lobby", {id: lobbyID}, {headers: headers})
-              .map(res => res.json());
+                    .map(res => res.json());
   }
 }

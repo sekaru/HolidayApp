@@ -49,7 +49,7 @@ app.get('/lobby', function (req, res) {
   if(!lobby) {
     res.status(404).json({resp: false, err: "err_lobby_not_found", msg: "Couldn't find that lobby"});
   } else {
-    res.json({resp: true});
+    res.json({resp: true, code: lobby.id});
   }
 });
 

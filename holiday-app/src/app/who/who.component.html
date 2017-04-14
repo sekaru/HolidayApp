@@ -3,19 +3,16 @@
     <div class="title">JUST. PICK. SOMEWHERE.</div>
     <br>
 
-    <h2>Who are you?</h2>
+    <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
+    <p>Who are you?</p>
     <div class="row">
       <div class="col-md-2" *ngFor="let name of users; let index = index">
         <div class="avatar">{{name}}</div>
         <br/>
       </div>
     </div>
-    <br>
-    
+
     <a class="btn btn-primary btn-lg" routerLink="/who" skipLocationChange role="button">Not here? Add yourself</a>
     <!--<alert type="success">hello</alert>-->
-    <alert type="success">
-      <strong>Well done!</strong> You successfully read this important alert message.
-    </alert>
   </div>
 </div>

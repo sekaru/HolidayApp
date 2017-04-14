@@ -10,20 +10,16 @@ export class CreateComponent implements OnInit {
   code: string;
 
   constructor(private api: ApiService) {
-    this.genCode();
+    this.getCode();
   }
 
   ngOnInit() {
   }
 
-  genCode() {
-    let possible: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let len: number = 5;
-    this.code = "";
-
-    for(let i=0; i<len; i++) {
-      this.code += possible.charAt(Math.floor(Math.random() * possible.length));
-    }  
+  getCode() {
+    this.api.get('lobby-code').subscribe(data => {
+      this.code = data.code;
+    });
   }
 
   joinLobby() {

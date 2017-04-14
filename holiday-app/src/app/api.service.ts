@@ -10,6 +10,11 @@ export class ApiService {
     this.address = "http://localhost:3000";
   }
 
+  get(params: string) {
+    return this.http.get(this.address + '/' + params)
+                    .map(res => res.json());
+  }
+
   makeLobby(lobbyID: string) {
     console.log(lobbyID);
 

@@ -7,7 +7,8 @@ import { ApiService } from '../api.service';
   styleUrls: ['./who.component.css']
 })
 export class WhoComponent implements OnInit {
-  users: any[];
+  users: any[] = [];
+  loginHover: number;
 
   constructor(private api: ApiService) { }
 
@@ -19,5 +20,15 @@ export class WhoComponent implements OnInit {
 
   getColour(index: number) {
     return this.users[index].colour;
+  }
+
+  loginMouseEnter(index: number) {
+    this.loginHover = index;
+    console.log("enter");
+  }
+
+  loginMouseLeave(index: number) {
+    this.loginHover = -1;
+    console.log("leave");
   }
 }

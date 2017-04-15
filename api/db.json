@@ -20,26 +20,47 @@
     },
     {
       "id": "XABFE"
+    },
+    {
+      "id": "C415K"
     }
   ],
   "users": [
     {
       "lobby": "G1DAH",
       "name": "Tudor",
-      "pass": "hello",
-      "colour": "#081FF4"
-    },
-    {
-      "lobby": "G1DAH",
-      "name": "Rory C",
-      "pass": "hello",
-      "colour": "#0EBA82"
+      "pass": "test",
+      "colour": "#018FAA"
     },
     {
       "lobby": "G1DAH",
       "name": "Natalie",
-      "pass": "hello",
-      "colour": "#B91DBB"
+      "pass": "test",
+      "colour": "#503D2F"
+    },
+    {
+      "lobby": "G1DAH",
+      "name": "Rory",
+      "pass": "test",
+      "colour": "#B5DE94"
+    },
+    {
+      "lobby": "G1DAH",
+      "name": "Hayden",
+      "pass": "test",
+      "colour": "#100BD2"
+    },
+    {
+      "lobby": "G1DAH",
+      "name": "Declan",
+      "pass": "test",
+      "colour": "#F0657D"
+    },
+    {
+      "lobby": "G1DAH",
+      "name": "Elena",
+      "pass": "test",
+      "colour": "#4EFBA2"
     }
   ]
 }

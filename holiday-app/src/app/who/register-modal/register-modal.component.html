@@ -9,12 +9,10 @@
             </div>
 
             <div class="modal-body">
-                Just choose a few quick details:<br/><br/>
+                Name:<br/> <input [(ngModel)]="registerName" placeholder="Name" [maxLength]="10"><br/><br/>
+                Password:<br/> <input [(ngModel)]="registerPass" placeholder="Password" type="password"><br/><br/>
 
-                Name:<br/> <input [(ngModel)]="registerName" placeholder="Name"><br/><br/>
-                Password:<br/> <input [(ngModel)]="registerPass" placeholder="Password"><br/><br/>
-
-                <button (click)="registerUser()" class="btn btn-primary" role="button">Register</button>
+                <button (click)="registerUser()" class="btn btn-primary btn-modal" role="button">Register</button>
             </div>
         </div>
     </div>

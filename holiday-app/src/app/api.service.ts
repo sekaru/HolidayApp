@@ -16,17 +16,18 @@ export class ApiService {
                     .map(res => res.json());
   }
 
-  makeLobby(lobbyID: string) {
+  post(params: string, data: any) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.address + "/make-lobby", {id: lobbyID}, {headers: headers})
+    return this.http.post(this.address + "/" + params, data, {headers: headers})
                     .map(res => res.json());
   }
 
+  makeLobby(lobbyID: string) {
+    return this.post('make-lobby', {id: lobbyID});
+  }
+
   registerUser(data: any) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post(this.address + "/make-user", data, {headers: headers})
-                    .map(res => res.json());
+    return this.post('make-user', data);
   }
 }

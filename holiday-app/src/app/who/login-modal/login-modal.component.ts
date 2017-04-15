@@ -7,6 +7,10 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   styleUrls: ['./login-modal.component.css']
 })
 export class LoginModalComponent implements OnInit {
+  name: string;
+  greetings: string[] = ['Hey', 'Hello', 'Hi', 'Hallo', 'Guten Tag', 'Bonjour', 'Hola', 'Ciao', 'Olà', 'Konnichiwa'];
+  randGreeting: number;
+
   @ViewChild('loginModal') public childModal:ModalDirective;
  
   constructor() { }
@@ -14,7 +18,9 @@ export class LoginModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  public showModal():void {
+  public showModal(name: string):void {
+    this.name = name;
+    this.randGreeting = Math.floor(Math.random()*this.greetings.length);
     this.childModal.show();
   }
  

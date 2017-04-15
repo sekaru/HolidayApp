@@ -30,3 +30,13 @@ body {
   font-size: 3em;
   font-weight: 700;
 }
+
+.btn-modal {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.modal-body input {
+  width: 100%;
+}

@@ -5,11 +5,14 @@
                 <button type="button" class="close" (click)="loginModal.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Description</h4>
+                <h4 class="modal-title">{{greetings[randGreeting]}}, {{name}}</h4>
             </div>
 
             <div class="modal-body">
-                "Login Body!"
+                Name:<br/> <input [(ngModel)]="registerName" placeholder="Name" [maxLength]="10"><br/><br/>
+                Password:<br/> <input [(ngModel)]="registerPass" placeholder="Password" type="password"><br/><br/>
+
+                <button (click)="registerUser()" class="btn btn-primary btn-modal" role="button">Login</button>
             </div>
         </div>
     </div>

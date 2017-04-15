@@ -52,7 +52,7 @@ app.get('/lobby', function (req, res) {
               .value();
   
   if(!lobby) {
-    res.status(404).json({resp: false, err: "err_lobby_not_found", msg: "Couldn't find that lobby"});
+    res.json({resp: false, err: "err_lobby_not_found", msg: "Couldn't find that lobby"});
   } else {
     res.json({resp: true, code: lobby.id});
   }
@@ -97,6 +97,25 @@ app.get('/get-users', function (req, res) {
   }
   
   res.json(lobbyUsers);
+});
+
+// logging in
+app.post('/login', function (req, res) {
+  if(!req.body.name || !req.body.pass) {
+    res.status(500).json({resp: false});
+    return;
+  }
+
+  var user = db.get('users')
+               .find({name: req.body.name, pass: req.body.pass})
+               .value();
+
+  if(user) {
+    console.log("User logged in: " + JSON.stringify(req.body));
+    res.json({resp: true});
+  } else {
+    res.json({resp: false, err: "err_wrong_pass", msg: "Incorrect password"});
+  }
 });
 
 function randColour() {

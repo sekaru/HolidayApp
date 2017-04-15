@@ -23,6 +23,9 @@
     },
     {
       "id": "C415K"
+    },
+    {
+      "id": "00IAC"
     }
   ],
   "users": [
@@ -61,6 +64,24 @@
       "name": "Elena",
       "pass": "test",
       "colour": "#4EFBA2"
+    },
+    {
+      "lobby": "C415K",
+      "name": "Tudor",
+      "pass": "test",
+      "colour": "#C63897"
+    },
+    {
+      "lobby": "C415K",
+      "name": "Another",
+      "pass": "one",
+      "colour": "#648095"
+    },
+    {
+      "lobby": "00IAC",
+      "name": "Tudor",
+      "pass": "hello",
+      "colour": "#8D1566"
     }
   ]
 }

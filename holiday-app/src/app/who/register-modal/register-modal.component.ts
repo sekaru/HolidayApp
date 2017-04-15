@@ -30,6 +30,7 @@ export class RegisterModalComponent implements OnInit {
   registerUser() {
     this.api.registerUser({lobby: this.api.lobbyID, name: this.registerName, pass: this.registerPass}).subscribe(data => {
       this.hideModal();
+      this.router.navigateByUrl('/lobby', { skipLocationChange: true });
     });
   }
 }

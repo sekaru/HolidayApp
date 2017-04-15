@@ -30,4 +30,8 @@ export class ApiService {
   registerUser(data: any) {
     return this.post('make-user', data);
   }
+
+  tryLogin(data: any) {
+    return this.post('login', data);
+  }
 }

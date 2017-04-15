@@ -3,6 +3,12 @@
     <div class="title">JUST. PICK. SOMEWHERE.</div>
     <br>
 
+    <div *ngIf="error.length!=0">
+      <alert type="danger">
+        <strong>Error:</strong> {{error}}
+      </alert>
+    </div>
+
     <p>Enter your lobby code below:</p>
     <div class="input-group">
       <input [(ngModel)]="inputCode" (keyup.enter)="joinLobby()" class="form-control" placeholder="Lobby code">

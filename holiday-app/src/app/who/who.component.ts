@@ -24,11 +24,9 @@ export class WhoComponent implements OnInit {
 
   loginMouseEnter(index: number) {
     this.loginHover = index;
-    console.log("enter");
   }
 
   loginMouseLeave(index: number) {
     this.loginHover = -1;
-    console.log("leave");
   }
 }

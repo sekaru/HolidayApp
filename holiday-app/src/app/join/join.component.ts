@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class JoinComponent implements OnInit {
   inputCode: string;
+  error: string = "";
 
   constructor(private api: ApiService, private router: Router) { }
 
@@ -18,8 +19,11 @@ export class JoinComponent implements OnInit {
   joinLobby() {
     this.api.get('lobby?id=' + this.inputCode).subscribe(data => {
       if(data.resp==true) {
+        this.error = "";
         this.api.lobbyID = data.code;
         this.router.navigateByUrl('/who', { skipLocationChange: true });
+      } else {
+        this.error = data.msg;
       }
     });
   }

@@ -9,10 +9,14 @@
             </div>
 
             <div class="modal-body">
-                Name:<br/> <input [(ngModel)]="registerName" placeholder="Name" [maxLength]="10"><br/><br/>
-                Password:<br/> <input [(ngModel)]="registerPass" placeholder="Password" type="password"><br/><br/>
+                <div *ngIf="error.length!=0">
+                    <alert type="danger">
+                        <strong>Error:</strong> {{error}}
+                    </alert>
+                </div>
 
-                <button (click)="registerUser()" class="btn btn-primary btn-modal" role="button">Login</button>
+                Password:<br/> <input [(ngModel)]="loginPass" (keyup.enter)="tryLogin()" placeholder="Password" type="password"><br/><br/>
+                <button (click)="tryLogin()" class="btn btn-primary btn-modal" role="button">Login</button>
             </div>
         </div>
     </div>

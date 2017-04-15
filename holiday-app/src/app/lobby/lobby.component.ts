@@ -8,7 +8,7 @@ import { ApiService } from '../api.service';
 })
 export class LobbyComponent implements OnInit {
   colour: string;
-  places: any[] = [];
+  places: any[];
   addingPlace: boolean;
 
   constructor(private api: ApiService) { }
@@ -18,8 +18,12 @@ export class LobbyComponent implements OnInit {
       this.colour = data.resp;
     });
 
+    this.updatePlaces();
+  }
+
+  updatePlaces() {
     this.api.get('get-places?lobby=' + this.api.lobbyID).subscribe(data => {
-      //console.log(data);
+      this.places = [];
       for(let i=0; i<data.length; i++) this.places.push(data[i]);
     });
   }
@@ -39,7 +43,7 @@ export class LobbyComponent implements OnInit {
     let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: price, votes: 0};
 
     this.api.post('add-place', place).subscribe(data => {
-      this.places.push(place);
+      this.updatePlaces();
       this.addingPlace = false;
     });
   }

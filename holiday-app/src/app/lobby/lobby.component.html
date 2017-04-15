@@ -3,14 +3,32 @@
     <div class="title">JUST. PICK. SOMEWHERE.</div>
     <br>
 
-    <div>
-      <div class="avatar"[style.background-color]="colour">
-        <span class="name">{{api.name.substring(0,1)}}</span>
+    <div class="avatar"[style.background-color]="colour">
+      <span class="name">{{api.name.substring(0,1)}}</span>
+    </div>
+    <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
+
+    <p>Your places:</p>
+    <div *ngFor="let a of places; let i = index" class="panel panel-default">
+      <div class="panel-body">
+        <a href="{{a.link}}">{{a.link}}</a>
+        
+        <span class="badge pull-right">{{a.votes}}</span>
+        <span (click)="downvote(i)" class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></span> 
+        <span (click)="upvote(i)" class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></span>
       </div>
-      <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
+      <div *ngIf="a.author==api.name" class="panel-footer">Submitted by you</div>
+      <div *ngIf="a.author!=api.name" class="panel-footer">Submitted by {{a.author}}</div>
     </div>
 
-    <p>Your accomodations:</p>
-    <button type="button" class="btn btn-primary btn-lg">New accomodation</button>
+    <div *ngIf="addingPlace">
+      Link: <input #link placeholder="airbnb.co.uk/places/123456">&nbsp;
+      Price (per person): <input #price placeholder="£99.87">&nbsp;&nbsp;
+      <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary btn"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
+      <button (click)="addingPlace=false" type="button" class="btn btn-warning btn"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
+      <br/>
+    </div>
+
+    <button *ngIf="!addingPlace" (click)="addingPlace=true" type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New place</button>
   </div>
 </div>

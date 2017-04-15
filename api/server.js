@@ -14,7 +14,7 @@ var server = app.listen(3000, function () {
 
 // set defaults
 var db = low('db.json');
-db.defaults({ lobbies: [], users: [] })
+db.defaults({ lobbies: [], users: [], places: [] }) 
   .write()
 
 // generating a lobby code
@@ -90,6 +90,15 @@ app.post('/register', function (req, res) {
   res.json({resp: true});
 });
 
+function randColour() {
+    var letters = '123456789ABCD';
+    var color = '#';
+    for (var i=0; i<6; i++) {
+        color += letters[Math.floor(Math.random() * letters.length)];
+    }
+    return color;
+}
+
 // get users
 app.get('/get-users', function (req, res) {
   var users = db.get('users')
@@ -132,11 +141,41 @@ app.post('/login', function (req, res) {
   }
 });
 
-function randColour() {
-    var letters = '123456789ABCD';
-    var color = '#';
-    for (var i=0; i<6; i++) {
-        color += letters[Math.floor(Math.random() * letters.length)];
+// adding a place
+app.post('/add-place', function (req, res) {
+  var duplicate = db.get('places')
+                    .find({lobby: req.body.lobby, author: req.body.author, link: req.body.link})
+                    .value();
+  if(duplicate) {
+    return res.json({resp: false, err: 'err_duplicate_place', msg: 'That place is already in your list'});
+  }
+
+  var colour = randColour();
+  db.get('places')
+    .push({lobby: req.body.lobby, author: req.body.author, link: req.body.link, price: req.body.price, votes: 0})
+    .write();
+
+  console.log("Added new place: " + JSON.stringify(req.body));
+  res.json({resp: true});
+});
+
+// get places
+app.get('/get-places', function (req, res) {
+  var places = db.get('places')
+                .value();
+  
+  var lobbyPlaces = [];
+  for(var i=0; i<places.length; i++) {
+    if(places[i].lobby==req.query.lobby) {
+      lobbyPlaces.push(places[i]);
     }
-    return color;
-}
+  }
+  
+  res.json(lobbyPlaces);
+});
+
+// finding the airbnb id
+// app.get('/get-id', function (req, res) {
+//   var m = req.query.url.match(/\d+/g)
+//   res.json({resp: m[0]});
+// });

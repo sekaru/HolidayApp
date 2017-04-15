@@ -17,3 +17,13 @@
     text-transform: uppercase;
     color: white;
 }
+
+.glyphicon-thumbs-up:hover, .glyphicon-thumbs-up:active {
+    transform: translateY(-30%);
+    cursor: pointer;
+}
+
+.glyphicon-thumbs-down:hover, .glyphicon-thumbs-down:active {
+    transform: translateY(30%);
+    cursor: pointer;
+}

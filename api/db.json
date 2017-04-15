@@ -107,5 +107,28 @@
       "pass": "hello",
       "colour": "#AD98C9"
     }
+  ],
+  "places": [
+    {
+      "lobby": "G1DAH",
+      "author": "Tudor",
+      "link": "https://airbnb.com/63243",
+      "price": "£64.53",
+      "votes": 0
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Tudor",
+      "link": "https://airbnb.com/643243",
+      "price": "£50.45",
+      "votes": 0
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Tudor",
+      "link": "https://airbnb.com/23122",
+      "price": "£20.12",
+      "votes": 0
+    }
   ]
 }

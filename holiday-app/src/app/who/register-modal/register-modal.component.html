@@ -9,6 +9,12 @@
             </div>
 
             <div class="modal-body">
+                <div *ngIf="error.length!=0">
+                    <alert type="danger">
+                        <strong>Error:</strong> {{error}}
+                    </alert>
+                </div>
+                
                 Name:<br/> <input [(ngModel)]="registerName" placeholder="Name" [maxLength]="10"><br/><br/>
                 Password:<br/> <input [(ngModel)]="registerPass" (keyup.enter)="registerUser()" placeholder="Password" type="password"><br/><br/>
 

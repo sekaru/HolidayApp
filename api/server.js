@@ -14,7 +14,7 @@ var server = app.listen(3000, function () {
 
 // set defaults
 var db = low('db.json');
-db.defaults({ lobbies: [], users: [] })
+db.defaults({ lobbies: [{accomodations: []}], users: [] })
   .write()
 
 // generating a lobby code
@@ -68,11 +68,17 @@ app.post('/make-lobby', function (req, res) {
   res.json({resp: true});
 });
 
-// making a user
-app.post('/make-user', function (req, res) {
+// registering a user
+app.post('/register', function (req, res) {
   if(!req.body.lobby || !req.body.name || !req.body.pass) {
-    res.status(500).json({resp: false});
-    return;
+    return res.status(500).json({resp: false});
+  }
+
+  var duplicate = db.get('users')
+                    .find({lobby: req.body.lobby, name: req.body.name})
+                    .value();
+  if(duplicate) {
+    return res.json({resp: false, err: 'err_duplicate_name', msg: 'That name is taken'});
   }
 
   var colour = randColour();
@@ -102,8 +108,7 @@ app.get('/get-users', function (req, res) {
 // logging in
 app.post('/login', function (req, res) {
   if(!req.body.name || !req.body.pass) {
-    res.status(500).json({resp: false});
-    return;
+    return res.status(500).json({resp: false});
   }
 
   var user = db.get('users')

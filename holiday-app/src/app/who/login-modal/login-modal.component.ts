@@ -36,6 +36,8 @@ export class LoginModalComponent implements OnInit {
     this.api.tryLogin({name: this.name, pass: this.loginPass}).subscribe(data => {
       if(data.resp==true) {
         this.hideModal();
+        this.error = "";
+        this.api.name = this.name;
         this.router.navigateByUrl('/lobby', { skipLocationChange: true });
       } else {
         this.error = data.msg;

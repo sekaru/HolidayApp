@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class RegisterModalComponent implements OnInit {
   registerName: string;
   registerPass: string;
+  error: string = "";
 
   @ViewChild('registerModal') public childModal:ModalDirective;
 
@@ -29,8 +30,13 @@ export class RegisterModalComponent implements OnInit {
 
   registerUser() {
     this.api.registerUser({lobby: this.api.lobbyID, name: this.registerName, pass: this.registerPass}).subscribe(data => {
-      this.hideModal();
-      this.router.navigateByUrl('/lobby', { skipLocationChange: true });
+      if(data.resp==true) {
+        this.hideModal();
+        this.error = "";
+        this.router.navigateByUrl('/lobby', { skipLocationChange: true });
+      } else {
+        this.error = data.msg;
+      }
     });
   }
 }

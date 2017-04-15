@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 export class ApiService {
   address: string;
   lobbyID: string;
+  name: string;
 
   constructor(private http: Http) {
     this.address = "http://localhost:3000";
@@ -28,7 +29,7 @@ export class ApiService {
   }
 
   registerUser(data: any) {
-    return this.post('make-user', data);
+    return this.post('register', data);
   }
 
   tryLogin(data: any) {

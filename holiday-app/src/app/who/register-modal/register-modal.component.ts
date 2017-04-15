@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-modal.component.css']
 })
 export class RegisterModalComponent implements OnInit {
-  registerName: string;
-  registerPass: string;
   error: string = "";
 
   @ViewChild('registerModal') public childModal:ModalDirective;
@@ -28,13 +26,15 @@ export class RegisterModalComponent implements OnInit {
     this.childModal.hide();
   }
 
-  registerUser() {
-    this.api.registerUser({lobby: this.api.lobbyID, name: this.registerName, pass: this.registerPass}).subscribe(data => {
+  registerUser(registerName: string, registerPass: string) {
+    this.api.registerUser({lobby: this.api.lobbyID, name: registerName, pass: registerPass}).subscribe(data => {
       if(data.resp==true) {
         this.hideModal();
         this.error = "";
+        this.api.name = registerName;
         this.router.navigateByUrl('/lobby', { skipLocationChange: true });
       } else {
+        console.log(data);
         this.error = data.msg;
       }
     });

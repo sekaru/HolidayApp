@@ -15,8 +15,8 @@
                     </alert>
                 </div>
 
-                Password:<br/> <input [(ngModel)]="loginPass" (keyup.enter)="tryLogin()" placeholder="Password" type="password"><br/><br/>
-                <button (click)="tryLogin()" class="btn btn-primary btn-modal" role="button">Login</button>
+                Password:<br/> <input #pass (keyup.enter)="tryLogin(pass.value)" placeholder="Password" type="password"><br/><br/>
+                <button (click)="tryLogin(pass.value)" class="btn btn-primary btn-modal" role="button">Login</button>
             </div>
         </div>
     </div>

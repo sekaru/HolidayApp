@@ -3,7 +3,13 @@
     <div class="title">JUST. PICK. SOMEWHERE.</div>
     <br>
 
-    <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
+    <div>
+      <div class="avatar"[style.background-color]="colour">
+        <span class="name">{{api.name.substring(0,1)}}</span>
+      </div>
+      <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
+    </div>
+
     <p>Your accomodations:</p>
     <button type="button" class="btn btn-primary btn-lg">New accomodation</button>
   </div>

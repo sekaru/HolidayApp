@@ -12,7 +12,6 @@ export class LoginModalComponent implements OnInit {
   name: string;
   greetings: string[] = ['Hey', 'Hello', 'Hi', 'Hallo', 'Guten Tag', 'Bonjour', 'Hola', 'Ciao', 'Olà', 'Konnichiwa'];
   randGreeting: number;
-  loginPass: string;
   error: string = "";
 
   @ViewChild('loginModal') public childModal:ModalDirective;
@@ -32,8 +31,8 @@ export class LoginModalComponent implements OnInit {
     this.childModal.hide();
   }
 
-  tryLogin() {
-    this.api.tryLogin({name: this.name, pass: this.loginPass}).subscribe(data => {
+  tryLogin(password: string) {
+    this.api.tryLogin({name: this.name, pass: password}).subscribe(data => {
       if(data.resp==true) {
         this.hideModal();
         this.error = "";

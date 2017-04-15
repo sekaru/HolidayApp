@@ -26,6 +26,12 @@
     },
     {
       "id": "00IAC"
+    },
+    {
+      "id": "76CTZ"
+    },
+    {
+      "id": "PLYIN"
     }
   ],
   "users": [
@@ -82,6 +88,24 @@
       "name": "Tudor",
       "pass": "hello",
       "colour": "#8D1566"
+    },
+    {
+      "lobby": "PLYIN",
+      "name": "Tudor",
+      "pass": "pass",
+      "colour": "#199D75"
+    },
+    {
+      "lobby": "C415K",
+      "name": "Newman",
+      "pass": "hello",
+      "colour": "#823917"
+    },
+    {
+      "lobby": "C415K",
+      "name": "Man",
+      "pass": "hello",
+      "colour": "#AD98C9"
     }
   ]
 }

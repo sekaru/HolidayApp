@@ -15,10 +15,10 @@
                     </alert>
                 </div>
                 
-                Name:<br/> <input [(ngModel)]="registerName" placeholder="Name" [maxLength]="10"><br/><br/>
-                Password:<br/> <input [(ngModel)]="registerPass" (keyup.enter)="registerUser()" placeholder="Password" type="password"><br/><br/>
+                Name:<br/> <input #name placeholder="Name" [maxLength]="10"><br/><br/>
+                Password:<br/> <input #pass (keyup.enter)="registerUser(name.value, pass.value)" placeholder="Password" type="password"><br/><br/>
 
-                <button (click)="registerUser()" class="btn btn-primary btn-modal" role="button">Register</button>
+                <button (click)="registerUser(name.value, pass.value)" class="btn btn-primary btn-modal" role="button">Register</button>
             </div>
         </div>
     </div>

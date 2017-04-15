@@ -10,6 +10,9 @@ export class ApiService {
 
   constructor(private http: Http) {
     this.address = "http://localhost:3000";
+
+    this.lobbyID = 'G1DAH';
+    this.name = 'Tudor';
   }
 
   get(params: string) {

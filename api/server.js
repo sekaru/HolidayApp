@@ -14,7 +14,7 @@ var server = app.listen(3000, function () {
 
 // set defaults
 var db = low('db.json');
-db.defaults({ lobbies: [{accomodations: []}], users: [] })
+db.defaults({ lobbies: [], users: [] })
   .write()
 
 // generating a lobby code
@@ -103,6 +103,15 @@ app.get('/get-users', function (req, res) {
   }
   
   res.json(lobbyUsers);
+});
+
+// get a user's colour
+app.get('/get-colour', function (req, res) {
+  var user = db.get('users')
+                 .find({lobby: req.query.lobby, name: req.query.name})
+                 .value();
+  
+  res.json({resp: user.colour});
 });
 
 // logging in

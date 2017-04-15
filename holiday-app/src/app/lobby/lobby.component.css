@@ -1,0 +1,19 @@
+.avatar {
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
+    float: left;
+    margin-right: 0.5em;
+}
+
+.name {
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+}

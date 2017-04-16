@@ -152,7 +152,7 @@ app.post('/add-place', function (req, res) {
 
   var colour = randColour();
   db.get('places')
-    .push({lobby: req.body.lobby, author: req.body.author, link: req.body.link, price: req.body.price, votes: 0})
+    .push({lobby: req.body.lobby, author: req.body.author, link: req.body.link, price: req.body.price, votes: 1, upvoters: [req.body.author], downvoters: []})
     .write();
 
   console.log("Added new place: " + JSON.stringify(req.body));
@@ -162,16 +162,22 @@ app.post('/add-place', function (req, res) {
 // get places
 app.get('/get-places', function (req, res) {
   var places = db.get('places')
-                .value();
+                 .sortBy('votes')
+                 .value();
   
   var lobbyPlaces = [];
-  for(var i=0; i<places.length; i++) {
+  for(var i=places.length-1; i>=0; i--) {
     if(places[i].lobby==req.query.lobby) {
       lobbyPlaces.push(places[i]);
     }
   }
   
   res.json(lobbyPlaces);
+});
+
+// voting
+app.post('/vote', function (req, res) {
+  // lobby, place, who
 });
 
 // finding the airbnb id

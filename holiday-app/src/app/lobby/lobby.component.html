@@ -11,11 +11,11 @@
     <p>Your places:</p>
     <div *ngFor="let a of places; let i = index" class="panel panel-default">
       <div class="panel-body">
-        <a href="{{a.link}}">{{a.link}}</a>
+        <a href="{{a.link}}">{{a.link}}</a> for {{a.price}} per person
         
         <span class="badge pull-right">{{a.votes}}</span>
-        <span (click)="downvote(i)" class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></span> 
-        <span (click)="upvote(i)" class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></span>
+        <span *ngIf="a.upvoters.includes(api.name)" (click)="downvote(i)" class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></span> 
+        <span *ngIf="a.downvoters.includes(api.name)" (click)="upvote(i)" class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></span>
       </div>
       <div *ngIf="a.author==api.name" class="panel-footer">Submitted by you</div>
       <div *ngIf="a.author!=api.name" class="panel-footer">Submitted by {{a.author}}</div>
@@ -23,7 +23,7 @@
 
     <div *ngIf="addingPlace">
       Link: <input #link placeholder="airbnb.co.uk/places/123456">&nbsp;
-      Price (per person): <input #price placeholder="£99.87">&nbsp;&nbsp;
+      Price (per person): <input #price (keyup.enter)="addPlace(link.value, price.value)" placeholder="£99.87">&nbsp;&nbsp;
       <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary btn"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
       <button (click)="addingPlace=false" type="button" class="btn btn-warning btn"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
       <br/>

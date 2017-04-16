@@ -3,25 +3,46 @@
     <div class="title">JUST. PICK. SOMEWHERE.</div>
     <br>
 
+    <!--Avatar icon-->
     <div class="avatar"[style.background-color]="colour">
       <span class="name">{{api.name.substring(0,1)}}</span>
     </div>
+
+    <!--Lobby code-->
     <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
 
-    <p>Your places:</p>
-    <div *ngFor="let a of places; let i = index" class="panel panel-default">
+    <p *ngIf="places.length>0">Your places:</p>
+    <p *ngIf="places.length==0">No one's added any places yet... be the first!</p>
+
+    <!--Places-->
+    <div *ngFor="let a of places; let i = index" class="panel panel-default" [ngClass]="{'new' : newPlace(i)}">
       <div class="panel-body">
+        <!--If it's new-->
+        <span *ngIf="newPlace(i)" class="label label-success">NEW</span>
+        <!--Title-->
         <a href="{{a.link}}">{{a.link}}</a> for {{a.price}} per person
         
+        <!--Amount of votes-->
         <span class="badge pull-right">{{a.votes}}</span>
-        <span *ngIf="a.upvoters.includes(api.name)" (click)="downvote(i)" class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></span> 
-        <span *ngIf="a.downvoters.includes(api.name)" (click)="upvote(i)" class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></span>
+
+        <!--Voting buttons-->
+        <span *ngIf="a.upvoters.includes(api.name) || !a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></span> 
+        <span *ngIf="a.downvoters.includes(api.name) || !a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></span>
       </div>
+
+      <!--Author-->
       <div *ngIf="a.author==api.name" class="panel-footer">Submitted by you</div>
       <div *ngIf="a.author!=api.name" class="panel-footer">Submitted by {{a.author}}</div>
     </div>
 
+    <!--Place adding form-->
     <div *ngIf="addingPlace">
+      <div *ngIf="error.length!=0">
+        <alert type="danger">
+          <strong>Error:</strong> {{error}}
+        </alert>
+      </div>
+      
       Link: <input #link placeholder="airbnb.co.uk/places/123456">&nbsp;
       Price (per person): <input #price (keyup.enter)="addPlace(link.value, price.value)" placeholder="£99.87">&nbsp;&nbsp;
       <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary btn"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
@@ -29,6 +50,7 @@
       <br/>
     </div>
 
+    <!--New place + refresh buttons-->
     <button *ngIf="!addingPlace" (click)="addingPlace=true" type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New place</button>
     <button *ngIf="!addingPlace" (click)="updatePlaces()" type="button" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Refresh</button>
   </div>

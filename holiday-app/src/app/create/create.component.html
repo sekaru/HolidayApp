@@ -7,8 +7,9 @@
     <pre #inputTarget>{{code}}</pre>
 
     <p>Share this code with whoever you're planning your holiday with so they can join your new Holiday Lobby.</p>
-    <button class="btn btn-warning btn-lg" type="button" [ngxClipboard]="inputTarget" (cbOnSuccess)="copied=true"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>{{getCopyText()}}</button>
-    <a class="btn btn-success btn-lg" (click)="joinLobby()" role="button">Create</a>
+    <button class="btn btn-warning btn-lg full-btn" type="button" [ngxClipboard]="inputTarget" (cbOnSuccess)="copied=true"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>{{getCopyText()}}</button>
+    <br/>
+    <a class="btn btn-success btn-lg" (click)="joinLobby()" role="button">Enter Lobby</a>
     <a class="btn btn-primary btn-lg" routerLink="/">Home</a>
   </div>
 </div>

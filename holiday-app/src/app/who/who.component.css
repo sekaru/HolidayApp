@@ -15,3 +15,7 @@
     text-transform: uppercase;
     color: white;
 }
+
+.col-md-2 {
+    display:inline-block; 
+}

@@ -21,6 +21,10 @@ export class CreateComponent implements OnInit {
   getCode() {
     this.api.get('lobby-code').subscribe(data => {
       this.code = data.code;
+
+      this.api.makeLobby(this.code).subscribe(data => {
+        if(data.resp==true) this.api.lobbyID = this.code;
+      });
     });
   }
 
@@ -33,11 +37,6 @@ export class CreateComponent implements OnInit {
   }
 
   joinLobby() {
-    this.api.makeLobby(this.code).subscribe(data => {
-      if(data.resp==true) {
-        this.api.lobbyID = this.code;
-        this.router.navigateByUrl('/who', { skipLocationChange: true });
-      }
-    });
+    this.router.navigateByUrl('/who', { skipLocationChange: true });
   }
 }

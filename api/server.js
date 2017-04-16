@@ -147,7 +147,7 @@ app.post('/add-place', function (req, res) {
                     .find({lobby: req.body.lobby, author: req.body.author, link: req.body.link})
                     .value();
   if(duplicate) {
-    return res.json({resp: false, err: 'err_duplicate_place', msg: 'That place is already in your list'});
+    return res.json({resp: false, err: 'err_duplicate_place', msg: 'That place is already in your lobby'});
   }
 
   var colour = randColour();
@@ -162,22 +162,46 @@ app.post('/add-place', function (req, res) {
 // get places
 app.get('/get-places', function (req, res) {
   var places = db.get('places')
-                 .sortBy('votes')
+                //  .sortBy('votes')
                  .value();
   
   var lobbyPlaces = [];
-  for(var i=places.length-1; i>=0; i--) {
-    if(places[i].lobby==req.query.lobby) {
-      lobbyPlaces.push(places[i]);
-    }
+  for(var i=0; i<places.length; i++) {
+    if(places[i].lobby==req.query.lobby) lobbyPlaces.push(places[i]);
   }
-  
+
   res.json(lobbyPlaces);
 });
 
 // voting
 app.post('/vote', function (req, res) {
-  // lobby, place, who
+  var place = db.get('places').find({lobby: req.body.lobby, link: req.body.link}).value();
+  var votes = place.votes;
+  var name = req.body.name;
+
+  if(req.body.type==0) { // upvote
+    if(place.upvoters.indexOf(name)==-1) place.upvoters.push(name);
+
+    var index = place.downvoters.indexOf(name);
+    if(index!=-1) place.downvoters.splice(index, 1);
+    votes++;
+
+    db.get('places').find({lobby: req.body.lobby, link: req.body.link})
+                    .assign({votes: votes, upvoters: place.upvoters, downvoters: place.downvoters})
+                    .write();
+  } else if(req.body.type==1) { // downvote
+    if(place.downvoters.indexOf(name)==-1) place.downvoters.push(name);
+
+    var index = place.upvoters.indexOf(name);
+    if(index!=-1) place.upvoters.splice(index, 1);
+    votes--;
+
+    db.get('places').find({lobby: req.body.lobby, link: req.body.link})
+                    .assign({votes: votes, upvoters: place.upvoters, downvoters: place.downvoters})
+                    .write();
+  }
+
+  res.json({resp: true});
 });
 
 // finding the airbnb id

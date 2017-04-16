@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
 
 @Component({
   selector: 'app-lobby',
@@ -8,8 +9,11 @@ import { ApiService } from '../api.service';
 })
 export class LobbyComponent implements OnInit {
   colour: string;
-  places: any[];
+  sub: any;
+  places: any[] = []; 
+  oldPlaces: any[] = [];
   addingPlace: boolean;
+  error: string = "";
 
   constructor(private api: ApiService) { }
 
@@ -18,33 +22,52 @@ export class LobbyComponent implements OnInit {
       this.colour = data.resp;
     });
 
-    this.updatePlaces();
+    // update places every so often
+    let timer = TimerObservable.create(1, 30000);
+    timer.subscribe(t => {
+        this.updatePlaces();
+    });
   }
 
   updatePlaces() {
     this.api.get('get-places?lobby=' + this.api.lobbyID).subscribe(data => {
+      let firstLoad:boolean = this.places.length==0;
+
+      if(!firstLoad) this.oldPlaces = this.places;
       this.places = [];
       for(let i=0; i<data.length; i++) this.places.push(data[i]);
+
+      // so the new tag doesn't show up on first loading
+      if(firstLoad) this.oldPlaces = this.places;
     });
   }
 
-  upvote(index: number) {
-    this.places[index].votes++;
+  newPlace(index: number):boolean {
+    for(let i=0; i<this.oldPlaces.length; i++) {
+      if(this.oldPlaces[i].link==this.places[index].link) return false;
+    }
+    return true;
   }
 
-  downvote(index: number) {
-    this.places[index].votes--;
-    if(this.places[index].votes==0) this.places.splice(index, 1);
+  vote(index: number, type: number) {
+    this.api.post('vote', {lobby: this.api.lobbyID, link: this.places[index].link, name: this.api.name, type: type}).subscribe(data => {
+      this.updatePlaces();
+    });
   }
 
   addPlace(link: string, price: string) {
-    if(!link.startsWith('https://')) link = 'https://' + link;
+    if(!link.startsWith('http://')) link = 'https://' + link;
 
-    let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: price, votes: 0};
+    let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: price};
 
     this.api.post('add-place', place).subscribe(data => {
-      this.updatePlaces();
-      this.addingPlace = false;
+      if(data.resp==true) {
+        this.updatePlaces();
+        this.addingPlace = false;
+        this.error = "";
+      } else {
+        this.error = data.msg;
+      }
     });
   }
 }

@@ -31,6 +31,11 @@ body {
   font-weight: 700;
 }
 
+.full-btn {
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
 .btn-modal {
     display: block;
     width: 100%;

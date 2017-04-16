@@ -14,12 +14,12 @@
         </div>
       </div>
     
-      <button type="button" class="btn btn-primary btn-lg" (click)="registerModal.showModal()">None of the above?</button>
+      <button type="button" class="btn btn-primary btn-lg full-btn" (click)="registerModal.showModal()">None of the above?</button>
     </div>
 
     <div *ngIf="users.length==0">
       <p>No one seems to be here yet...</p>
-      <button type="button" class="btn btn-primary btn-lg" (click)="registerModal.showModal()">Be the first to add yourself</button>
+      <button type="button" class="btn btn-primary btn-lg full-btn" (click)="registerModal.showModal()">Be the first to add yourself</button>
     </div>
     
     <register-modal #registerModal></register-modal>

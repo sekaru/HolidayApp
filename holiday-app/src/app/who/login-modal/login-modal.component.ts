@@ -28,6 +28,7 @@ export class LoginModalComponent implements OnInit {
   }
  
   public hideModal():void {
+    this.error = "";
     this.childModal.hide();
   }
 
@@ -35,7 +36,6 @@ export class LoginModalComponent implements OnInit {
     this.api.tryLogin({name: this.name, pass: password}).subscribe(data => {
       if(data.resp==true) {
         this.hideModal();
-        this.error = "";
         this.api.name = this.name;
         this.router.navigateByUrl('/lobby', { skipLocationChange: true });
       } else {

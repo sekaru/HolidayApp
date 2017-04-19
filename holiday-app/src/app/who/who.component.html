@@ -21,6 +21,8 @@
       <p>No one seems to be here yet...</p>
       <button type="button" class="btn btn-primary btn-lg full-btn" (click)="registerModal.showModal()">Be the first to add yourself</button>
     </div>
+
+    <button (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn">Exit Lobby</button>
     
     <register-modal #registerModal></register-modal>
     <login-modal #loginModal></login-modal>

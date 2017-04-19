@@ -71,7 +71,7 @@ app.post('/make-lobby', function (req, res) {
 // registering a user
 app.post('/register', function (req, res) {
   if(!req.body.lobby || !req.body.name || !req.body.pass) {
-    return res.status(500).json({resp: false});
+    return res.json({resp: false, err: "err_missing_details", msg: "All the fields are required"});
   }
 
   var duplicate = db.get('users')
@@ -125,8 +125,8 @@ app.get('/get-colour', function (req, res) {
 
 // logging in
 app.post('/login', function (req, res) {
-  if(!req.body.name || !req.body.pass) {
-    return res.status(500).json({resp: false});
+  if(!req.body.pass) {
+    return res.json({resp: false, err: "err_missing_details", msg: "You need to enter a password"});
   }
 
   var user = db.get('users')
@@ -143,11 +143,15 @@ app.post('/login', function (req, res) {
 
 // adding a place
 app.post('/add-place', function (req, res) {
+  if(!req.body.link || req.body.link.length<=7 || !req.body.price) {
+    return res.json({resp: false, err: "err_missing_details", msg: "You haven't filled in all the required fields"})
+  }
+
   var duplicate = db.get('places')
                     .find({lobby: req.body.lobby, author: req.body.author, link: req.body.link})
                     .value();
   if(duplicate) {
-    return res.json({resp: false, err: 'err_duplicate_place', msg: 'That place is already in your lobby'});
+    return res.json({resp: false, err: "err_duplicate_place", msg: "That place is already in your lobby"});
   }
 
   var colour = randColour();

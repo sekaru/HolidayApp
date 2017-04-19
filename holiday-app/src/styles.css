@@ -36,6 +36,10 @@ body {
   margin-bottom: 0.5em;
 }
 
+.top-margin {
+  margin-top: 0.5em;
+}
+
 .btn-modal {
     display: block;
     width: 100%;

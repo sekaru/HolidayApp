@@ -23,6 +23,7 @@ export class RegisterModalComponent implements OnInit {
   }
  
   public hideModal():void {
+    this.error = "";
     this.childModal.hide();
   }
 
@@ -30,11 +31,9 @@ export class RegisterModalComponent implements OnInit {
     this.api.registerUser({lobby: this.api.lobbyID, name: registerName, pass: registerPass}).subscribe(data => {
       if(data.resp==true) {
         this.hideModal();
-        this.error = "";
         this.api.name = registerName;
         this.router.navigateByUrl('/lobby', { skipLocationChange: true });
       } else {
-        console.log(data);
         this.error = data.msg;
       }
     });

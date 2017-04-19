@@ -11,9 +11,9 @@
 
     <p>Enter your lobby code below:</p>
     <div class="input-group">
-      <input [(ngModel)]="inputCode" (keyup.enter)="joinLobby()" class="form-control" placeholder="Lobby code">
+      <input #inputCode (keyup.enter)="joinLobby(inputCode.value)" class="form-control" placeholder="Lobby code">
       <span class="input-group-btn">
-        <button (click)="joinLobby()" class="btn btn-warning" type="button">Join!</button>
+        <button (click)="joinLobby(inputCode.value)" class="btn btn-warning" type="button">Join!</button>
       </span>
     </div>
     <br/>

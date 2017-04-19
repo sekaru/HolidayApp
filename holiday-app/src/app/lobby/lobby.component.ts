@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lobby',
@@ -15,7 +16,7 @@ export class LobbyComponent implements OnInit {
   addingPlace: boolean;
   error: string = "";
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.api.get('get-colour?lobby=' + this.api.lobbyID + '&name=' + this.api.name).subscribe(data => {
@@ -56,7 +57,7 @@ export class LobbyComponent implements OnInit {
   }
 
   addPlace(link: string, price: string) {
-    if(!link.startsWith('http://')) link = 'https://' + link;
+    if(!link.startsWith('http://') && !link.startsWith('https://')) link = 'http://' + link;
 
     let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: price};
 
@@ -69,5 +70,10 @@ export class LobbyComponent implements OnInit {
         this.error = data.msg;
       }
     });
+  }
+
+  logout() {
+    this.api.logout();
+    this.router.navigateByUrl('/who', { skipLocationChange: true })
   }
 }

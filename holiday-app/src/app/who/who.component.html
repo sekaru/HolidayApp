@@ -8,7 +8,7 @@
       <p>Who are you?</p>
       <div *ngIf="users.length!=0" class="row">
         <div class="col-md-2" *ngFor="let user of users; let i = index" (click)="loginModal.showModal(user.name)">
-          <div class="avatar" [style.border]="loginHover==i ? '0.25em solid white' : 'none'" (mouseenter)="loginMouseEnter(i)" (mouseleave)="loginMouseLeave(i)"
+          <div class="avatar" [style.border]="loginHover==i ? getBorder(i) : 'none'" (mouseenter)="loginMouseEnter(i)" (mouseleave)="loginMouseLeave(i)"
           [style.background-color]="getColour(i)"><span class="name" [style.font-weight]="loginHover==i ? 500 : 400">{{user.name}}</span></div>
           <br/>
         </div>

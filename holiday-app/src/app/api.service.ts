@@ -11,11 +11,8 @@ export class ApiService {
   constructor(private http: Http) {
     //this.address = "http://35.156.58.36:3000";
     this.address = "http://localhost:3000";
-  }
-
-  logout() {
-    this.lobbyID = "";
-    this.name = "";
+    this.name = "Tudor";
+    this.lobbyID = "G1DAH";
   }
 
   get(params: string) {

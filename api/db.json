@@ -23,6 +23,21 @@
     },
     {
       "id": "TEW87"
+    },
+    {
+      "id": "FHLWF"
+    },
+    {
+      "id": "YZ0HY"
+    },
+    {
+      "id": "7AKFO"
+    },
+    {
+      "id": "GIQBG"
+    },
+    {
+      "id": "CW12B"
     }
   ],
   "users": [
@@ -127,6 +142,24 @@
       "name": "tt",
       "pass": "tt",
       "colour": "#B6545D"
+    },
+    {
+      "lobby": "FHLWF",
+      "name": "Tudor",
+      "pass": "tt",
+      "colour": "#1A5192"
+    },
+    {
+      "lobby": "G1DAH",
+      "name": "newman",
+      "pass": "hello",
+      "colour": "#19BDD4"
+    },
+    {
+      "lobby": "G1DAH",
+      "name": "woop",
+      "pass": "woop",
+      "colour": "#7D17AA"
     }
   ],
   "places": [
@@ -278,6 +311,41 @@
       "author": "Tudor",
       "link": "https://d",
       "price": "99",
+      "votes": 1,
+      "upvoters": [
+        "Tudor"
+      ],
+      "downvoters": []
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Tudor",
+      "link": "http://test",
+      "price": "test",
+      "votes": 1,
+      "upvoters": [
+        "Tudor"
+      ],
+      "downvoters": []
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Tudor",
+      "link": "http://wooooooooo",
+      "price": "50.00",
+      "votes": 0,
+      "upvoters": [
+        "Tudor"
+      ],
+      "downvoters": [
+        "Natalie"
+      ]
+    },
+    {
+      "lobby": "FHLWF",
+      "author": "Tudor",
+      "link": "http://test",
+      "price": "man",
       "votes": 1,
       "upvoters": [
         "Tudor"

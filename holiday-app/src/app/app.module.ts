@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { ClipboardModule } from 'ngx-clipboard';
-import { ModalModule } from 'ngx-bootstrap';
-import { AlertModule } from 'ngx-bootstrap';
+import { ModalModule, AlertModule, TooltipModule } from 'ngx-bootstrap';
 
 import { routing } from './app.routing';
 import { ApiService } from './api.service';
@@ -18,7 +17,6 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { WhoComponent } from './who/who.component';
 import { LoginModalComponent } from './who/login-modal/login-modal.component';
 import { RegisterModalComponent } from './who/register-modal/register-modal.component';
-
 
 @NgModule({
   declarations: [
@@ -38,8 +36,8 @@ import { RegisterModalComponent } from './who/register-modal/register-modal.comp
     routing,
     ClipboardModule,
     ModalModule.forRoot(),
-    AlertModule.forRoot()
-    
+    AlertModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

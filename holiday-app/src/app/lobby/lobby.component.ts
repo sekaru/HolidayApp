@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class LobbyComponent implements OnInit {
   colour: string;
-  sub: any;
   places: any[] = []; 
   oldPlaces: any[] = [];
   addingPlace: boolean;
@@ -24,7 +23,7 @@ export class LobbyComponent implements OnInit {
     });
 
     // update places every so often
-    let timer = TimerObservable.create(1, 30000);
+    let timer = TimerObservable.create(1, 20000);
     timer.subscribe(t => {
         this.updatePlaces();
     });
@@ -56,6 +55,14 @@ export class LobbyComponent implements OnInit {
     });
   }
 
+  getVoteString(place: any) {
+    let upvoters = place.upvoters.length==0 ? "" : "Upvoted by: " + place.upvoters.join(', ');
+    let downvoters = place.downvoters.length==0 ? "" : " Downvoted by: " + place.downvoters.join(', ');
+    if(upvoters.length>0 && downvoters.length>0) upvoters += ".\n";
+
+    return upvoters + downvoters;
+  }
+
   addPlace(link: string, price: string) {
     if(!link.startsWith('http://') && !link.startsWith('https://')) link = 'http://' + link;
 
@@ -66,6 +73,7 @@ export class LobbyComponent implements OnInit {
         this.updatePlaces();
         this.addingPlace = false;
         this.error = "";
+        window.scrollTo(0,0);
       } else {
         this.error = data.msg;
       }
@@ -73,7 +81,7 @@ export class LobbyComponent implements OnInit {
   }
 
   logout() {
-    this.api.logout();
+    this.api.name = "";
     this.router.navigateByUrl('/who', { skipLocationChange: true })
   }
 }

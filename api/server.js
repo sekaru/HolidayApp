@@ -170,7 +170,7 @@ app.get('/get-places', function (req, res) {
                  .value();
   
   var lobbyPlaces = [];
-  for(var i=0; i<places.length; i++) {
+  for(var i=places.length-1; i>=0; i--) {
     if(places[i].lobby==req.query.lobby) lobbyPlaces.push(places[i]);
   }
 

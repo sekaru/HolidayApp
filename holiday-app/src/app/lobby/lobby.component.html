@@ -23,7 +23,7 @@
         <a href="{{a.link}}">{{a.link}}</a> for {{a.price}} per person
         
         <!--Amount of votes-->
-        <span class="badge pull-right">{{a.votes}}</span>
+        <span class="badge pull-right" [tooltip]="getVoteString(a)">{{a.votes}}</span>
 
         <!--Voting buttons-->
         <span *ngIf="a.upvoters.includes(api.name) || !a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></span> 
@@ -43,8 +43,8 @@
         </alert>
       </div>
       
-      Link: <input #link placeholder="airbnb.co.uk/places/123456">&nbsp;
-      Price (per person): <input #price (keyup.enter)="addPlace(link.value, price.value)" placeholder="£99.87">&nbsp;&nbsp;
+      Link: <input #link placeholder="airbnb.co.uk/places/123456"><br>
+      Price (per person): <input #price (keyup.enter)="addPlace(link.value, price.value)" placeholder="£99.87"><br>
       <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary btn"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
       <button (click)="addingPlace=false" type="button" class="btn btn-warning btn"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
       <br/>
@@ -55,7 +55,6 @@
     <button *ngIf="!addingPlace" (click)="updatePlaces()" type="button" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Refresh</button>
   
     <!--Logout button-->
-    <br>
     <button (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn top-margin">Logout</button>
   </div>
 </div>

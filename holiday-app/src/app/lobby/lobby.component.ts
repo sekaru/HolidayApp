@@ -10,11 +10,9 @@ import { Router } from '@angular/router';
 })
 export class LobbyComponent implements OnInit {
   colour: string;
-  places: any[] = []; 
-  oldPlaces: any[] = [];
+  places: any[] = []; oldPlaces: any[] = [];
   addingPlace: boolean;
   error: string = "";
-  time: number;
 
   constructor(private api: ApiService, private router: Router) { }
 
@@ -24,12 +22,9 @@ export class LobbyComponent implements OnInit {
     });
 
     // update places every so often
-    let timer = TimerObservable.create(1, 1000);
+    let timer = TimerObservable.create(1, 10000);
     timer.subscribe(t => {
-        this.time = 20-(t%20);
-        if(t%20==0) {
-          this.updatePlaces();
-        }
+        this.updatePlaces();
     });
   }
 
@@ -50,6 +45,11 @@ export class LobbyComponent implements OnInit {
     for(let i=0; i<this.oldPlaces.length; i++) {
       if(this.oldPlaces[i].link==this.places[index].link) return false;
     }
+    return true;
+  }
+
+  showNewLabel(place: any):boolean {
+    if(place.upvoters.indexOf(this.api.name)!=-1 || place.downvoters.indexOf(this.api.name)!=-1) return false;
     return true;
   }
 

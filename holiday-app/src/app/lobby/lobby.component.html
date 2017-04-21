@@ -18,8 +18,9 @@
       <!--Adding-->
       <button (click)="addingPlace=true" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New place</button>
       <!--Refreshing-->
-      <button *ngIf="!addingPlace" (click)="updatePlaces()" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Refresh Now</button>
-      <p id="refresh">Automatically refreshing in {{time}}...</p>
+      <!--<button *ngIf="!addingPlace" (click)="refresh()" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Refresh Now</button>
+      <p id="refresh">Automatically refreshing in {{time}}...</p>-->
+      <p></p>
     </div>
 
     <!--Place adding form-->
@@ -58,7 +59,7 @@
     <div *ngFor="let a of places; let i = index" class="panel panel-default" [ngClass]="{'new' : newPlace(i)}">
       <div class="panel-body">
         <!--If it's new-->
-        <span *ngIf="newPlace(i)" class="label label-success">NEW</span>
+        <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
         <!--Title-->
         <a href="{{a.link}}">{{a.link}}</a> for {{a.price}} per person
         

@@ -14,6 +14,7 @@ export class LobbyComponent implements OnInit {
   oldPlaces: any[] = [];
   addingPlace: boolean;
   error: string = "";
+  time: number;
 
   constructor(private api: ApiService, private router: Router) { }
 
@@ -23,9 +24,12 @@ export class LobbyComponent implements OnInit {
     });
 
     // update places every so often
-    let timer = TimerObservable.create(1, 20000);
+    let timer = TimerObservable.create(1, 1000);
     timer.subscribe(t => {
-        this.updatePlaces();
+        this.time = 20-(t%20);
+        if(t%20==0) {
+          this.updatePlaces();
+        }
     });
   }
 

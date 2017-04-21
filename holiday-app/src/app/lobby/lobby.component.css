@@ -18,6 +18,21 @@
     color: white;
 }
 
+.panel-title {
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #656565;
+}
+
+#refresh {
+    margin-top: 0.5em;
+    font-size: 1em;
+    font-weight: 400;
+    text-transform: none;
+    color: #444;
+}
+
 .votes {
     cursor: help;
     font-weight: 800;
@@ -69,6 +84,10 @@ button:disabled {
 }
 
 @media only screen and (max-width: 768px) {
+    #refresh {
+        margin-top: 0;
+    }
+
     .votes {
         width: 100%;
         margin-top: 0.5em;
@@ -84,7 +103,14 @@ button:disabled {
     }
 
     .avatar {
+        width: 4em;
+        height: 4em;
+        border-radius: 2em;
         float: none;
         margin: 0 auto;
+    }
+
+    .name {
+        font-size: 1em;
     }
 }

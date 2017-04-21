@@ -62,6 +62,9 @@
     },
     {
       "id": "QVIHC"
+    },
+    {
+      "id": "YJNEC"
     }
   ],
   "users": [
@@ -190,6 +193,12 @@
       "name": "G1",
       "pass": "woooooooo",
       "colour": "#485196"
+    },
+    {
+      "lobby": "YJNEC",
+      "name": "hello",
+      "pass": "test",
+      "colour": "#A27DA1"
     }
   ],
   "places": [
@@ -341,12 +350,12 @@
       "author": "Tudor",
       "link": "https://d",
       "price": "99",
-      "votes": 0,
-      "upvoters": [],
-      "downvoters": [
+      "votes": 2,
+      "upvoters": [
         "Tudor",
         "Natalie"
-      ]
+      ],
+      "downvoters": []
     },
     {
       "lobby": "G1DAH",
@@ -400,6 +409,50 @@
       "author": "Natalie",
       "link": "http://hello",
       "price": "man",
+      "votes": 1,
+      "upvoters": [
+        "Natalie"
+      ],
+      "downvoters": []
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Natalie",
+      "link": "http://dsad",
+      "price": "dsasd",
+      "votes": 1,
+      "upvoters": [
+        "Natalie"
+      ],
+      "downvoters": []
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Natalie",
+      "link": "http://sadasdasd",
+      "price": "1232312",
+      "votes": 1,
+      "upvoters": [
+        "Natalie"
+      ],
+      "downvoters": []
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Natalie",
+      "link": "http://adsasd",
+      "price": "dsad",
+      "votes": 1,
+      "upvoters": [
+        "Natalie"
+      ],
+      "downvoters": []
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Natalie",
+      "link": "http://woop",
+      "price": "woop",
       "votes": 1,
       "upvoters": [
         "Natalie"

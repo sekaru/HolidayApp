@@ -55,6 +55,12 @@ export class LobbyComponent implements OnInit {
     });
   }
 
+  getVoteClass(place: any) {
+    if(place.upvoters.indexOf(this.api.name)!=-1) return "btn-success";
+    if(place.downvoters.indexOf(this.api.name)!=-1) return "btn-danger";
+    return "btn-default";
+  }
+
   getVoteString(place: any) {
     let upvoters = place.upvoters.length==0 ? "" : "Upvoted by: " + place.upvoters.join(', ');
     let downvoters = place.downvoters.length==0 ? "" : " Downvoted by: " + place.downvoters.join(', ');

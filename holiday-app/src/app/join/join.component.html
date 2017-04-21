@@ -13,12 +13,12 @@
     <div class="input-group">
       <input #inputCode (keyup.enter)="joinLobby(inputCode.value)" class="form-control" placeholder="Lobby code">
       <span class="input-group-btn">
-        <button (click)="joinLobby(inputCode.value)" class="btn btn-warning" type="button">Join!</button>
+        <button (click)="joinLobby(inputCode.value)" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>Go</button>
       </span>
     </div>
     <br/>
 
-    <a class="btn btn-success btn-lg" routerLink="/create" skipLocationChange role="button">New Lobby</a>
-    <a class="btn btn-primary btn-lg" routerLink="/">Home</a>
+    <a class="btn btn-success btn-lg" routerLink="/create" skipLocationChange role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Lobby</a>
+    <a class="btn btn-primary btn-lg" routerLink="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a>
   </div>
 </div>

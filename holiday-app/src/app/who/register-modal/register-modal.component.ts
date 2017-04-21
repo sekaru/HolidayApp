@@ -19,11 +19,11 @@ export class RegisterModalComponent implements OnInit {
   }
 
   public showModal():void {
+    this.error = "";
     this.childModal.show();
   }
  
   public hideModal():void {
-    this.error = "";
     this.childModal.hide();
   }
 

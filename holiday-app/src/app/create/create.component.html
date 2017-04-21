@@ -3,13 +3,13 @@
     <div class="title">JUST. PICK. SOMEWHERE.</div>
     <br>
 
-    <p>Your lobby code is:</p>
+    <p>Your Lobby code is:</p>
     <pre #inputTarget>{{code}}</pre>
 
-    <p>Share this code with whoever you're planning your holiday with so they can join your new Holiday Lobby.</p>
+    <p>Share this code with whoever you're planning your holiday with so they can join your new Lobby.</p>
     <button class="btn btn-warning btn-lg full-btn" type="button" [ngxClipboard]="inputTarget" (cbOnSuccess)="copied=true"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>{{getCopyText()}}</button>
     <br/>
-    <a class="btn btn-success btn-lg" (click)="joinLobby()" role="button">Enter Lobby</a>
-    <a class="btn btn-primary btn-lg" routerLink="/">Home</a>
+    <a class="btn btn-success btn-lg" (click)="joinLobby()" role="button"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>Enter Lobby</a>
+    <a class="btn btn-primary btn-lg" routerLink="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a>
   </div>
 </div>

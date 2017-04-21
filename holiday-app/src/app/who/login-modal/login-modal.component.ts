@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginModalComponent implements OnInit {
   name: string;
-  greetings: string[] = ['Hey', 'Hello', 'Hi', 'Hallo', 'Guten Tag', 'Bonjour', 'Hola', 'Ciao', 'Olà', 'Konnichiwa'];
+  greetings: string[] = ['Hey', 'Hello', 'Hi', 'Hallo', 'Guten Tag', 'Bonjour', 'Hola', 'Ciao', 'Olà', 'Konnichiwa', 'Buna', 'Salut', 'Aloha', 'Ahoj'];
   randGreeting: number;
   error: string = "";
 
@@ -22,13 +22,13 @@ export class LoginModalComponent implements OnInit {
   }
 
   public showModal(name: string):void {
+    this.error = "";
     this.name = name;
     this.randGreeting = Math.floor(Math.random()*this.greetings.length);
     this.childModal.show();
   }
  
   public hideModal():void {
-    this.error = "";
     this.childModal.hide();
   }
 

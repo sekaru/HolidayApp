@@ -9,7 +9,7 @@
     </div>
 
     <!--Lobby code-->
-    <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
+    <p>Your Lobby code is: <strong>{{api.lobbyID}}</strong></p>
 
     <p *ngIf="places.length>0">Your places:</p>
     <p *ngIf="places.length==0">No one's added any places yet... be the first!</p>
@@ -23,16 +23,18 @@
         <a href="{{a.link}}">{{a.link}}</a> for {{a.price}} per person
         
         <!--Amount of votes-->
-        <span class="badge pull-right" [tooltip]="getVoteString(a)">{{a.votes}}</span>
+        <span class="votes btn btn-xs pull-right" [ngClass]="getVoteClass(a)" [tooltip]="getVoteString(a)">{{a.votes}}</span>
 
         <!--Voting buttons-->
-        <span *ngIf="a.upvoters.includes(api.name) || !a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></span> 
-        <span *ngIf="a.downvoters.includes(api.name) || !a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></span>
+        <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
+        <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
       </div>
 
       <!--Author-->
-      <div *ngIf="a.author==api.name" class="panel-footer">Submitted by you</div>
-      <div *ngIf="a.author!=api.name" class="panel-footer">Submitted by {{a.author}}</div>
+      <div class="panel-footer">
+        <span *ngIf="a.author==api.name">Submitted by you</span>
+        <span *ngIf="a.author!=api.name">Submitted by {{a.author}}</span>
+      </div>
     </div>
 
     <!--Place adding form-->
@@ -55,6 +57,6 @@
     <button *ngIf="!addingPlace" (click)="updatePlaces()" type="button" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Refresh</button>
   
     <!--Logout button-->
-    <button (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn top-margin">Logout</button>
+    <button (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn top-margin"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</button>
   </div>
 </div>

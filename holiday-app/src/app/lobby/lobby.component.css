@@ -18,13 +18,23 @@
     color: white;
 }
 
-.glyphicon-thumbs-up:hover, .glyphicon-thumbs-up:active {
-    transform: translateY(-30%);
+.votes {
+    cursor: help;
+    font-weight: 800;
+    margin-top: 1px;
+    width: 3em;
+    text-align: center;
+}
+
+button:disabled {
+    opacity: 0.3;
+}
+
+.glyphicon-thumbs-up:hover:enabled, .glyphicon-thumbs-up:active:enabled {
     cursor: pointer;
 }
 
-.glyphicon-thumbs-down:hover, .glyphicon-thumbs-down:active {
-    transform: translateY(30%);
+.glyphicon-thumbs-down:hover:enabled, .glyphicon-thumbs-down:active:enabled {
     cursor: pointer;
 }
 
@@ -45,4 +55,36 @@
 
 .label {
     margin-right: 0.5em;
+}
+
+.btn-default, .btn-default:active {
+    background-color: #606060;
+    border-color: #505050;
+    color: white;
+}
+
+.btn-default:hover {
+    background-color: #505050;
+    border-color: #404040;
+}
+
+@media only screen and (max-width: 768px) {
+    .votes {
+        width: 100%;
+        margin-top: 0.5em;
+    }
+
+    .glyphicon-thumbs-up, .glyphicon-thumbs-down {
+        margin: 0 auto;
+        height: 2.5em;
+    }
+
+    .glyphicon-thumbs-up {
+        margin-bottom: 0.25em;
+    }
+
+    .avatar {
+        float: none;
+        margin: 0 auto;
+    }
 }

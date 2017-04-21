@@ -3,7 +3,7 @@
     <div class="title">JUST. PICK. SOMEWHERE.</div>
     <br>
 
-    <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
+    <p>Your Lobby code is: <strong>{{api.lobbyID}}</strong></p>
     <div *ngIf="users.length!=0">
       <p>Who are you?</p>
       <div *ngIf="users.length!=0" class="row">
@@ -14,15 +14,15 @@
         </div>
       </div>
     
-      <button type="button" class="btn btn-primary btn-lg full-btn" (click)="registerModal.showModal()">None of the above?</button>
+      <button type="button" class="btn btn-primary btn-lg full-btn" (click)="registerModal.showModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Sign-up</button>
     </div>
 
     <div *ngIf="users.length==0">
       <p>No one seems to be here yet...</p>
-      <button type="button" class="btn btn-primary btn-lg full-btn" (click)="registerModal.showModal()">Be the first to add yourself</button>
+      <button type="button" class="btn btn-primary btn-lg full-btn" (click)="registerModal.showModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Be the first to add yourself</button>
     </div>
 
-    <button (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn">Exit Lobby</button>
+    <button (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Exit Lobby</button>
     
     <register-modal #registerModal></register-modal>
     <login-modal #loginModal></login-modal>

@@ -130,14 +130,19 @@ app.post('/login', function (req, res) {
   }
 
   var user = db.get('users')
-               .find({name: req.body.name, pass: req.body.pass})
+               .find({name: req.body.name})
                .value();
 
+  var wrongPass = {resp: false, err: "err_wrong_pass", msg: "Incorrect password"};
   if(user) {
-    console.log("User logged in: " + JSON.stringify(req.body));
-    res.json({resp: true});
+    if(user.pass==req.body.pass) {
+      console.log("User logged in: " + JSON.stringify(req.body));
+      res.json({resp: true});
+    } else {
+      res.json(wrongPass);
+    }
   } else {
-    res.json({resp: false, err: "err_wrong_pass", msg: "Incorrect password"});
+    res.json(wrongPass);
   }
 });
 

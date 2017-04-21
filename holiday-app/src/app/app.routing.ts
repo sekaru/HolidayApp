@@ -10,7 +10,7 @@ import { LobbyComponent } from './lobby/lobby.component';
 const appRoutes: Routes = [
   {
     path: '',
-    component: WhoComponent
+    component: HomeComponent
   },
   {
     path: 'join',

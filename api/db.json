@@ -38,6 +38,30 @@
     },
     {
       "id": "CW12B"
+    },
+    {
+      "id": "NFRXW"
+    },
+    {
+      "id": "DNRMK"
+    },
+    {
+      "id": "XCY42"
+    },
+    {
+      "id": "U3G9R"
+    },
+    {
+      "id": "SXX4A"
+    },
+    {
+      "id": "B3QKZ"
+    },
+    {
+      "id": "75UUY"
+    },
+    {
+      "id": "QVIHC"
     }
   ],
   "users": [
@@ -160,6 +184,12 @@
       "name": "woop",
       "pass": "woop",
       "colour": "#7D17AA"
+    },
+    {
+      "lobby": "U3G9R",
+      "name": "G1",
+      "pass": "woooooooo",
+      "colour": "#485196"
     }
   ],
   "places": [
@@ -311,11 +341,12 @@
       "author": "Tudor",
       "link": "https://d",
       "price": "99",
-      "votes": 1,
-      "upvoters": [
-        "Tudor"
-      ],
-      "downvoters": []
+      "votes": 0,
+      "upvoters": [],
+      "downvoters": [
+        "Tudor",
+        "Natalie"
+      ]
     },
     {
       "lobby": "G1DAH",
@@ -349,6 +380,29 @@
       "votes": 1,
       "upvoters": [
         "Tudor"
+      ],
+      "downvoters": []
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Tudor",
+      "link": "http://fresh",
+      "price": "place",
+      "votes": 2,
+      "upvoters": [
+        "Tudor",
+        "Natalie"
+      ],
+      "downvoters": []
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Natalie",
+      "link": "http://hello",
+      "price": "man",
+      "votes": 1,
+      "upvoters": [
+        "Natalie"
       ],
       "downvoters": []
     }

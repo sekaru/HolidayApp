@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LobbyComponent implements OnInit {
   colour: string;
-  places: any[] = []; oldPlaces: any[] = [];
+  places: any[] = [];
   addingPlace: boolean;
   error: string = "";
 
@@ -22,7 +22,7 @@ export class LobbyComponent implements OnInit {
     });
 
     // update places every so often
-    let timer = TimerObservable.create(1, 10000);
+    let timer = TimerObservable.create(1, 2500);
     timer.subscribe(t => {
         this.updatePlaces();
     });
@@ -30,22 +30,26 @@ export class LobbyComponent implements OnInit {
 
   updatePlaces() {
     this.api.get('get-places?lobby=' + this.api.lobbyID).subscribe(data => {
-      let firstLoad:boolean = this.places.length==0;
-
-      if(!firstLoad) this.oldPlaces = this.places;
-      this.places = [];
-      for(let i=0; i<data.length; i++) this.places.push(data[i]);
-
-      // so the new tag doesn't show up on first loading
-      if(firstLoad) this.oldPlaces = this.places;
+      for(let i=0; i<data.length; i++) {
+        // check if it's a dupe
+        let dupe = this.isDuplicate(data[i]);
+        if(dupe==-1) {
+          this.places.unshift(data[i]);
+        } else {
+          this.places[dupe].image = data[i].image;
+          this.places[dupe].votes = data[i].votes;
+          this.places[dupe].upvoters = data[i].upvoters;
+          this.places[dupe].downvoters = data[i].downvoters;
+        }
+      }
     });
   }
 
-  newPlace(index: number):boolean {
-    for(let i=0; i<this.oldPlaces.length; i++) {
-      if(this.oldPlaces[i].link==this.places[index].link) return false;
+  isDuplicate(data: any) {
+    for(let i=0; i<this.places.length; i++) {
+      if(this.places[i].link==data.link) return i;
     }
-    return true;
+    return -1;
   }
 
   showNewLabel(place: any):boolean {

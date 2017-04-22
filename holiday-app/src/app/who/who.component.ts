@@ -54,7 +54,7 @@ export class WhoComponent implements OnInit {
     this.loginHover = index;
   }
 
-  loginMouseLeave(index: number) {
+  loginMouseLeave() {
     this.loginHover = -1;
   }
 

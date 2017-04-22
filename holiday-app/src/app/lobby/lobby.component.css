@@ -25,12 +25,43 @@
     color: #656565;
 }
 
-#refresh {
-    margin-top: 0.5em;
-    font-size: 1em;
-    font-weight: 400;
-    text-transform: none;
-    color: #444;
+.thumbnail {
+    padding: 0;
+    height: 60%;
+    border-radius: 0.5em;
+    box-shadow: 0 1em 1em -1em gray;
+}
+
+.downvoted {
+    opacity: 0.4;
+}
+
+.downvoted:hover, .downvoted:active {
+    opacity: 1.0;
+}
+
+.thumbnail-img {
+    width: 100%;
+    max-height: 20%;
+    object-fit: cover;
+}
+
+.thumbnail-img:hover, .thumbnail-img:active {
+    -webkit-filter: saturate(2);
+    filter: saturate(2);
+}
+
+.other {
+    background: url('../../assets/ignasi_pattern_s.png');
+}
+
+hr {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+.other hr {
+    border-color: #ddd;
 }
 
 .votes {
@@ -42,7 +73,11 @@
 }
 
 button:disabled {
-    opacity: 0.3;
+    opacity: 0.4;
+}
+
+.glyphicon-thumbs-up {
+    margin-right: 0;
 }
 
 .glyphicon-thumbs-up:hover:enabled, .glyphicon-thumbs-up:active:enabled {
@@ -68,10 +103,6 @@ button:disabled {
     to   { opacity: 1; }
 }
 
-.label {
-    margin-right: 0.5em;
-}
-
 .btn-default, .btn-default:active {
     background-color: #606060;
     border-color: #505050;
@@ -84,22 +115,8 @@ button:disabled {
 }
 
 @media only screen and (max-width: 768px) {
-    #refresh {
-        margin-top: 0;
-    }
-
-    .votes {
-        width: 100%;
-        margin-top: 0.5em;
-    }
-
     .glyphicon-thumbs-up, .glyphicon-thumbs-down {
-        margin: 0 auto;
-        height: 2.5em;
-    }
-
-    .glyphicon-thumbs-up {
-        margin-bottom: 0.25em;
+        width: auto;
     }
 
     .avatar {

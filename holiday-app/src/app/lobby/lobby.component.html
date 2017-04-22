@@ -12,14 +12,11 @@
     <p>Your Lobby code is: <strong>{{api.lobbyID}}</strong></p>
 
     <!--<p *ngIf="places.length>0">Your places</p>-->
-    <!--<p *ngIf="places.length==0">No one's added any places yet... be the first!</p>-->
+    <p *ngIf="places.length==0">No one's added any places yet... be the first!</p>
 
     <div *ngIf="!addingPlace">
       <!--Adding-->
       <button (click)="addingPlace=true" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New place</button>
-      <!--Refreshing-->
-      <!--<button *ngIf="!addingPlace" (click)="refresh()" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Refresh Now</button>
-      <p id="refresh">Automatically refreshing in {{time}}...</p>-->
       <p></p>
     </div>
 
@@ -49,32 +46,31 @@
           </div>
           
           <!--Submit/cancel-->
-          <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary btn"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
-          <button (click)="addingPlace=false" type="button" class="btn btn-warning btn"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
+          <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
+          <button (click)="addingPlace=false" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
         </div>
       </div>
     </div>
 
-    <!--Places-->
-    <div *ngFor="let a of places; let i = index" class="panel panel-default" [ngClass]="{'new' : newPlace(i)}">
-      <div class="panel-body">
-        <!--If it's new-->
-        <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
-        <!--Title-->
-        <a href="{{a.link}}">{{a.link}}</a> for {{a.price}} per person
-        
-        <!--Amount of votes-->
-        <span class="votes btn btn-xs pull-right" [ngClass]="getVoteClass(a)" [tooltip]="getVoteString(a)">{{a.votes}}</span>
+    <div class="row">
+      <div class="col-sm-6 col-md-4" *ngFor="let a of places; let i = index" [ngClass]="{new: showNewLabel(a)}">
+        <div class="thumbnail" [ngClass]="[i%2!=0 ? 'other' : '', getVoteClass(a)=='btn-danger' ? 'downvoted' : '']">
+          <!--Thumbnail/link-->
+          <a href="{{a.link}}"><img class="thumbnail-img" [src]="a.image"></a>
+          <div class="caption">
+            <!--If it's new-->
+            <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
+            <!--Description-->
+            This is a description for a place that is a place that is a place that is a place yo yo yo yo yo yo yo yo get us to 140 character please lol
+            <hr>
 
-        <!--Voting buttons-->
-        <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
-        <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
-      </div>
-
-      <!--Author-->
-      <div class="panel-footer">
-        <span *ngIf="a.author==api.name">Submitted by you</span>
-        <span *ngIf="a.author!=api.name">Submitted by {{a.author}}</span>
+            <!--Amount of votes-->
+            <button [tooltip]="getVoteString(a)" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
+            <!--Voting buttons-->
+            <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up" aria-hidden="true"></button>
+            <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down" aria-hidden="true"></button>
+          </div>
+        </div>
       </div>
     </div>
 

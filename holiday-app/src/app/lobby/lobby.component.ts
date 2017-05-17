@@ -13,6 +13,7 @@ export class LobbyComponent implements OnInit {
   places: any[] = [];
   addingPlace: boolean;
   error: string = "";
+  showLink: number = -1;
 
   constructor(private api: ApiService, private router: Router) { }
 
@@ -50,6 +51,10 @@ export class LobbyComponent implements OnInit {
       if(this.places[i].link==data.link) return i;
     }
     return -1;
+  }
+
+  checkCard(e:any, i:number) {
+    this.showLink = e.type == 'mouseover' ? i : -1;
   }
 
   showNewLabel(place: any):boolean {

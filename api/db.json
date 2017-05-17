@@ -74,6 +74,9 @@
     },
     {
       "id": "CA97E"
+    },
+    {
+      "id": "4OKLJ"
     }
   ],
   "users": [
@@ -321,11 +324,11 @@
       "author": "Natalie",
       "link": "http://hellolol.com",
       "price": "50",
-      "votes": 1,
-      "upvoters": [
+      "votes": 0,
+      "upvoters": [],
+      "downvoters": [
         "Natalie"
       ],
-      "downvoters": [],
       "image": "https://s0.wp.com/i/blank.jpg"
     },
     {
@@ -357,11 +360,11 @@
       "author": "Natalie",
       "link": "https://www.airbnb.co.uk/experiences/40303?&source=p1&currentTab=",
       "price": "60",
-      "votes": 0,
-      "upvoters": [],
-      "downvoters": [
+      "votes": 1,
+      "upvoters": [
         "Natalie"
       ],
+      "downvoters": [],
       "image": "https://a0.muscache.com/im/pictures/25097e2b-43a3-417e-a9e0-1bc582b4801a.jpg?aki_policy=xl_poster"
     },
     {

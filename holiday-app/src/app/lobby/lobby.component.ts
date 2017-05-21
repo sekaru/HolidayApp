@@ -14,6 +14,7 @@ export class LobbyComponent implements OnInit {
   addingPlace: boolean;
   error: string = "";
   showLink: number = -1;
+  sortMode: number = 0;
 
   constructor(private api: ApiService, private router: Router) { }
 
@@ -30,7 +31,7 @@ export class LobbyComponent implements OnInit {
   }
 
   updatePlaces() {
-    this.api.get('get-places?lobby=' + this.api.lobbyID).subscribe(data => {
+    this.api.get('get-places?lobby=' + this.api.lobbyID + '&sort=' + this.sortMode).subscribe(data => {
       for(let i=0; i<data.length; i++) {
         // check if it's a dupe
         let dupe = this.isDuplicate(data[i]);
@@ -51,6 +52,13 @@ export class LobbyComponent implements OnInit {
       if(this.places[i].link==data.link) return i;
     }
     return -1;
+  }
+
+  sort(mode: number) {
+    console.log("hi");
+    this.sortMode = mode;
+    this.places = [];
+    this.updatePlaces();
   }
 
   checkCard(e:any, i:number) {
@@ -82,10 +90,10 @@ export class LobbyComponent implements OnInit {
     return upvoters + downvoters;
   }
 
-  addPlace(link: string, price: string) {
+  addPlace(link: string, price: string, desc: string) {
     if(!link.startsWith('http://') && !link.startsWith('https://')) link = 'http://' + link;
 
-    let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: price};
+    let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: price, desc: desc};
 
     this.api.post('add-place', place).subscribe(data => {
       if(data.resp==true) {

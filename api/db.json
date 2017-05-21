@@ -287,7 +287,7 @@
       "lobby": "G1DAH",
       "author": "Natalie",
       "link": "http://trello.com",
-      "price": "test",
+      "price": "32.40",
       "votes": 1,
       "upvoters": [
         "Natalie"
@@ -311,7 +311,7 @@
       "lobby": "G1DAH",
       "author": "Natalie",
       "link": "http://placeland.com",
-      "price": "hello",
+      "price": "88.30",
       "votes": 1,
       "upvoters": [
         "Natalie"
@@ -324,11 +324,11 @@
       "author": "Natalie",
       "link": "http://hellolol.com",
       "price": "50",
-      "votes": 0,
-      "upvoters": [],
-      "downvoters": [
+      "votes": 1,
+      "upvoters": [
         "Natalie"
       ],
+      "downvoters": [],
       "image": "https://s0.wp.com/i/blank.jpg"
     },
     {
@@ -434,7 +434,8 @@
       "price": "50",
       "votes": 1,
       "upvoters": [
-        "Tudor"
+        "Tudor",
+        "Natalie"
       ],
       "downvoters": [],
       "image": "http://www.fairtrade.nl/images/og_300x300.png"
@@ -498,6 +499,43 @@
       ],
       "downvoters": [],
       "image": "http://youtube.com/yts/img/yt_1200-vfl4C3T0K.png"
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Natalie",
+      "link": "http://sleepystudios.net/superstatic",
+      "price": "35.50",
+      "votes": 1,
+      "upvoters": [
+        "Natalie"
+      ],
+      "downvoters": [],
+      "image": "https://unsplash.it/1280/720?image=223"
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Natalie",
+      "link": "http://asddas",
+      "price": "dsaads",
+      "votes": 1,
+      "upvoters": [
+        "Natalie"
+      ],
+      "downvoters": [],
+      "image": "https://unsplash.it/1280/720?image=610"
+    },
+    {
+      "lobby": "G1DAH",
+      "author": "Natalie",
+      "link": "http://ohn",
+      "price": "330",
+      "desc": "oh no please work\n",
+      "votes": 1,
+      "upvoters": [
+        "Natalie"
+      ],
+      "downvoters": [],
+      "image": "https://unsplash.it/1280/720?image=639"
     }
   ]
 }

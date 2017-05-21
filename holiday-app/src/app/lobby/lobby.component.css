@@ -18,11 +18,24 @@
     color: white;
 }
 
+.curSort {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.sortOpt {
+    cursor: pointer;
+}
+
 .panel-title {
     font-size: 1em;
     font-weight: 500;
     text-transform: uppercase;
     color: #656565;
+}
+
+.form-horizontal {
+    margin: 1em;
 }
 
 .thumbnail {
@@ -47,7 +60,7 @@
 
 h2 { 
    position: absolute; 
-   top: 25%; 
+   top: 30%; 
    width: 100%;
    text-align: center; 
    color: white;
@@ -58,6 +71,7 @@ h2 {
 .thumbnail-img {
     width: 100%;
     max-height: 20%;
+    min-height: 20%;
     object-fit: cover;
 }
 

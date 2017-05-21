@@ -21,37 +21,76 @@
     </div>
 
     <!--Place adding form-->
-    <div *ngIf="addingPlace" class="form-inline">
-      <div class="panel panel-default">
-        <div class="panel-heading">
+    <div *ngIf="addingPlace" class="panel panel-default">
+      <div class="panel-heading">
           <h3 class="panel-title">New Place</h3>
-        </div>
-        
-        <div class="panel-body">
-
-          <div *ngIf="error.length!=0">
-            <alert type="danger">
-              <strong>Error:</strong> {{error}}
-            </alert>
-          </div>
-
-          <div class="form-group">
-            <label>Link</label>
-            <input #link type="text" class="form-control" placeholder="airbnb.com/place/123456">
-          </div>
-
-          <div class="form-group">
-            <label>Price (per person)</label>
-            <input #price (keyup.enter)="addPlace(link.value, price.value)" type="text" class="form-control" placeholder="£64.00">
-          </div>
-          
-          <!--Submit/cancel-->
-          <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
-          <button (click)="addingPlace=false" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
-        </div>
       </div>
+
+      <form class="form-horizontal">
+        <div *ngIf="error.length!=0">
+          <alert type="danger">
+              <strong>Error:</strong> {{error}}
+          </alert>
+        </div>
+
+          <!-- Link -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="link">Link</label>  
+            <div class="col-md-4">
+            <input #link name="link" type="text" placeholder="airbnb.co.uk/place/12345" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="price">Price</label>  
+            <div class="col-md-4">
+            <input #price type="text" placeholder="£0.00" class="form-control input-md" required="">
+            <span class="help-block">(Price per person)</span>  
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="desc">Description</label>
+            <div class="col-md-4">                     
+              <textarea #desc (keyup.enter)="addPlace(link.value, price.value, desc.value)" class="form-control" placeholder="We should choose this because..." maxlength="140"></textarea>
+            </div>
+          </div>
+
+          <!--Submit/cancel-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="button1id"></label>
+            <div class="col-md-8">
+              <button (click)="addPlace(link.value, price.value, desc.value)" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
+              <button (click)="addingPlace=false" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
+            </div>
+          </div>
+        </form>
     </div>
 
+    <!--Search-->
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+    </div>
+    <br/>
+
+    <!--Sorting options-->
+    <div>
+      <p>
+        Sort by: 
+        <a [ngClass]="sortMode==0? 'curSort' : 'sortOpt'" (click)="sort(0)">newest</a> | 
+        <a [ngClass]="sortMode==1? 'curSort' : 'sortOpt'" (click)="sort(1)">oldest</a> | 
+        <a [ngClass]="sortMode==2? 'curSort' : 'sortOpt'" (click)="sort(2)">best</a> | 
+        <a [ngClass]="sortMode==3? 'curSort' : 'sortOpt'" (click)="sort(3)">worst</a> |
+        <a [ngClass]="sortMode==4? 'curSort' : 'sortOpt'" (click)="sort(4)">price</a>
+      </p>
+    </div>
+
+    <!--Places-->
     <div class="row">
       <div class="col-sm-6 col-md-4" *ngFor="let a of places; let i = index" [ngClass]="{new: showNewLabel(a)}">
         <div class="thumbnail" [ngClass]="[i%2!=0 ? 'other' : '', getVoteClass(a)=='btn-danger' ? 'downvoted' : '']">
@@ -65,7 +104,10 @@
             <!--If it's new-->
             <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
             <!--Description-->
-            This is a description for a place that is a place that is a place that is a place yo yo yo yo yo yo yo yo get us to 140 character please lol
+            <!--This is a description for a place that is a place that is a place that is a place yo yo yo yo yo yo yo yo get us to 140 character please lol-->
+            <span class="panel-title">Price: £{{a.price}}</span>
+            <hr>
+            <!--{{a.desc}}-->
             <hr>
 
             <!--Amount of votes-->

@@ -161,8 +161,9 @@ app.post('/add-place', function (req, res) {
   }
 
   var colour = randColour();
+
   db.get('places')
-    .push({lobby: req.body.lobby, author: req.body.author, link: req.body.link, price: req.body.price, votes: 1, upvoters: [req.body.author], downvoters: [], image: ""})
+    .push({lobby: req.body.lobby, author: req.body.author, link: req.body.link, price: req.body.price, desc: req.body.desc, votes: 1, upvoters: [req.body.author], downvoters: [], image: ""})
     .write();
 
   var resolver = new ImageResolver();
@@ -193,10 +194,28 @@ app.post('/add-place', function (req, res) {
 
 // get places
 app.get('/get-places', function (req, res) {
+  var sort = 'lobby';
+  var ascSorts = [1, 3, 4];
+
+  switch(parseInt(req.query.sort)) {
+    case 2:
+    case 3:
+      sort = 'votes';
+      break;
+    case 4:
+      sort = 'price';
+      break;
+  }
+
   var places = db.get('places')
-                //  .sortBy('votes')
+                 .sortBy(sort)
                  .value();
   
+  // ascending sort
+  if(ascSorts.indexOf(parseInt(req.query.sort))!=-1) {
+    places.reverse();
+  }
+
   var lobbyPlaces = [];
   for(var i=0; i<places.length; i++) {
     if(places[i].lobby==req.query.lobby) lobbyPlaces.push(places[i]);

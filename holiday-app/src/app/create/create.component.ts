@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ng2-cookies';
 
 @Component({
   selector: 'app-create',
+  providers: [CookieService],
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
@@ -11,7 +13,7 @@ export class CreateComponent implements OnInit {
   code: string;
   copied: boolean = false;
 
-  constructor(private api: ApiService, private router: Router) {
+  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) {
     this.getCode();
   }
 
@@ -37,6 +39,9 @@ export class CreateComponent implements OnInit {
   }
 
   joinLobby() {
+    // add a cookie
+    if(this.api.lobbyID) this.cookieService.set('lobby', this.api.lobbyID);
+
     this.router.navigateByUrl('/who', { skipLocationChange: true });
   }
 }

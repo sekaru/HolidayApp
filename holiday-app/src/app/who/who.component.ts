@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
+import { CookieService } from 'ng2-cookies';
 
 @Component({
   selector: 'app-who',
+  providers: [CookieService],
   templateUrl: './who.component.html',
   styleUrls: ['./who.component.css']
 })
@@ -12,7 +13,7 @@ export class WhoComponent implements OnInit {
   users: any[] = [];
   loginHover: number;
 
-  constructor(private api: ApiService, private router: Router, private sanitizer: DomSanitizer) { }
+  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.api.get('get-users?id=' + this.api.lobbyID).subscribe(data => {
@@ -59,6 +60,7 @@ export class WhoComponent implements OnInit {
   }
 
   logout() {
+    this.cookieService.delete('lobby');
     this.api.lobbyID = "";
     this.router.navigateByUrl('/', { skipLocationChange: true })
   }

@@ -27,6 +27,14 @@ export class ApiService {
                     .map(res => res.json());
   }
 
+  delete(params: string) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    
+    return this.http.delete(this.address + '/' + params, {headers: headers})
+                    .map(res => res.json());
+  }
+
   makeLobby(lobbyID: string) {
     return this.post('make-lobby', {id: lobbyID});
   }

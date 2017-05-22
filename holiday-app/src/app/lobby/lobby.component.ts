@@ -136,6 +136,14 @@ export class LobbyComponent implements OnInit {
     });
   }
 
+  delete(index: number) {
+    this.api.delete('delete?lobby=' + this.api.lobbyID + '&link=' + this.places[index].link).subscribe(data => {
+      if(data.resp==true) {
+        this.places.splice(index, 1);
+      }
+    });
+  }
+
   logout() {
     this.api.name = "";
     this.router.navigateByUrl('/who', { skipLocationChange: true })

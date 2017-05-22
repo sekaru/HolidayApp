@@ -3,6 +3,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var low = require('lowdb');
 var ImageResolver = require('image-resolver');
+var bcrypt = require('bcryptjs');
 var app = express();
 
 app.use(cors());
@@ -82,13 +83,20 @@ app.post('/register', function (req, res) {
     return res.json({resp: false, err: 'err_duplicate_name', msg: 'That name is taken'});
   }
 
-  var colour = randColour();
-  db.get('users')
-    .push({lobby: req.body.lobby, name: req.body.name, pass: req.body.pass, colour: colour})
-    .write();
+  // hash the password
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(req.body.pass, salt, function(err, hash) {
 
-  console.log("Added new user: " + JSON.stringify(req.body));
-  res.json({resp: true});
+        // push them to the db
+        var colour = randColour();
+        db.get('users')
+          .push({lobby: req.body.lobby, name: req.body.name, pass: hash, colour: colour})
+          .write();
+
+        console.log("Added new user: " + JSON.stringify(req.body));
+        res.json({resp: true});
+    });
+  });
 });
 
 function randColour() {
@@ -131,17 +139,18 @@ app.post('/login', function (req, res) {
   }
 
   var user = db.get('users')
-               .find({name: req.body.name})
-               .value();
-
-  var wrongPass = {resp: false, err: "err_wrong_pass", msg: "Incorrect password"};
+                .find({name: req.body.name})
+                .value();
   if(user) {
-    if(user.pass==req.body.pass) {
-      console.log("User logged in: " + JSON.stringify(req.body));
-      res.json({resp: true});
-    } else {
-      res.json(wrongPass);
-    }
+    bcrypt.compare(req.body.pass, user.pass, function(err, result) {
+      var wrongPass = {resp: false, err: "err_wrong_pass", msg: "Incorrect password"};
+      if(result && !err) {
+        console.log("User logged in: " + JSON.stringify(req.body));
+        res.json({resp: true});
+      } else {
+        res.json(wrongPass);
+      }
+    });
   } else {
     res.json(wrongPass);
   }
@@ -189,6 +198,25 @@ app.post('/add-place', function (req, res) {
   });
 
   console.log("Added new place: " + JSON.stringify(req.body));
+  res.json({resp: true});
+});
+
+// deleting a place
+app.delete('/delete', function (req, res) {
+  var place = db.get('places')
+                    .find({lobby: req.query.lobby, link: req.query.link})
+                    .value();
+
+  if(!place) {
+    return res.json({resp: false});
+  }
+
+  db.get('places')
+    .remove({lobby: req.query.lobby, link: req.query.link})
+    .write();
+
+  console.log('deleted: ' + place);
+
   res.json({resp: true});
 });
 

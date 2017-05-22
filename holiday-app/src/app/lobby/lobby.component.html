@@ -70,11 +70,11 @@
     </div>
 
     <!--Search-->
-    <input #search type="text" class="form-control" placeholder="Search for...">
+    <input #search type="text" [disabled]="places.length==0" class="form-control" placeholder="Search for...">
     <br/>
 
     <!--Sorting options-->
-    <div>
+    <div *ngIf="places.length>0">
       <p>
         Sort by: 
         <a [ngClass]="sortMode==0? 'curSort' : 'sortOpt'" (click)="sort(0)">newest</a> | 
@@ -99,7 +99,7 @@
             <!--Thumbnail/link-->
             <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
               <a href="{{a.link}}"><img class="thumbnail-img" [src]="a.image"></a>
-              <h2 *ngIf="showLink==i"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>VIEW</h2>
+              <h2 *ngIf="showLink==i"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>View</h2>
             </div>
 
             <div class="caption">
@@ -115,11 +115,10 @@
 
               <!--Amount of votes-->
               <button [tooltip]="getVoteString(a)" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
-              <!--<button class="votes btn btn-xs">X</button>-->
               <!--Voting buttons-->
               <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
               <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
-              <button *ngIf="a.author==api.name" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
+              <button *ngIf="a.author==api.name" (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
             </div>
           </div>
         </div>

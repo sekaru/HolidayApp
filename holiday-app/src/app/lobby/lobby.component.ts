@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { Router } from '@angular/router';
@@ -15,6 +15,8 @@ export class LobbyComponent implements OnInit {
   error: string = "";
   showLink: number = -1;
   sortMode: number = 0;
+
+  @ViewChild('search') searchBar:ElementRef;
 
   constructor(private api: ApiService, private router: Router) { }
 
@@ -54,8 +56,35 @@ export class LobbyComponent implements OnInit {
     return -1;
   }
 
+  show(i: number) {
+    let search = this.searchBar.nativeElement.value.toLowerCase();
+
+    let link = this.places[i].link.toLowerCase();
+    let price = this.places[i].price.toLowerCase();
+    let desc = this.places[i].desc ? this.places[i].desc.toLowerCase() : '';
+    let author = this.places[i].author.toLowerCase();
+
+    if(search.length>0) {
+      if(link.includes(search) || price.includes(search) || (desc.includes(search) && desc.length>0) || author.includes(search)) {
+        return true;
+      }
+    } else {
+      return true;
+    }
+    return false;
+  }
+
+  noResults() {
+    let count: number = 0;
+
+    for(let i=0; i<this.places.length; i++) {
+      if(this.show(i)) count++;
+    }
+
+    return count==0;
+  }
+
   sort(mode: number) {
-    console.log("hi");
     this.sortMode = mode;
     this.places = [];
     this.updatePlaces();

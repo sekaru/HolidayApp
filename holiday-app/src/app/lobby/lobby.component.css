@@ -46,7 +46,7 @@
 }
 
 .downvoted {
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .downvoted:hover, .downvoted:active {
@@ -76,8 +76,8 @@ h2 {
 }
 
 .thumbnail-img:hover, .thumbnail-img:active {
-    -webkit-filter: brightness(40%) saturate(1.5);
-    filter: brightness(40%) saturate(1.5);
+    -webkit-filter: brightness(50%) saturate(1.5);
+    filter: brightness(50%) saturate(1.5);
 }
 
 .other {
@@ -102,7 +102,7 @@ hr {
 }
 
 button:disabled {
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .glyphicon-thumbs-down {
@@ -144,7 +144,7 @@ button:disabled {
 }
 
 @media only screen and (max-width: 768px) {
-    .glyphicon-thumbs-up, .glyphicon-thumbs-down {
+    .glyphicon-thumbs-up, .glyphicon-thumbs-down, .glyphicon-remove {
         width: auto;
     }
 

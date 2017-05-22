@@ -70,12 +70,7 @@
     </div>
 
     <!--Search-->
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-    </div>
+    <input #search type="text" class="form-control" placeholder="Search for...">
     <br/>
 
     <!--Sorting options-->
@@ -90,33 +85,45 @@
       </p>
     </div>
 
+    <!--If there're no results-->
+    <div *ngIf="search.value.length>0 && noResults()">
+      <p><strong>Couldn't find any results...</strong></p>
+    </div>
+
     <!--Places-->
     <div class="row">
-      <div class="col-sm-6 col-md-4" *ngFor="let a of places; let i = index" [ngClass]="{new: showNewLabel(a)}">
-        <div class="thumbnail" [ngClass]="[i%2!=0 ? 'other' : '', getVoteClass(a)=='btn-danger' ? 'downvoted' : '']">
-          <!--Thumbnail/link-->
-          <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
-            <a href="{{a.link}}"><img class="thumbnail-img" [src]="a.image"></a>
-            <h2 *ngIf="showLink==i"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>VIEW</h2>
-          </div>
+      <div *ngFor="let a of places; let i = index">
 
-          <div class="caption">
-            <!--If it's new-->
-            <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
-            <!--Description-->
-            <!--This is a description for a place that is a place that is a place that is a place yo yo yo yo yo yo yo yo get us to 140 character please lol-->
-            <span class="panel-title">Price: £{{a.price}}</span>
-            <hr>
-            <!--{{a.desc}}-->
-            <hr>
+        <div class="col-sm-6 col-md-4" *ngIf="show(i)" [ngClass]="{new: showNewLabel(a)}">
+          <div class="thumbnail" [ngClass]="[i%2!=0 ? 'other' : '', getVoteClass(a)=='btn-danger' ? 'downvoted' : '']">
+            <!--Thumbnail/link-->
+            <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
+              <a href="{{a.link}}"><img class="thumbnail-img" [src]="a.image"></a>
+              <h2 *ngIf="showLink==i"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>VIEW</h2>
+            </div>
 
-            <!--Amount of votes-->
-            <button [tooltip]="getVoteString(a)" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
-            <!--Voting buttons-->
-            <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
-            <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
+            <div class="caption">
+              <!--If it's new-->
+              <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
+              <!--Meta data-->
+              <span class="panel-title">£{{a.price}}</span>
+              <span class="panel-title pull-right">Added by {{a.author}}</span>
+              <hr>
+              This is a placeholder description. You can add descriptions but I need to work out how to keep alignments with variable amounts of text
+              <!--{{a.desc}}-->
+              <hr>
+
+              <!--Amount of votes-->
+              <button [tooltip]="getVoteString(a)" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
+              <!--<button class="votes btn btn-xs">X</button>-->
+              <!--Voting buttons-->
+              <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
+              <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
+              <button *ngIf="a.author==api.name" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
 

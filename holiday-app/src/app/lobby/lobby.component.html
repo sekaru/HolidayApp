@@ -12,7 +12,7 @@
     <p>Your Lobby code is: <strong>{{api.lobbyID}}</strong></p>
 
     <!--<p *ngIf="places.length>0">Your places</p>-->
-    <p *ngIf="places.length==0">No one's added any places yet... be the first!</p>
+    <p *ngIf="places.length==0 && !sorting">No one's added any places yet... be the first!</p>
 
     <div *ngIf="!addingPlace">
       <!--Adding-->
@@ -127,6 +127,6 @@
     </div>
 
     <!--Logout button-->
-    <button (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</button>
+    <button *ngIf="!sorting" (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</button>
   </div>
 </div>

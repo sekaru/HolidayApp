@@ -14,6 +14,9 @@
     },
     {
       "id": "RS4TL"
+    },
+    {
+      "id": "BC6UP"
     }
   ],
   "users": [
@@ -40,6 +43,12 @@
       "name": "Man",
       "pass": "$2a$10$Awo7VG1zCXH6crmvpt/jHu9ayqNWLA.9LaNMn7ONe/Dh7uW0V5Pv6",
       "colour": "#A8B596"
+    },
+    {
+      "lobby": "BC6UP",
+      "name": "Red",
+      "pass": "$2a$10$eZPN7z7b3rTckT6PkvJ5xOvD9aBHglrT8hu7Uv48EDQ4Ztwf1Ax6.",
+      "colour": "#75C5B3"
     }
   ],
   "places": [
@@ -241,6 +250,19 @@
       ],
       "downvoters": [],
       "image": "https://unsplash.it/1280/720?image=164"
+    },
+    {
+      "lobby": "BC6UP",
+      "author": "Red",
+      "link": "http://holidayinn.co.uk",
+      "price": "30",
+      "desc": "This is a description!",
+      "votes": 1,
+      "upvoters": [
+        "Red"
+      ],
+      "downvoters": [],
+      "image": "https://unsplash.it/1280/720?image=16"
     }
   ]
 }

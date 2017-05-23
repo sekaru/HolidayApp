@@ -15,6 +15,7 @@ export class LobbyComponent implements OnInit {
   error: string = "";
   showLink: number = -1;
   sortMode: number = 0;
+  sorting: boolean;
 
   @ViewChild('search') searchBar:ElementRef;
 
@@ -46,6 +47,8 @@ export class LobbyComponent implements OnInit {
           this.places[dupe].downvoters = data[i].downvoters;
         }
       }
+
+      this.sorting = false;
     });
   }
 
@@ -85,6 +88,7 @@ export class LobbyComponent implements OnInit {
   }
 
   sort(mode: number) {
+    this.sorting = true;
     this.sortMode = mode;
     this.places = [];
     this.updatePlaces();

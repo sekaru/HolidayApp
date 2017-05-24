@@ -3,10 +3,10 @@
     <div class="title">{{api.title}}</div>
     <br>
 
-    <p>Your Lobby code is:</p>
-    <pre #inputTarget>{{code}}</pre>
+    <p>Your Lobby is:</p>
+    <pre #inputTarget>{{link}}</pre>
 
-    <p>Share this code with whoever you're planning your holiday with so they can join your new Lobby.</p>
+    <p>Share this link with whoever you're planning your holiday with so they can join your new Lobby.</p>
     <button class="btn btn-warning btn-lg full-btn" type="button" [ngxClipboard]="inputTarget" (cbOnSuccess)="copied=true"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>{{getCopyText()}}</button>
     <br/>
     <a class="btn btn-success btn-lg" (click)="joinLobby()" role="button"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>Enter Lobby</a>

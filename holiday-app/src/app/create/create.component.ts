@@ -11,6 +11,7 @@ import { CookieService } from 'ng2-cookies';
 })
 export class CreateComponent implements OnInit {
   code: string;
+  link: string;
   copied: boolean = false;
 
   constructor(private api: ApiService, private router: Router, private cookieService: CookieService) {
@@ -23,6 +24,7 @@ export class CreateComponent implements OnInit {
   getCode() {
     this.api.get('lobby-code').subscribe(data => {
       this.code = data.code;
+      this.link = window.location.origin + "?lobby=" + this.code;
 
       this.api.makeLobby(this.code).subscribe(data => {
         if(data.resp==true) this.api.lobbyID = this.code;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ng2-cookies';
 
 @Component({
@@ -10,9 +10,33 @@ import { CookieService } from 'ng2-cookies';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
+  constructor(private api: ApiService, private router: Router, private activatedRoute: ActivatedRoute, private cookieService: CookieService) { }
 
   ngOnInit() {
+    // check if they've entered a code
+    this.activatedRoute.queryParams.subscribe(params => {
+      let qp = 'lobby';
+
+      if(params[qp]) {
+        this.api.get('lobby?id=' + params[qp]).subscribe(data => {
+          if(data.resp==true) {
+            // go to that lobby
+            this.cookieService.set('lobby', params[qp]);
+            this.api.lobbyID = params[qp];
+            this.router.navigateByUrl('/who', { skipLocationChange: true });
+            return;
+          } else {
+            this.checkCookies();
+          }
+        });
+      } else {
+        this.checkCookies();
+      }
+    });
+  }
+
+  checkCookies() {
+    // cookies
     if(this.cookieService.check('lobby')) {
       this.api.lobbyID = this.cookieService.get('lobby');
       

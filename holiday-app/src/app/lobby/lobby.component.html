@@ -113,7 +113,7 @@
       <div *ngFor="let a of places; let i = index">
 
         <div class="col-sm-6 col-md-4" *ngIf="show(i)" [ngClass]="{new: showNewLabel(a)}">
-          <div class="thumbnail" [ngClass]="[i%2!=0 ? 'other' : '', getVoteClass(a)=='btn-danger' ? 'downvoted' : '']">
+          <div class="thumbnail" [ngClass]="getVoteClass(a)=='btn-danger' ? 'downvoted' : ''">
             <!--Thumbnail/link-->
             <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
               <a href="{{a.link}}"><img class="thumbnail-img" [src]="a.image"></a>
@@ -121,22 +121,25 @@
             </div>
 
             <div class="caption">
-              <!--If it's new-->
-              <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
-              <!--Meta data-->
-              <span class="panel-title">{{a.price}}</span>
-              <span class="panel-title pull-right">Added by {{a.author}}</span>
-              <hr>
-              <!--Description-->
-              <div class="desc">{{a.desc}}</div>
-              <hr>
-
               <!--Amount of votes-->
               <button [tooltip]="getVoteString(a)" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
               <!--Voting buttons-->
               <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
               <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
               <button *ngIf="a.author==api.name" (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
+              <hr>
+
+              
+
+              <!--Description-->
+              <div class="desc">{{a.desc}}</div>
+
+              <!--If it's new-->
+              <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
+              <!--Meta data-->
+              <span class="panel-title">{{a.price}}</span>
+              <span class="panel-title pull-right">Added by {{a.author}}</span>
+              
             </div>
           </div>
         </div>

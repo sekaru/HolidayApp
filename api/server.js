@@ -9,7 +9,7 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-var server = app.listen(3000, function () {
+var server = app.listen(3000, "0.0.0.0", function () {
   var port = server.address().port;
   console.log("JPS API listening on port " + port);
 });
@@ -93,7 +93,7 @@ app.post('/register', function (req, res) {
           .push({lobby: req.body.lobby, name: req.body.name, pass: hash, colour: colour})
           .write();
 
-        console.log("Added new user: " + JSON.stringify(req.body));
+        console.log("Added new user: " + JSON.stringify({lobby: req.body.lobbyID, name: req.body.name}));
         res.json({resp: true});
     });
   });
@@ -145,7 +145,7 @@ app.post('/login', function (req, res) {
     bcrypt.compare(req.body.pass, user.pass, function(err, result) {
       var wrongPass = {resp: false, err: "err_wrong_pass", msg: "Incorrect password"};
       if(result && !err) {
-        console.log("User logged in: " + JSON.stringify(req.body));
+        console.log("User logged in: " + JSON.stringify({lobby: req.body.lobbyID, name: req.body.name}));
         res.json({resp: true});
       } else {
         res.json(wrongPass);
@@ -215,17 +215,21 @@ app.delete('/delete', function (req, res) {
     .remove({lobby: req.query.lobby, link: req.query.link})
     .write();
 
-  console.log('deleted: ' + place);
+  console.log('deleted: ' + JSON.stringify({lobby: req.query.lobby, link: req.query.link}));
 
   res.json({resp: true});
 });
 
 // get places
 app.get('/get-places', function (req, res) {
-  var sort = 'lobby';
+  var sort = '';
   var ascSorts = [1, 3, 4];
 
   switch(parseInt(req.query.sort)) {
+    case 0:
+    case 1:
+      sort = 'lobby'
+      break;
     case 2:
     case 3:
       sort = 'votes';
@@ -238,6 +242,9 @@ app.get('/get-places', function (req, res) {
   var places = db.get('places')
                  .sortBy(sort)
                  .value();
+
+  // price
+  places = sortByNum(places, "price");
   
   // ascending sort
   if(ascSorts.indexOf(parseInt(req.query.sort))!=-1) {
@@ -251,6 +258,14 @@ app.get('/get-places', function (req, res) {
 
   res.json(lobbyPlaces);
 });
+
+function sortByNum(array, key) {
+    return array.sort(function(a, b) {
+        var x = parseInt(a[key]);
+        var y = parseInt(b[key]);
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
 
 // voting
 app.post('/vote', function (req, res) {

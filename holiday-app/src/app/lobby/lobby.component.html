@@ -1,6 +1,6 @@
 <div class="container">
   <div class="jumbotron">
-    <div class="title">JUST. PICK. SOMEWHERE.</div>
+    <div class="title">{{api.title}}</div>
     <br>
 
     <!--Avatar icon-->
@@ -45,8 +45,8 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="price">Price</label>  
             <div class="col-md-4">
-            <input #price type="text" placeholder="£0.00" class="form-control input-md" required="">
-            <span class="help-block">(Price per person)</span>  
+            <input #price type="text" placeholder="20.00" class="form-control input-md" required="">
+            <!--<span class="help-block">(Price per person)</span>  -->
             </div>
           </div>
 
@@ -69,12 +69,12 @@
         </form>
     </div>
 
-    <!--Search-->
-    <input #search type="text" [disabled]="places.length==0" class="form-control" placeholder="Search for...">
-    <br/>
-
-    <!--Sorting options-->
+    
     <div *ngIf="places.length>0">
+      <!--Search-->
+      <input [(ngModel)]="search" type="text" class="form-control" placeholder="Search for...">
+      
+      <!--Sorting options-->
       <p>
         Sort by: 
         <a [ngClass]="sortMode==0? 'curSort' : 'sortOpt'" (click)="sort(0)">newest</a> | 
@@ -86,7 +86,7 @@
     </div>
 
     <!--If there're no results-->
-    <div *ngIf="search.value.length>0 && noResults()">
+    <div *ngIf="search.length>0 && noResults()">
       <p><strong>Couldn't find any results...</strong></p>
     </div>
 
@@ -109,8 +109,8 @@
               <span class="panel-title">£{{a.price}}</span>
               <span class="panel-title pull-right">Added by {{a.author}}</span>
               <hr>
-              This is a placeholder description. You can add descriptions but I need to work out how to keep alignments with variable amounts of text
-              <!--{{a.desc}}-->
+              <!--This is a placeholder description. You can add descriptions but I need to work out how to keep alignments with variable amounts of text-->
+              <div class="desc">{{a.desc}}</div>
               <hr>
 
               <!--Amount of votes-->

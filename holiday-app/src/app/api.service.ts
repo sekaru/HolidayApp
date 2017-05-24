@@ -4,15 +4,15 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ApiService {
+  title: string;
   address: string;
   lobbyID: string;
   name: string;
 
   constructor(private http: Http) {
-    //this.address = "http://35.156.58.36:3000";
+    this.title = "Just Pick Somewhere!";
     this.address = "http://localhost:3000";
-    //this.lobbyID = "G1DAH";
-    //this.name = "Natalie";
+    //this.address = "http://35.156.58.36:3000";
   }
 
   get(params: string) {

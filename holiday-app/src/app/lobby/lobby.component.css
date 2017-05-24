@@ -34,6 +34,12 @@
     color: #656565;
 }
 
+.desc {
+    margin-top: -0.25em;
+    min-height: 4em;
+    max-height: 4em;
+}
+
 .form-horizontal {
     margin: 1em;
 }
@@ -143,7 +149,19 @@ button:disabled {
     border-color: #404040;
 }
 
+@media only screen and (max-width: 1200px) {
+    .desc {
+        min-height: 7em;
+        max-height: 7em;
+    }
+}
+
 @media only screen and (max-width: 768px) {
+    .desc {
+        min-height: 4em;
+        max-height: 4em;
+    }
+
     .glyphicon-thumbs-up, .glyphicon-thumbs-down, .glyphicon-remove {
         width: auto;
     }

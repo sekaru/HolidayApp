@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { Router } from '@angular/router';
@@ -16,8 +16,7 @@ export class LobbyComponent implements OnInit {
   showLink: number = -1;
   sortMode: number = 0;
   sorting: boolean;
-
-  @ViewChild('search') searchBar:ElementRef;
+  search: string = "";
 
   constructor(private api: ApiService, private router: Router) { }
 
@@ -60,7 +59,7 @@ export class LobbyComponent implements OnInit {
   }
 
   show(i: number) {
-    let search = this.searchBar.nativeElement.value.toLowerCase();
+    let search = this.search.toLowerCase();
 
     let link = this.places[i].link.toLowerCase();
     let price = this.places[i].price.toLowerCase();

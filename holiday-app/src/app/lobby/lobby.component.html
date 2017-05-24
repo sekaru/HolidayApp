@@ -37,16 +37,33 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="link">Link</label>  
             <div class="col-md-4">
-            <input #link name="link" type="text" placeholder="airbnb.co.uk/place/12345" class="form-control input-md" required="">
+            <input #link name="link" type="text" placeholder="airbnb.co.uk/rooms/123456" class="form-control input-md" required="">
             </div>
           </div>
 
           <!-- Price -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="price">Price</label>  
-            <div class="col-md-4">
-            <input #price type="text" placeholder="20.00" class="form-control input-md" required="">
-            <!--<span class="help-block">(Price per person)</span>  -->
+
+            <div class ="col-md-4">
+              <div class="input-group">
+                <!--Currency-->
+                <div class="input-group-btn" dropdown>
+                  <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+                    {{currency[currencyMode]}} <span class="caret"></span>
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <!--Loop through currency types-->
+                    <li *ngFor="let item of currency; let i = index" role="menuitem">
+                        <a class="dropdown-item" (click)="currencyMode=i">{{item}} {{currencyLabel[i]}}</a>
+                        <hr *ngIf="i!=currency.length-1">
+                    </li>
+                  </ul>
+                </div>
+
+                <input #price type="number" min="0" step="any" placeholder="20.00" class="form-control input-md" required="" maxlength="8">
+                <!--<span class="help-block">(Price per person)</span> -->
+              </div>
             </div>
           </div>
 
@@ -54,7 +71,8 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="desc">Description</label>
             <div class="col-md-4">                     
-              <textarea #desc (keyup.enter)="addPlace(link.value, price.value, desc.value)" class="form-control" placeholder="We should choose this because..." maxlength="140"></textarea>
+              <textarea [(ngModel)]="desc" name="desc" (keyup.enter)="addPlace(link.value, price.value)" class="form-control" placeholder="We should choose this because..." maxlength="140"></textarea>
+              <span *ngIf="desc.length>0" class="help-block" [style.color]="desc.length==140 ? '#d9534f' : ''">{{140-desc.length}}/140 characters remaining</span> 
             </div>
           </div>
 
@@ -62,7 +80,7 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="button1id"></label>
             <div class="col-md-8">
-              <button (click)="addPlace(link.value, price.value, desc.value)" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
+              <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
               <button (click)="addingPlace=false" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
             </div>
           </div>
@@ -70,7 +88,7 @@
     </div>
 
     
-    <div *ngIf="places.length>0">
+    <div *ngIf="places.length>0 || (places.length==0 && sorting)">
       <!--Search-->
       <input [(ngModel)]="search" type="text" class="form-control" placeholder="Search for...">
       
@@ -106,10 +124,10 @@
               <!--If it's new-->
               <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
               <!--Meta data-->
-              <span class="panel-title">£{{a.price}}</span>
+              <span class="panel-title">{{a.price}}</span>
               <span class="panel-title pull-right">Added by {{a.author}}</span>
               <hr>
-              <!--This is a placeholder description. You can add descriptions but I need to work out how to keep alignments with variable amounts of text-->
+              <!--Description-->
               <div class="desc">{{a.desc}}</div>
               <hr>
 

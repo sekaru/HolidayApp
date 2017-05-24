@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor(private http: Http) {
     this.title = "Just Pick Somewhere!";
-    this.address = "http://0.0.0.0:3000";
+    this.address = "http://35.156.58.36:3000";
   }
 
   get(params: string) {

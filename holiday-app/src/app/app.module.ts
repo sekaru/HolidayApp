@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { ClipboardModule } from 'ngx-clipboard';
-import { ModalModule, AlertModule, TooltipModule } from 'ngx-bootstrap';
+import { ModalModule, AlertModule, TooltipModule, BsDropdownModule } from 'ngx-bootstrap';
 
 import { routing } from './app.routing';
 import { ApiService } from './api.service';
@@ -37,7 +37,8 @@ import { RegisterModalComponent } from './who/register-modal/register-modal.comp
     ClipboardModule,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

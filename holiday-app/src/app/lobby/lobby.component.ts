@@ -2,28 +2,41 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { Router } from '@angular/router';
+import { CookieService } from 'ng2-cookies';
 
 @Component({
   selector: 'app-lobby',
+  providers: [CookieService],
   templateUrl: './lobby.component.html',
   styleUrls: ['./lobby.component.css']
 })
 export class LobbyComponent implements OnInit {
+  error: string = "";
+
   colour: string;
   places: any[] = [];
   addingPlace: boolean;
-  error: string = "";
   showLink: number = -1;
+
   sortMode: number = 0;
   sorting: boolean;
   search: string = "";
 
-  constructor(private api: ApiService, private router: Router) { }
+  currency: string[] = ['£', '$', '€'];
+  currencyLabel: string[] = ['GBP', 'USD', 'EUR'];
+  currencyMode = 0;
+
+  desc: string = "";
+
+  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.api.get('get-colour?lobby=' + this.api.lobbyID + '&name=' + this.api.name).subscribe(data => {
       this.colour = data.resp;
     });
+
+    // sort mode cookie
+    if(this.cookieService.check('sortmode')) this.sortMode = parseInt(this.cookieService.get('sortmode'));
 
     // update places every so often
     let timer = TimerObservable.create(1, 2500);
@@ -91,6 +104,8 @@ export class LobbyComponent implements OnInit {
     this.sortMode = mode;
     this.places = [];
     this.updatePlaces();
+
+    this.cookieService.set('sortmode', this.sortMode.toString());
   }
 
   checkCard(e:any, i:number) {
@@ -111,7 +126,7 @@ export class LobbyComponent implements OnInit {
   getVoteClass(place: any) {
     if(place.upvoters.indexOf(this.api.name)!=-1) return "btn-success";
     if(place.downvoters.indexOf(this.api.name)!=-1) return "btn-danger";
-    return "btn-default";
+    return "btn-default neutral";
   }
 
   getVoteString(place: any) {
@@ -122,17 +137,20 @@ export class LobbyComponent implements OnInit {
     return upvoters + downvoters;
   }
 
-  addPlace(link: string, price: string, desc: string) {
+  addPlace(link: string, price: string) {
     if(!link.startsWith('http://') && !link.startsWith('https://')) link = 'http://' + link;
 
-    let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: price, desc: desc};
+    let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: this.currency[this.currencyMode] + price, desc: this.desc};
 
     this.api.post('add-place', place).subscribe(data => {
       if(data.resp==true) {
         this.updatePlaces();
         this.addingPlace = false;
         this.error = "";
+        this.desc = "";
         window.scrollTo(0,0);
+
+        this.sort(this.sortMode);
       } else {
         this.error = data.msg;
       }
@@ -148,6 +166,8 @@ export class LobbyComponent implements OnInit {
   }
 
   logout() {
+    this.cookieService.delete('user');
+    this.cookieService.delete('sortmode');
     this.api.name = "";
     this.router.navigateByUrl('/who', { skipLocationChange: true })
   }

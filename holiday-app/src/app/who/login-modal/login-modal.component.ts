@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ApiService } from '../../api.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ng2-cookies';
 
 @Component({
   selector: 'login-modal',
+  providers: [CookieService],
   templateUrl: './login-modal.component.html',
   styleUrls: ['./login-modal.component.css']
 })
@@ -16,7 +18,7 @@ export class LoginModalComponent implements OnInit {
 
   @ViewChild('loginModal') public childModal:ModalDirective;
  
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
   }
@@ -38,6 +40,10 @@ export class LoginModalComponent implements OnInit {
         this.hideModal();
 
         this.api.name = this.name;
+
+        // add a cookie
+        this.cookieService.set('user', this.api.name);
+
         this.router.navigateByUrl('/lobby', { skipLocationChange: true });
       } else {
         this.error = data.msg;

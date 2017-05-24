@@ -156,9 +156,26 @@ app.post('/login', function (req, res) {
   }
 });
 
+// logging in (via cookie) 
+app.post('/cookie-login', function (req, res) {
+  
+  if(!req.body.lobby || !req.body.name) {
+    return res.json({resp: false, err: "err_missing_details", msg: "Nice try!"});
+  }
+
+  var user = db.get('users')
+                .find({name: req.body.name})
+                .value();
+
+  if(!user) return res.json({resp: false, err: "err_unknown_user", msg: "Couldn't find that user"});
+
+  console.log("User logged in (via cookie): " + JSON.stringify(req.body));
+  res.json({resp: true});
+});
+
 // adding a place
 app.post('/add-place', function (req, res) {
-  if(!req.body.link || req.body.link.length<=7 || !req.body.price) {
+  if(!req.body.link || req.body.link.length<=7 || !req.body.price || req.body.price.length<=1) {
     return res.json({resp: false, err: "err_missing_details", msg: "You haven't filled in all the required fields"})
   }
 
@@ -215,7 +232,7 @@ app.delete('/delete', function (req, res) {
     .remove({lobby: req.query.lobby, link: req.query.link})
     .write();
 
-  console.log('deleted: ' + JSON.stringify({lobby: req.query.lobby, link: req.query.link}));
+  console.log('Deleted place: ' + JSON.stringify({lobby: req.query.lobby, link: req.query.link}));
 
   res.json({resp: true});
 });
@@ -244,7 +261,7 @@ app.get('/get-places', function (req, res) {
                  .value();
 
   // price
-  places = sortByNum(places, "price");
+  places = sortPrice(places, "price");
   
   // ascending sort
   if(ascSorts.indexOf(parseInt(req.query.sort))!=-1) {
@@ -259,10 +276,11 @@ app.get('/get-places', function (req, res) {
   res.json(lobbyPlaces);
 });
 
-function sortByNum(array, key) {
+function sortPrice(array, key) {
     return array.sort(function(a, b) {
-        var x = parseInt(a[key]);
-        var y = parseInt(b[key]);
+        var x = a[key].length==1 ? 0 : parseInt(a[key].substring(1));
+        var y = b[key].length==1 ? 0 : parseInt(b[key].substring(1));
+
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 }

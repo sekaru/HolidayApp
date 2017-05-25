@@ -113,7 +113,7 @@
       <div *ngFor="let a of places; let i = index">
 
         <div class="col-sm-6 col-md-4" *ngIf="show(i)" [ngClass]="{new: showNewLabel(a)}">
-          <div class="thumbnail" [ngClass]="getVoteClass(a)=='btn-danger' ? 'downvoted' : ''">
+          <div class="thumbnail" [style.transform]="'rotate(' + a.rot + 'deg)'" [ngClass]="getVoteClass(a)=='btn-danger' ? 'downvoted' : ''">
             <!--Thumbnail/link-->
             <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
               <a href="{{a.link}}"><img class="thumbnail-img" [src]="a.image"></a>
@@ -128,8 +128,6 @@
               <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
               <button *ngIf="a.author==api.name" (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
               <hr>
-
-              
 
               <!--Description-->
               <div class="desc">{{a.desc}}</div>

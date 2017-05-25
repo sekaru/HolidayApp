@@ -149,8 +149,6 @@ export class LobbyComponent implements OnInit {
         this.error = "";
         this.desc = "";
         window.scrollTo(0,0);
-
-        this.sort(this.sortMode);
       } else {
         this.error = data.msg;
       }
@@ -158,7 +156,7 @@ export class LobbyComponent implements OnInit {
   }
 
   delete(index: number) {
-    this.api.delete('delete?lobby=' + this.api.lobbyID + '&link=' + this.places[index].link).subscribe(data => {
+    this.api.post('delete', {lobby: this.api.lobbyID, link: this.places[index].link}).subscribe(data => {;
       if(data.resp==true) {
         this.places.splice(index, 1);
       }

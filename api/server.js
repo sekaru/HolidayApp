@@ -186,10 +186,8 @@ app.post('/add-place', function (req, res) {
     return res.json({resp: false, err: "err_duplicate_place", msg: "That place is already in your lobby"});
   }
 
-  var colour = randColour();
-
   db.get('places')
-    .push({lobby: req.body.lobby, author: req.body.author, link: req.body.link, price: req.body.price, desc: req.body.desc, votes: 1, upvoters: [req.body.author], downvoters: [], image: ""})
+    .push({lobby: req.body.lobby, author: req.body.author, link: req.body.link, price: req.body.price, desc: req.body.desc, votes: 1, upvoters: [req.body.author], downvoters: [], rot: randRot(), image: ""})
     .write();
 
   var resolver = new ImageResolver();
@@ -215,13 +213,22 @@ app.post('/add-place', function (req, res) {
   });
 
   console.log("Added new place: " + JSON.stringify(req.body));
+
   res.json({resp: true});
 });
 
+function randRot() {
+  var min = -1.25;
+  var max = 1.25;
+  return Math.random() * (max - min) + min;
+}
+
 // deleting a place
-app.delete('/delete', function (req, res) {
+app.post('/delete', function (req, res) {
+  console.log(JSON.stringify(req.body));
+
   var place = db.get('places')
-                    .find({lobby: req.query.lobby, link: req.query.link})
+                    .find({lobby: req.body.lobby, link: req.body.link})
                     .value();
 
   if(!place) {
@@ -229,10 +236,10 @@ app.delete('/delete', function (req, res) {
   }
 
   db.get('places')
-    .remove({lobby: req.query.lobby, link: req.query.link})
+    .remove({lobby: req.body.lobby, link: req.body.link})
     .write();
 
-  console.log('Deleted place: ' + JSON.stringify({lobby: req.query.lobby, link: req.query.link}));
+  console.log('Deleted: ' + JSON.stringify({lobby: req.query.lobby, link: req.query.link}));
 
   res.json({resp: true});
 });

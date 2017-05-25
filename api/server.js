@@ -218,8 +218,8 @@ app.post('/add-place', function (req, res) {
 });
 
 function randRot() {
-  var min = -2.0;
-  var max = 2.0;
+  var min = -1.25;
+  var max = 1.25;
   return Math.random() * (max - min) + min;
 }
 

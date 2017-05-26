@@ -93,7 +93,7 @@
       <input [(ngModel)]="search" type="text" class="form-control" placeholder="Search for...">
       
       <!--Sorting options-->
-      <p>
+      <p id="sortOptions">
         Sort by: 
         <a [ngClass]="sortMode==0? 'curSort' : 'sortOpt'" (click)="sort(0)">newest</a> | 
         <a [ngClass]="sortMode==1? 'curSort' : 'sortOpt'" (click)="sort(1)">oldest</a> | 
@@ -122,7 +122,7 @@
 
             <div class="caption">
               <!--Amount of votes-->
-              <button [tooltip]="getVoteString(a)" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
+              <button [tooltip]="getVoteString(a)" class="votes btn btn-xs" placement="right" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
               <!--Voting buttons-->
               <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
               <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>

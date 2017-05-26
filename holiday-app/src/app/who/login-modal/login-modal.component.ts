@@ -38,7 +38,6 @@ export class LoginModalComponent implements OnInit {
     this.api.tryLogin({name: this.name, pass: password}).subscribe(data => {
       if(data.resp==true) {
         this.hideModal();
-
         this.api.name = this.name;
 
         // add a cookie

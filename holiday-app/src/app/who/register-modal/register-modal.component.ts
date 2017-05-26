@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ApiService } from '../../api.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ng2-cookies';
 
 @Component({
   selector: 'register-modal',
@@ -13,7 +14,7 @@ export class RegisterModalComponent implements OnInit {
 
   @ViewChild('registerModal') public childModal:ModalDirective;
 
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
   }
@@ -32,6 +33,10 @@ export class RegisterModalComponent implements OnInit {
       if(data.resp==true) {
         this.hideModal();
         this.api.name = registerName;
+
+        // add a cookie
+        this.cookieService.set('user', this.api.name);
+
         this.router.navigateByUrl('/lobby', { skipLocationChange: true });
       } else {
         this.error = data.msg;

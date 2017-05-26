@@ -23,7 +23,13 @@ export class HomeComponent implements OnInit {
             // go to that lobby
             this.cookieService.set('lobby', params[qp]);
             this.api.lobbyID = params[qp];
-            this.router.navigateByUrl('/who', { skipLocationChange: true });
+
+            if(this.cookieService.check('user')) {
+              this.cookieLogin();
+            } else {
+              this.router.navigate(['who'], { queryParams: {} });
+              this.router.navigateByUrl('/who', { skipLocationChange: true });
+            }
             return;
           } else {
             this.checkCookies();
@@ -41,19 +47,23 @@ export class HomeComponent implements OnInit {
       this.api.lobbyID = this.cookieService.get('lobby');
       
       if(this.cookieService.check('user')) {
-        this.api.name = this.cookieService.get('user');
-
-        // tell the API we logged in via a cookie
-        this.api.post('cookie-login', {lobby: this.api.lobbyID, name: this.api.name}).subscribe(data => {
-          if(data.resp==true) {
-            this.router.navigateByUrl('/lobby', { skipLocationChange: true });
-          } else {
-            this.cookieService.delete('user');
-          }
-        });
+        this.cookieLogin();
       } else {
         this.router.navigateByUrl('/who', { skipLocationChange: true });
       }
     }
+  }
+
+  cookieLogin() {
+    this.api.name = this.cookieService.get('user');
+
+    // tell the API we logged in via a cookie
+    this.api.post('cookie-login', {lobby: this.api.lobbyID, name: this.api.name}).subscribe(data => {
+      if(data.resp==true) {
+        this.router.navigateByUrl('/lobby', { skipLocationChange: true, queryParams: {} });
+      } else {
+        this.cookieService.delete('user');
+      }
+    });
   }
 }

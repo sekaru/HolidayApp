@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "API for Just Pick Somewhere",
+  "description": "API for Just Pick It",
   "main": "server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",

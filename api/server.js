@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 var server = app.listen(3000, "0.0.0.0", function () {
   var port = server.address().port;
-  console.log("JPS API listening on port " + port);
+  console.log("JPI listening on port " + port);
 });
 
 // set defaults

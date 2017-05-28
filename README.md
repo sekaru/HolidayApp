@@ -6,6 +6,9 @@ Create a lobby for your holiday and add links to potential destinations and acco
 ## Live demo
 http://justpick.it
 
+## Todo list
+https://trello.com/b/FEH6GJCb/just-pick-it
+
 ## Built with
 Front-end: Angular4, Bootstrap
 

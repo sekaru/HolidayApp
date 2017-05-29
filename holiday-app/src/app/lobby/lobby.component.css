@@ -75,11 +75,6 @@
     filter: brightness(50%) saturate(1.5);
 }
 
-hr {
-    width: 100%;
-    margin: 0.5em 0;
-}
-
 h2 { 
    position: absolute; 
    top: 30%; 
@@ -90,13 +85,17 @@ h2 {
    text-shadow: 0 0 3px black;
 }
 
+hr {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
 .desc {
     color: #666;
     font-size: 0.9em;
     margin-bottom: 0.5em;
     min-height: 5.5em;
     max-height: 5.5em;
-    overflow: scroll;
 }
 
 .votes {
@@ -147,6 +146,14 @@ button:disabled {
 .neutral:hover {
     background-color: #505050;
     border-color: #404040;
+}
+
+.author {
+    cursor: pointer;
+}
+
+.author:hover {
+    border-bottom: 0.1em solid #ddd;
 }
 
 @media only screen and (max-width: 768px) {

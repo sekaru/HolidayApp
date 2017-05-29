@@ -17,6 +17,7 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { WhoComponent } from './who/who.component';
 import { LoginModalComponent } from './who/login-modal/login-modal.component';
 import { RegisterModalComponent } from './who/register-modal/register-modal.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RegisterModalComponent } from './who/register-modal/register-modal.comp
     LobbyComponent,
     WhoComponent,
     LoginModalComponent,
-    RegisterModalComponent
+    RegisterModalComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

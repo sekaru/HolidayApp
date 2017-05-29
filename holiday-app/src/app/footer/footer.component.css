@@ -1,0 +1,19 @@
+.navbar {
+    padding: 1em;
+    color: white;
+    background-color: #222;
+}
+
+.sep {
+    color: #666;
+}
+
+a {
+    color: white;
+}
+
+@media only screen and (max-width: 768px) {
+    .pull-right {
+        display: none;
+    }
+}

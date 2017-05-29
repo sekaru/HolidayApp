@@ -246,6 +246,15 @@ app.post('/delete', function (req, res) {
 
 // get places
 app.get('/get-places', function (req, res) {
+  var places = db.get('places')
+                 .sortBy(sort)
+                 .value();
+
+  var lobbyPlaces = [];
+  for(var i=0; i<places.length; i++) {
+    if(places[i].lobby==req.query.lobby) lobbyPlaces.push(places[i]);
+  }
+
   var sort = '';
   var ascSorts = [1, 3, 4];
 
@@ -263,21 +272,12 @@ app.get('/get-places', function (req, res) {
       break;
   }
 
-  var places = db.get('places')
-                 .sortBy(sort)
-                 .value();
-
   // price
-  places = sortPrice(places, "price");
+  if(sort=='price') lobbyPlaces = sortPrice(lobbyPlaces, sort);
   
   // ascending sort
   if(ascSorts.indexOf(parseInt(req.query.sort))!=-1) {
-    places.reverse();
-  }
-
-  var lobbyPlaces = [];
-  for(var i=0; i<places.length; i++) {
-    if(places[i].lobby==req.query.lobby) lobbyPlaces.push(places[i]);
+    lobbyPlaces.reverse();
   }
 
   res.json(lobbyPlaces);
@@ -285,8 +285,8 @@ app.get('/get-places', function (req, res) {
 
 function sortPrice(array, key) {
     return array.sort(function(a, b) {
-        var x = a[key].length==1 ? 0 : parseInt(a[key].substring(1));
-        var y = b[key].length==1 ? 0 : parseInt(b[key].substring(1));
+        var x = parseInt(a[key].substring(1));
+        var y = parseInt(b[key].substring(1));
 
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });

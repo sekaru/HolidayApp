@@ -99,11 +99,11 @@ hr {
 }
 
 .votes {
-    cursor: help;
     font-weight: 800;
     margin-top: 1px;
     width: 3em;
     text-align: center;
+    cursor: pointer;
 }
 
 button:disabled {

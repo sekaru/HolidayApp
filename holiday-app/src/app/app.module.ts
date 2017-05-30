@@ -18,6 +18,7 @@ import { WhoComponent } from './who/who.component';
 import { LoginModalComponent } from './who/login-modal/login-modal.component';
 import { RegisterModalComponent } from './who/register-modal/register-modal.component';
 import { FooterComponent } from './footer/footer.component';
+import { VoteModalComponent } from './lobby/vote-modal/vote-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { FooterComponent } from './footer/footer.component';
     WhoComponent,
     LoginModalComponent,
     RegisterModalComponent,
-    FooterComponent
+    FooterComponent,
+    VoteModalComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,6 @@ import { FooterComponent } from './footer/footer.component';
     ClipboardModule,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    TooltipModule.forRoot(),
     BsDropdownModule.forRoot()
   ],
   providers: [ApiService],

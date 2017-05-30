@@ -5,7 +5,7 @@ body {
 
 .spinner {
   border: 10px solid sandybrown;
-  border-bottom: 10px solid #ccc;
+  border-bottom: 10px solid rgba(1, 1, 1, 0);
   border-radius: 100%;
   width: 100px;
   height: 100px;

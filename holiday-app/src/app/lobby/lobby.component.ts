@@ -129,14 +129,6 @@ export class LobbyComponent implements OnInit {
     return "btn-default neutral";
   }
 
-  getVoteString(place: any) {
-    let upvoters = place.upvoters.length==0 ? "" : "Upvoted by: " + place.upvoters.join(', ');
-    let downvoters = place.downvoters.length==0 ? "" : " Downvoted by: " + place.downvoters.join(', ');
-    if(upvoters.length>0 && downvoters.length>0) upvoters += ".\n";
-
-    return upvoters + downvoters;
-  }
-
   addPlace(link: string, price: string) {
     if(!link.startsWith('http://') && !link.startsWith('https://')) link = 'http://' + link;
 

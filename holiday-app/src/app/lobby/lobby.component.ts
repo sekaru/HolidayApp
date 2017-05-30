@@ -155,6 +155,10 @@ export class LobbyComponent implements OnInit {
     });
   }
 
+  randomiser() {
+    this.router.navigateByUrl('/random', { skipLocationChange: true });
+  }
+
   logout() {
     this.cookieService.delete('user');
     this.cookieService.delete('sortmode');

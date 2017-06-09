@@ -24,9 +24,10 @@ export class LobbyComponent implements OnInit {
 
   currency: string[] = ['£', '$', '€'];
   currencyLabel: string[] = ['GBP', 'USD', 'EUR'];
-  currencyMode = 0;
+  currencyMode: number = 0;
 
   desc: string = "";
+  price: string = "";
 
   constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
 
@@ -69,6 +70,14 @@ export class LobbyComponent implements OnInit {
       if(this.places[i].link==data.link) return i;
     }
     return -1;
+  }
+
+  pricePress(event: any) {
+    let max: number = 9;
+
+    if(this.price.length>=max) {
+      this.price = this.price.substr(0, max);
+    }
   }
 
   show(i: number) {
@@ -129,10 +138,10 @@ export class LobbyComponent implements OnInit {
     return "btn-default neutral";
   }
 
-  addPlace(link: string, price: string) {
+  addPlace(link: string) {
     if(!link.startsWith('http://') && !link.startsWith('https://')) link = 'http://' + link;
 
-    let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: this.currency[this.currencyMode] + price, desc: this.desc};
+    let place = {lobby: this.api.lobbyID, author: this.api.name, link: link, price: this.currency[this.currencyMode] + this.price, desc: this.desc};
 
     this.api.post('add-place', place).subscribe(data => {
       if(data.resp==true) {

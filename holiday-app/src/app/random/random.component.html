@@ -12,16 +12,19 @@
     <p>Your Lobby code is: <strong>{{api.lobbyID}}</strong></p>
 
     <!--Description-->
-    <p>Still can't decide? You should just this place:</p>
+    <p>Still can't decide? You should just pick this place:</p>
 
     <div class="thumb-container">
-      <div *ngIf="r!=-1" class="thumbnail" [style.transform]="'rotate(' + places[r].rot + 'deg)'">
+      <div *ngIf="r!=-1" class="thumbnail">
           <!--Thumbnail/link-->
           <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
             <a *ngIf="sub && sub.closed" href="{{places[r].link}}" target="_blank"><img class="thumbnail-img" [src]="places[r].image"></a>
             <img *ngIf="sub && !sub.closed" (click)="stop(); showLink=0" class="thumbnail-img" [src]="places[r].image">
 
-            <h2 *ngIf="showLink!=-1"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>View</h2>
+            <div *ngIf="showLink!=-1">
+              <h2 *ngIf="sub && sub.closed"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>View</h2>
+              <h2 *ngIf="sub && !sub.closed"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span>Stop</h2>
+            </div>
           </div>
 
           <div class="caption">

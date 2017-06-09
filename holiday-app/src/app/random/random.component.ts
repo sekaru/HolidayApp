@@ -29,11 +29,7 @@ export class RandomComponent implements OnInit {
   }
 
   checkCard(e:any, i:number) {
-    if(this.sub.closed) {
-      this.showLink = e.type == 'mouseover' ? i : -1;
-    } else {
-      this.showLink = -1;
-    }
+    this.showLink = e.type == 'mouseover' ? i : -1;
   }
 
   start() {

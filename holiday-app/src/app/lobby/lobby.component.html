@@ -18,7 +18,7 @@
       <!--Adding-->
       <button (click)="addingPlace=true" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New place</button>
       <!--Randomiser-->
-      <button (click)="randomiser()" type="button" class="btn btn-info"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Randomiser</button>
+      <button *ngIf="places.length>0" (click)="randomiser()" type="button" class="btn btn-info"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Randomiser</button>
       <br><br>
     </div>
 
@@ -63,7 +63,7 @@
                   </ul>
                 </div>
 
-                <input #price type="number" min="0" step="any" placeholder="20.00" class="form-control" required="" maxlength="8">
+                <input [(ngModel)]="price" name="price" (keypress)="pricePress($event)" placeholder="20.00" class="form-control" required="">
                 <!--<span class="help-block">(Price per person)</span> -->
               </div>
             </div>
@@ -73,7 +73,7 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="desc">Description</label>
             <div class="col-md-4">                     
-              <textarea [(ngModel)]="desc" name="desc" (keyup.enter)="addPlace(link.value, price.value)" class="form-control" placeholder="We should choose this place because it's really close to the beach!" maxlength="140"></textarea>
+              <textarea [(ngModel)]="desc" name="desc" (keyup.enter)="addPlace(link.value)" class="form-control" placeholder="We should choose this place because it's really close to the beach!" maxlength="140"></textarea>
               <span *ngIf="desc.length>0" class="help-block" [style.color]="desc.length==140 ? '#d9534f' : ''">{{140-desc.length}}/140 characters remaining</span> 
             </div>
           </div>
@@ -82,7 +82,7 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="button1id"></label>
             <div class="col-md-8">
-              <button (click)="addPlace(link.value, price.value)" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
+              <button (click)="addPlace(link.value)" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done</button>
               <button (click)="addingPlace=false" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
             </div>
           </div>

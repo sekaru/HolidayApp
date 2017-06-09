@@ -246,15 +246,6 @@ app.post('/delete', function (req, res) {
 
 // get places
 app.get('/get-places', function (req, res) {
-  var places = db.get('places')
-                 .sortBy(sort)
-                 .value();
-
-  var lobbyPlaces = [];
-  for(var i=0; i<places.length; i++) {
-    if(places[i].lobby==req.query.lobby) lobbyPlaces.push(places[i]);
-  }
-
   var sort = '';
   var ascSorts = [1, 3, 4];
 
@@ -270,6 +261,15 @@ app.get('/get-places', function (req, res) {
     case 4:
       sort = 'price';
       break;
+  }
+
+  var places = db.get('places')
+                 .sortBy(sort)
+                 .value();
+
+  var lobbyPlaces = [];
+  for(var i=0; i<places.length; i++) {
+    if(places[i].lobby==req.query.lobby) lobbyPlaces.push(places[i]);
   }
 
   // price

@@ -1,4 +1,4 @@
-.avatar {
+.bubble {
     /*width: 11em;
     height: 11em;*/
     width: 100%;
@@ -10,7 +10,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .avatar {
+    .bubble {
         width: 100%;
         height: 3em;
     }

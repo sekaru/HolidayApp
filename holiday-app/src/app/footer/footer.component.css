@@ -2,7 +2,7 @@
     border: none;
     padding: 1em;
     background: none;
-    font-weight: 500;
+    text-align: center;
 }
 
 .sep {
@@ -10,11 +10,15 @@
 }
 
 a {
-    color: #222;
+    color: #333;
 }
 
 @media only screen and (max-width: 768px) {
-    .pull-right {
+    .cookies {
         display: none;
+    }
+
+    .navbar {
+        /*display: none;*/
     }
 }

@@ -18,7 +18,6 @@
       <div *ngIf="r!=-1" class="thumbnail">
           <!--Thumbnail/link-->
           <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
-            <!--<a *ngIf="sub && sub.closed" href="{{places[r].link}}" target="_blank"><img class="thumbnail-img" [src]="places[r].image"></a>-->
             <img *ngIf="sub && sub.closed" (click)="start()" class="thumbnail-img" [src]="places[r].image">
             <img *ngIf="sub && !sub.closed" (click)="stop()" class="thumbnail-img" [src]="places[r].image">
           </div>

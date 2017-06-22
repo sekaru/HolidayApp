@@ -1,16 +1,16 @@
 .navbar {
     border: none;
     padding: 1em;
-    color: white;
-    background-color: #222;
+    background: none;
+    font-weight: 500;
 }
 
 .sep {
-    color: #666;
+    color: #bbb;
 }
 
 a {
-    color: white;
+    color: #222;
 }
 
 @media only screen and (max-width: 768px) {

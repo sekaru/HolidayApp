@@ -12,7 +12,6 @@ export class RandomComponent implements OnInit {
   colour: string;
   places: any[] = [];
   r: number = -1;
-  showLink: number = -1;
   sub: any;
 
   constructor(private api: ApiService, private router: Router) { }
@@ -26,10 +25,6 @@ export class RandomComponent implements OnInit {
       this.places = data;
       this.start();
     });
-  }
-
-  checkCard(e:any, i:number) {
-    this.showLink = e.type == 'mouseover' ? i : -1;
   }
 
   start() {

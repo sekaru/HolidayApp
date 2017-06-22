@@ -147,8 +147,9 @@ export class LobbyComponent implements OnInit {
       if(data.resp==true) {
         this.updatePlaces();
         this.addingPlace = false;
-        this.error = "";
-        this.desc = "";
+        this.error = this.desc = "";
+        this.price = null;
+
         window.scrollTo(0,0);
       } else {
         this.error = data.msg;

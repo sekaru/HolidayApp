@@ -3,6 +3,11 @@ body {
   background-repeat: repeat;
 }
 
+hr {
+  width: 100%;
+  margin: 0.5em 0;
+}
+
 .spinner {
   border: 10px solid sandybrown;
   border-bottom: 10px solid rgba(1, 1, 1, 0);

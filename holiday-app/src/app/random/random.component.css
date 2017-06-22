@@ -1,3 +1,8 @@
+h4 {
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
 .thumb-container {
     width: 60%;
     margin: 0 auto;
@@ -25,18 +30,8 @@
 }
 
 .thumbnail-img:hover, .thumbnail-img:active {
-    -webkit-filter: brightness(50%) saturate(1.5);
-    filter: brightness(50%) saturate(1.5);
-}
-
-h2 { 
-   position: absolute; 
-   top: 42%; 
-   width: 100%;
-   text-align: center; 
-   color: white;
-   pointer-events: none;
-   text-shadow: 0 0 3px black;
+    -webkit-filter: saturate(1.4);
+    filter: saturate(1.4);
 }
 
 .desc {
@@ -54,5 +49,9 @@ h2 {
     .thumbnail-img {
         max-height: 30vh;
         min-height: 30vh;
+    }
+
+    .view {
+        text-align: center;
     }
 }

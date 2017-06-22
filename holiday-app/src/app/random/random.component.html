@@ -18,18 +18,22 @@
       <div *ngIf="r!=-1" class="thumbnail">
           <!--Thumbnail/link-->
           <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
-            <a *ngIf="sub && sub.closed" href="{{places[r].link}}" target="_blank"><img class="thumbnail-img" [src]="places[r].image"></a>
-            <img *ngIf="sub && !sub.closed" (click)="stop(); showLink=0" class="thumbnail-img" [src]="places[r].image">
-
-            <div *ngIf="showLink!=-1">
-              <h2 *ngIf="sub && sub.closed"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>View</h2>
-              <h2 *ngIf="sub && !sub.closed"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span>Stop</h2>
-            </div>
+            <!--<a *ngIf="sub && sub.closed" href="{{places[r].link}}" target="_blank"><img class="thumbnail-img" [src]="places[r].image"></a>-->
+            <img *ngIf="sub && sub.closed" (click)="start()" class="thumbnail-img" [src]="places[r].image">
+            <img *ngIf="sub && !sub.closed" (click)="stop()" class="thumbnail-img" [src]="places[r].image">
           </div>
 
           <div class="caption">
             <!--Description-->
-            <div class="desc">{{places[r].desc}}</div>
+            <div class="desc">
+                {{places[r].desc}}
+                <div [style.visibility]="sub && sub.closed ? 'visible': 'hidden'">
+                  <hr>
+                  <a href="{{places[r].link}}" target="_blank">
+                    <h4 class="view"><strong>View this place</strong></h4>
+                  </a>
+                </div>
+            </div>
           </div>
       </div>
     </div>

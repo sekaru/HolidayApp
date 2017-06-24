@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var low = require('lowdb');
 var ImageResolver = require('image-resolver');
 var bcrypt = require('bcryptjs');
+var randomColor = require('randomColor');
 var app = express();
 
 app.use(cors());
@@ -88,7 +89,7 @@ app.post('/register', function (req, res) {
     bcrypt.hash(req.body.pass, salt, function(err, hash) {
 
         // push them to the db
-        var colour = randColour();
+        var colour = randomColor();
         db.get('users')
           .push({lobby: req.body.lobby, name: req.body.name, pass: hash, colour: colour})
           .write();
@@ -98,15 +99,6 @@ app.post('/register', function (req, res) {
     });
   });
 });
-
-function randColour() {
-    var letters = '123456789ABCD';
-    var color = '#';
-    for (var i=0; i<6; i++) {
-        color += letters[Math.floor(Math.random() * letters.length)];
-    }
-    return color;
-}
 
 // get users
 app.get('/get-users', function (req, res) {

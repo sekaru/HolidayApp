@@ -22,13 +22,12 @@ export class WhoComponent implements OnInit {
   }
 
   getColour(index: number) {
-    let colour = this.users[index].colour;
-    return this.loginHover == index ? this.shadeColour(colour, -10) : colour;
+    return this.users[index].colour;
   }
 
   getBorder(index: number) {
-    let colour = this.shadeColour(this.getColour(index), -25);
-    return '0.2em solid ' + colour;
+    let colour = this.shadeColour(this.getColour(index), -5);
+    return '0.15em solid ' + colour;
   }
 
   shadeColour(color: string, percent: number) {

@@ -3,14 +3,18 @@
     <div class="title">{{api.title}}</div>
     <br>
 
-    <p>Your Lobby code is: <strong>{{api.lobbyID}}</strong></p>
+    <p>Your lobby code is: <strong>{{api.lobbyID}}</strong></p>
+
     <div *ngIf="users.length!=0">
       <p>Who are you?</p>
+
       <div *ngIf="users.length!=0" class="row">
         <div class="col-md-2" *ngFor="let user of users; let i = index" (click)="loginModal.showModal(user.name)">
-          <div class="bubble" [style.border]="loginHover==i ? getBorder(i) : 'none'" (mouseenter)="loginMouseEnter(i)" (mouseleave)="loginMouseLeave(i)"
-          [style.background-color]="getColour(i)"><span class="name" [style.font-weight]="loginHover==i ? 500 : 400">{{user.name}}</span></div>
-          <br/>
+
+          <div class="bubble" [style.border]="loginHover==i ? getBorder(i) : 'none'" (mouseenter)="loginMouseEnter(i)" (mouseleave)="loginMouseLeave(i)" [style.background-color]="getColour(i)">
+            <span class="name" [style.font-weight]="loginHover==i ? 500 : 400">{{user.name}}</span>
+          </div>
+
         </div>
       </div>
       <br>

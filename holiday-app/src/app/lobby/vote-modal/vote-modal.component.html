@@ -11,7 +11,7 @@
             <div *ngIf="place" class="modal-body">
               <!--Upvoters-->
               <div *ngIf="place.upvoters.length>0">
-                <strong>Upvoted by</strong><br>
+                <span class="panel-title">Upvoted by</span><br>
     
                 <span *ngFor="let s of place.upvoters">
                   {{s}}
@@ -23,7 +23,7 @@
               <div *ngIf="place.downvoters.length>0">
                 <br *ngIf="place.upvoters.length>0">
 
-                <strong>Downvoted by</strong><br>
+                <span class="panel-title">Downvoted by</span><br>
     
                 <span *ngFor="let s of place.downvoters">
                   {{s}}

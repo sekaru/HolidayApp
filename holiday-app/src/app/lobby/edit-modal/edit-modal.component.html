@@ -1,0 +1,27 @@
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Edit Place</h4>
+            </div>
+
+            <div *ngIf="place" class="modal-body">
+              <div *ngIf="error.length!=0">
+                    <alert type="danger">
+                        <strong>Error:</strong> {{error}}
+                    </alert>
+                </div>
+                
+                <a href="{{link}}">{{link}}</a><br/><hr><br/>
+                <span class="panel-title">Image</span><br/> <input class="form-control" [(ngModel)]="image" placeholder="Choose a new image URL"><br/><br/>
+                <span class="panel-title">Price ({{currency}})</span><br/> <input class="form-control" [(ngModel)]="price" (keypress)="pricePress($event)" placeholder="Set a new price"><br/><br/>
+                <span class="panel-title">Description ({{140-desc.length}}/140)</span><br/> <textarea class="form-control" [(ngModel)]="desc" (keyup.enter)="update()" placeholder="Choose a new description" maxlength="140"></textarea><br/>
+                
+                <button (click)="update()" class="btn btn-primary btn-modal" role="button">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

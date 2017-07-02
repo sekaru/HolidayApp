@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var low = require('lowdb');
 var ImageResolver = require('image-resolver');
 var bcrypt = require('bcryptjs');
-var randomColor = require('randomColor');
+var randomColor = require('randomcolor');
 var app = express();
 
 app.use(cors());
@@ -172,10 +172,18 @@ app.post('/add-place', function (req, res) {
   }
 
   var duplicate = db.get('places')
-                    .find({lobby: req.body.lobby, author: req.body.author, link: req.body.link})
-                    .value();
-  if(duplicate) {
-    return res.json({resp: false, err: "err_duplicate_place", msg: "That place is already in your lobby"});
+                    .find({lobby: req.body.lobby, author: req.body.author, link: req.body.link});
+
+  var fallback = "https://unsplash.it/1280/720?image=" + (10 + Math.floor(Math.random()*200));
+
+  if(duplicate.value()) {
+    // return res.json({resp: false, err: "err_duplicate_place", msg: "That place is already in your lobby"});
+    if(!req.body.image) req.body.image = fallback;
+
+    duplicate.assign({link: req.body.link, price: req.body.price, desc: req.body.desc, image: req.body.image})
+             .write();
+
+    return res.json({resp: true});
   }
 
   db.get('places')
@@ -187,7 +195,6 @@ app.post('/add-place', function (req, res) {
   resolver.register(new ImageResolver.MimeType());
   resolver.register(new ImageResolver.Opengraph());
   resolver.register(new ImageResolver.Webpage());
-  var fallback = "https://unsplash.it/1280/720?image=" + Math.floor(Math.random()*1000);
 
   resolver.resolve(req.body.link, function (result) {
       if(result) {

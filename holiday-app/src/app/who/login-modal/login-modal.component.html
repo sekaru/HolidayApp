@@ -15,7 +15,7 @@
                     </alert>
                 </div>
 
-                Password:<br/> <input #pass (keyup.enter)="tryLogin(pass.value)" placeholder="Password" type="password"><br/><br/>
+                <span class="panel-title">Password</span><br/> <input #pass class="form-control" (keyup.enter)="tryLogin(pass.value)" placeholder="Enter your password" type="password"><br/>
                 <button (click)="tryLogin(pass.value)" class="btn btn-primary btn-modal" role="button">Login</button>
             </div>
         </div>

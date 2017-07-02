@@ -20,6 +20,7 @@ import { RegisterModalComponent } from './who/register-modal/register-modal.comp
 import { FooterComponent } from './footer/footer.component';
 import { VoteModalComponent } from './lobby/vote-modal/vote-modal.component';
 import { RandomComponent } from './random/random.component';
+import { EditModalComponent } from './lobby/edit-modal/edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RandomComponent } from './random/random.component';
     RegisterModalComponent,
     FooterComponent,
     VoteModalComponent,
-    RandomComponent
+    RandomComponent,
+    EditModalComponent
   ],
   imports: [
     BrowserModule,

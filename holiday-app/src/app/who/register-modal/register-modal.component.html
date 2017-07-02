@@ -9,16 +9,17 @@
             </div>
 
             <div class="modal-body">
-                <div *ngIf="error.length!=0">
+                <div *ngIf="error">
                     <alert type="danger">
                         <strong>Error:</strong> {{error}}
                     </alert>
                 </div>
                 
-                Name:<br/> <input #name placeholder="Name" [maxLength]="10"><br/><br/>
-                Password:<br/> <input #pass (keyup.enter)="registerUser(name.value, pass.value)" placeholder="Password" type="password"><br/><br/>
+                <span class="panel-title">Name</span><br/> <input #name class="form-control" placeholder="Enter your name" [maxLength]="10"><br/><br/>
+                <span class="panel-title">Password</span><br/> <input #pass class="form-control" placeholder="Choose a password" type="password"><br/><br/>
+                <span class="panel-title">Confirm Password</span><br/> <input class="form-control" #pass2 (keyup.enter)="registerUser(name.value, pass.value, pass2.value)" placeholder="Confirm your password" type="password"><br/>
 
-                <button (click)="registerUser(name.value, pass.value)" class="btn btn-primary btn-modal" role="button">Register</button>
+                <button (click)="registerUser(name.value, pass.value, pass2.value)" class="btn btn-primary btn-modal" role="button">Register</button>
             </div>
         </div>
     </div>

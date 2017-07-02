@@ -26,12 +26,12 @@
             <!--Description-->
             <div class="desc">
                 {{places[r].desc}}
-                <div [style.visibility]="sub && sub.closed ? 'visible': 'hidden'">
-                  <hr>
-                  <a href="{{places[r].link}}" target="_blank">
-                    <h4 class="view"><strong>View this place</strong></h4>
+                <span [style.visibility]="sub && sub.closed ? 'visible': 'hidden'">
+                   - 
+                  <a href="{{places[r].link}}" class="view" target="_blank">
+                    <strong>View this place</strong>
                   </a>
-                </div>
+                </span>
             </div>
           </div>
       </div>

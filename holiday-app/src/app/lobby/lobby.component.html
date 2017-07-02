@@ -134,6 +134,7 @@
               <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
               <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
               <button *ngIf="a.author==api.name" (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
+              <button *ngIf="a.author==api.name" (click)="editModal.showModal(a)" class="btn btn-primary btn-xs glyphicon glyphicon-edit pull-right" aria-hidden="true"></button>
               <hr>
 
               <!--Description-->
@@ -155,6 +156,7 @@
     <!--Logout button-->
     <button *ngIf="!sorting" (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</button>
   
+    <edit-modal #editModal></edit-modal>
     <vote-modal #voteModal></vote-modal>
   </div>
 </div>

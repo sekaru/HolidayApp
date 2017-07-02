@@ -55,6 +55,8 @@ export class LobbyComponent implements OnInit {
           this.places.unshift(data[i]);
         } else {
           this.places[dupe].image = data[i].image;
+          this.places[dupe].price = data[i].price;
+          this.places[dupe].desc = data[i].desc;
           this.places[dupe].votes = data[i].votes;
           this.places[dupe].upvoters = data[i].upvoters;
           this.places[dupe].downvoters = data[i].downvoters;

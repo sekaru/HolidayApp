@@ -28,11 +28,16 @@ export class RegisterModalComponent implements OnInit {
     this.childModal.hide();
   }
 
-  registerUser(registerName: string, registerPass: string) {
-    this.api.registerUser({lobby: this.api.lobbyID, name: registerName, pass: registerPass}).subscribe(data => {
+  registerUser(name: string, pass: string, pass2: string) {
+    if(pass!=pass2) {
+      this.error = "Those passwords don't match";
+      return;
+    }
+
+    this.api.registerUser({lobby: this.api.lobbyID, name: name, pass: pass}).subscribe(data => {
       if(data.resp==true) {
         this.hideModal();
-        this.api.name = registerName;
+        this.api.name = name;
 
         // add a cookie
         this.cookieService.set('user', this.api.name);

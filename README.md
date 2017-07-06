@@ -1,19 +1,16 @@
 # Just Pick It
-A simple holiday planning web app.
+A simple app for indecisive holiday planners.
 
 Create a lobby for your holiday and add links to potential destinations and accommodations. Give out your lobby code to friends so they can add their own places and vote on other locations too.
 
 ## Live demo
 http://justpick.it
 
-## Todo list
-https://trello.com/b/FEH6GJCb/just-pick-it
-
 ## Built with
 Front-end: Angular4, Bootstrap
 
-Back-end: Node, Express, LowDB
+Back-end: Node, Express, [LowDB](https://github.com/typicode/lowdb)
 
 ## Other libraries
-Bcrypt, Image-Resolver, ng2-cookies, ngx-bootstrap, ngx-clipboard
+[Bcrypt](https://www.npmjs.com/package/bcrypt-nodejs), [Image-Resolver](https://www.npmjs.com/package/image-resolver), [ng2-cookies](https://www.npmjs.com/package/ng2-cookies), [ngx-bootstrap](https://www.npmjs.com/package/ngx-bootstrap), [ngx-clipboard](https://www.npmjs.com/package/ngx-clipboard), [randomColor](https://www.npmjs.com/package/randomcolor)
 

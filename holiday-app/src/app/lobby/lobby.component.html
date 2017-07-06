@@ -101,11 +101,11 @@
       
       <!--Sorting options-->
       <p id="sortOptions">
-        Sort by: 
-        <a [ngClass]="sortMode==0? 'curSort' : 'sortOpt'" (click)="sort(0)">newest</a> | 
-        <a [ngClass]="sortMode==1? 'curSort' : 'sortOpt'" (click)="sort(1)">oldest</a> | 
-        <a [ngClass]="sortMode==2? 'curSort' : 'sortOpt'" (click)="sort(2)">best</a> | 
-        <a [ngClass]="sortMode==3? 'curSort' : 'sortOpt'" (click)="sort(3)">worst</a> |
+        <!--Sort by -->
+        <a [ngClass]="sortMode==0? 'curSort' : 'sortOpt'" (click)="sort(0)">newest</a>
+        <a [ngClass]="sortMode==1? 'curSort' : 'sortOpt'" (click)="sort(1)">oldest</a>
+        <a [ngClass]="sortMode==2? 'curSort' : 'sortOpt'" (click)="sort(2)">best</a>
+        <a [ngClass]="sortMode==3? 'curSort' : 'sortOpt'" (click)="sort(3)">worst</a>
         <a [ngClass]="sortMode==4? 'curSort' : 'sortOpt'" (click)="sort(4)">price</a>
       </p>
     </div>

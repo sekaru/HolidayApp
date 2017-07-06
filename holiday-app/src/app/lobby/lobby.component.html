@@ -73,7 +73,7 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="desc">Description</label>
             <div class="col-md-4">                     
-              <textarea [(ngModel)]="desc" name="desc" (keyup.enter)="addPlace(link.value)" class="form-control" placeholder="We should choose this place because it's really close to the beach!" maxlength="140"></textarea>
+              <textarea [(ngModel)]="desc" name="desc" class="form-control" placeholder="We should choose this place because it's really close to the beach!" maxlength="140"></textarea>
               <span *ngIf="desc.length>0" class="help-block" [style.color]="desc.length==140 ? '#d9534f' : ''">{{140-desc.length}}/140 characters remaining</span> 
             </div>
           </div>

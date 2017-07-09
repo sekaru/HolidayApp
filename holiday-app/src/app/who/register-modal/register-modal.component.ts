@@ -40,7 +40,7 @@ export class RegisterModalComponent implements OnInit {
         this.api.name = name;
 
         // add a cookie
-        this.cookieService.set('user', this.api.name);
+        this.cookieService.set('user', this.api.name, 365);
 
         this.router.navigateByUrl('/lobby', { skipLocationChange: true });
       } else {

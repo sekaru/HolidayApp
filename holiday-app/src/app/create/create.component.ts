@@ -42,7 +42,7 @@ export class CreateComponent implements OnInit {
 
   joinLobby() {
     // add a cookie
-    if(this.api.lobbyID) this.cookieService.set('lobby', this.api.lobbyID);
+    if(this.api.lobbyID) this.cookieService.set('lobby', this.api.lobbyID, 365);
 
     this.router.navigateByUrl('/who', { skipLocationChange: true });
   }

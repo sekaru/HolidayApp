@@ -116,7 +116,7 @@ export class LobbyComponent implements OnInit {
     this.places = [];
     this.updatePlaces();
 
-    this.cookieService.set('sortmode', this.sortMode.toString());
+    this.cookieService.set('sortmode', this.sortMode.toString(), 365);
   }
 
   checkCard(e:any, i:number) {

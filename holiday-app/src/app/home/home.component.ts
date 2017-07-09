@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
         this.api.get('lobby?id=' + params[qp]).subscribe(data => {
           if(data.resp==true) {
             // go to that lobby
-            this.cookieService.set('lobby', params[qp]);
+            this.cookieService.set('lobby', params[qp], 365);
             this.api.lobbyID = params[qp];
 
             if(this.cookieService.check('user')) {

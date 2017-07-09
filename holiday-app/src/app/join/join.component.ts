@@ -25,7 +25,7 @@ export class JoinComponent implements OnInit {
         this.router.navigateByUrl('/who', { skipLocationChange: true });
 
         // add a cookie
-        this.cookieService.set('lobby', this.api.lobbyID);
+        this.cookieService.set('lobby', this.api.lobbyID, 365);
       } else {
         this.error = data.msg;
       }

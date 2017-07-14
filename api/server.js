@@ -7,8 +7,21 @@ var bcrypt = require('bcryptjs');
 var randomColor = require('randomcolor');
 var app = express();
 
-app.use(cors());
 app.use(bodyParser.json());
+
+var whitelist = [
+  'http://localhost:4200',
+  'http://justpick.it'
+];
+
+var corsOptions = {
+  origin: function(origin, callback){
+        var isWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, isWhitelisted);
+  },
+  credentials: true
+}
+app.use(cors(corsOptions));
 
 var server = app.listen(3000, "0.0.0.0", function () {
   var port = server.address().port;

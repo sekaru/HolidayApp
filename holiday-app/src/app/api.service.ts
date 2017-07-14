@@ -16,14 +16,14 @@ export class ApiService {
   }
 
   get(params: string) {
-    return this.http.get(this.address + '/' + params)
+    return this.http.get(this.address + '/' + params, {withCredentials: true})
                     .map(res => res.json());
   }
 
   post(params: string, data: any) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.address + "/" + params, data, {headers: headers})
+    return this.http.post(this.address + "/" + params, data, {headers: headers, withCredentials: true})
                     .map(res => res.json());
   }
 
@@ -31,7 +31,7 @@ export class ApiService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     
-    return this.http.delete(this.address + '/' + params, {headers: headers})
+    return this.http.delete(this.address + '/' + params, {headers: headers, withCredentials: true})
                     .map(res => res.json());
   }
 

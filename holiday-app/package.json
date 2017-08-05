@@ -1,5 +1,5 @@
 {
-  "name": "holiday-app",
+  "name": "justpickit",
   "version": "1.0.0",
   "license": "MIT",
   "angular-cli": {},
@@ -55,11 +55,11 @@
   "main": "karma.conf.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sekaru/HolidayApp.git"
+    "url": "git+https://github.com/sekaru/JustPickIt.git"
   },
   "author": "Tudor Sandulescu",
   "bugs": {
-    "url": "https://github.com/sekaru/HolidayApp/issues"
+    "url": "https://github.com/sekaru/JustPickIt/issues"
   },
-  "homepage": "https://github.com/sekaru/HolidayApp#readme"
+  "homepage": "https://github.com/sekaru/JustPickIt#readme"
 }

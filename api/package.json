@@ -19,12 +19,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sekaru/HolidayApp.git"
+    "url": "git+https://github.com/sekaru/JustPickIt.git"
   },
   "author": "Tudor Sandulescu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sekaru/HolidayApp/issues"
+    "url": "https://github.com/sekaru/JustPickIt/issues"
   },
-  "homepage": "https://github.com/sekaru/HolidayApp#readme"
+  "homepage": "https://github.com/sekaru/JustPickIt#readme"
 }

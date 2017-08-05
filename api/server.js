@@ -185,7 +185,7 @@ app.post('/add-place', function (req, res) {
   }
 
   var duplicate = db.get('places')
-                    .find({lobby: req.body.lobby, author: req.body.author, link: req.body.link});
+                    .find({lobby: req.body.lobby, link: req.body.link});
 
   var fallback = "https://unsplash.it/1280/720?image=" + (10 + Math.floor(Math.random()*200));
 

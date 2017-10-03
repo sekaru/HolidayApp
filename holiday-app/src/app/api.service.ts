@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -11,13 +11,19 @@ export class ApiService {
 
   constructor(private http: Http) {
     this.title = "Just Pick It!";
-    this.address = "http://35.156.58.36:3000";
-    // this.address = "http://localhost:3000";
+    this.getExternal("http://52.58.65.213:3978/server?id=jpi").subscribe(data => {
+      this.address = "http://" + data;
+    });
   }
 
   get(params: string) {
     return this.http.get(this.address + '/' + params, {withCredentials: true})
                     .map(res => res.json());
+  }
+
+  getExternal(url: string) {
+    return this.http.get(url)
+                    .map(res => res.text());
   }
 
   post(params: string, data: any) {

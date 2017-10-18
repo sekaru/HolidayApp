@@ -100,6 +100,37 @@ hr {
   padding-right: 0.25em;
 }
 
+.expandable {
+  transition: all 0.2s;
+}
+
+.expandable:hover {
+  animation: 0.25s expand ease-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes expand {
+  from {
+    transform: translateY(0) scale(1);
+  }
+  80% {
+    transform: scale(1.075);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fake-button {
+  cursor: default;    
+}
+
+.fake-button:active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 @media only screen and (max-width: 768px) {
     .avatar {
         width: 4em;
@@ -124,5 +155,9 @@ hr {
     .btn {
       width: 100%;
       margin-bottom: 0.5em;
+    }
+
+    .fake-btn, .scale-btn {
+      width: auto;
     }
 }

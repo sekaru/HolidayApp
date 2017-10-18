@@ -22,12 +22,27 @@ export class LobbyComponent implements OnInit {
   sorting: boolean;
   search: string = "";
 
-  currency: string[] = ['£', '$', '€'];
-  currencyLabel: string[] = ['GBP', 'USD', 'EUR'];
+  currency: string[] = ['£', '$', '€', 'Scale'];
+  currencyLabel: string[] = ['GBP', 'USD', 'EUR', ''];
   currencyMode: number = 0;
+  scale: number[] = [0];
 
   desc: string = "";
   price: string = "";
+
+  randLink: number;
+  links: string[] = ['airbnb.co.uk/rooms/123456', 
+                    'localrestaurant.com', 
+                    'cocktailbar.co.uk',
+                    'pubdowntheroad.com',
+                    'coolhotels.com'];
+  randPricePlaceholder: string;
+  randPlaceholder: number;
+  placeholders: string[] = ['We should choose this place because it\'s really close to the beach!', 
+                            'Look at all the fancy cocktails! They\'re ridiculously cheap during their happy hour!',
+                            'Cheap food, two for one on drinks and a great view - we need to go here!',
+                            'Miles away from the touristy area, great for actually experiencing the city!',
+                            'In the heart of the old town where we\'ll be spending most of our time!'];
 
   constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
 
@@ -89,6 +104,9 @@ export class LobbyComponent implements OnInit {
     let price = this.places[i].price.toLowerCase();
     let desc = this.places[i].desc ? this.places[i].desc.toLowerCase() : '';
     let author = this.places[i].author.toLowerCase();
+    let archived = this.places[i].archived;
+
+    if((this.sortMode===5 && !archived) || (this.sortMode!==5 && archived)) return false;
 
     if(search.length>0) {
       if(link.includes(search) || price.includes(search) || (desc.includes(search) && desc.length>0) || author.includes(search)) {
@@ -163,6 +181,7 @@ export class LobbyComponent implements OnInit {
     this.api.post('delete', {lobby: this.api.lobbyID, link: this.places[index].link}).subscribe(data => {;
       if(data.resp==true) {
         this.places.splice(index, 1);
+        if(this.places.length===this.getNumArchived()) this.sort(5);
       }
     });
   }
@@ -176,5 +195,60 @@ export class LobbyComponent implements OnInit {
     this.cookieService.delete('sortmode');
     this.api.name = "";
     this.router.navigateByUrl('/who', { skipLocationChange: true })
+  }
+
+  addToScale() {
+    if(this.scale.length<5) this.scale.push(0);
+    this.updateScalePrice();
+  }
+
+  removeFromScale() {
+    if(this.scale.length>1) this.scale.pop();
+    this.updateScalePrice();
+  }
+
+  updateScalePrice() {
+    this.price = "";
+    for(let i=0; i<this.scale.length; i++) this.price+="£";
+  }
+
+  updateCurrencyMode(mode: number) {
+    let prevMode = this.currencyMode;
+
+    this.currencyMode = mode;
+    if(this.currency[mode]==="Scale") this.updateScalePrice();
+    if(this.currency[prevMode]==="Scale") this.price = "";
+  }
+
+  trimmedPrice(price: any) {
+    let trimmedPrice = price;
+    if(trimmedPrice.startsWith("Scale")) trimmedPrice = trimmedPrice.replace("Scale", "");
+    return trimmedPrice;
+  }
+
+  openAddPlaceForm() {
+    this.addingPlace = true;
+    this.randLink = Math.floor(Math.random()*this.links.length);    
+    this.randPricePlaceholder = (Math.floor(Math.random()*140)+10).toFixed(2);
+    this.randPlaceholder = Math.floor(Math.random()*this.placeholders.length);
+  }
+
+  restore(place: any) {
+    this.api.post('restore', {lobby: this.api.lobbyID, link: place.link}).subscribe(data => {;
+      if(data.resp==true) {
+        place.archived = false;
+        if(this.getNumArchived()===0) this.sort(0);
+      }
+    });
+  }
+
+  canGoToRandomiser() {
+    return this.places.length>0 && this.getNumArchived()!==this.places.length;
+  }
+
+  getNumArchived() {
+    let total = 0;
+    for(let place of this.places) if(place.archived) total++;
+    return total;
   }
 }

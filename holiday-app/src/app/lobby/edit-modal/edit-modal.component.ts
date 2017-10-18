@@ -29,8 +29,8 @@ export class EditModalComponent implements OnInit {
     
     this.link = place.link;
     this.image = place.image;
-    this.price = place.price.substring(1);
-    this.currency = place.price.substring(0, 1);
+    this.price = place.price.startsWith("Scale") ? place.price.replace("Scale", "") : place.price.substring(1);
+    this.currency = place.price.startsWith("Scale") ? "Scale" : place.price.substring(0, 1);
     this.desc = place.desc;
 
     this.childModal.show();
@@ -61,6 +61,14 @@ export class EditModalComponent implements OnInit {
         this.error = data.msg;
       }
     });
+  }
+
+  addToScale() {
+    if(this.price.length<5) this.price+="£";
+  }
+
+  removeFromScale() {
+    if(this.price.length>1) this.price = this.price.substring(1);
   }
 }
 

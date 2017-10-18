@@ -10,41 +10,43 @@ import { CookieService } from 'ng2-cookies';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private api: ApiService, private router: Router, private activatedRoute: ActivatedRoute, private cookieService: CookieService) { }
+  constructor(private api: ApiService, private router: Router, private activatedRoute: ActivatedRoute, private cookieService: CookieService) {
+  }
 
   ngOnInit() {
-    // check if they've entered a code
-    this.activatedRoute.queryParams.subscribe(params => {
-      let qp = 'lobby';
+    this.api.init().subscribe(data => {
+      this.api.address = "http://" + data;
 
-      if(params[qp]) {
-        this.api.get('lobby?id=' + params[qp]).subscribe(data => {
-          if(data.resp==true) {
-            // are they using another lobby?
-            if(this.cookieService.check('lobby')) {
-              if(this.cookieService.get('lobby')!==params[qp]) {
-                if(this.cookieService.check('user')) this.cookieService.delete('user');
+      // check if they've entered a code
+      this.activatedRoute.queryParams.subscribe(params => {
+        if(params.lobby) {
+          this.api.get('lobby?id=' + params.lobby).subscribe(data => {
+            if(data.resp==true) {
+              // are they using another lobby?
+              if(this.cookieService.check('lobby')) {
+                if(this.cookieService.get('lobby')!==params.lobby) {
+                  if(this.cookieService.check('user')) this.cookieService.delete('user');
+                }
               }
-            }
 
-            // go to that lobby
-            this.cookieService.set('lobby', params[qp], 365);
-            this.api.lobbyID = params[qp];
+              // go to that lobby
+              this.cookieService.set('lobby', params.lobby, 365);
+              this.api.lobbyID = params.lobby;
 
-            if(this.cookieService.check('user')) {
-              this.cookieLogin();
+              if(this.cookieService.check('user')) {
+                this.cookieLogin();
+              } else {
+                this.router.navigate(['who'], { queryParams: {} });
+                this.router.navigateByUrl('/who', { skipLocationChange: true });
+              }
             } else {
-              this.router.navigate(['who'], { queryParams: {} });
-              this.router.navigateByUrl('/who', { skipLocationChange: true });
+              this.checkCookies();
             }
-            return;
-          } else {
-            this.checkCookies();
-          }
-        });
-      } else {
-        this.checkCookies();
-      }
+          });
+        } else {
+          this.checkCookies();
+        }
+      });
     });
   }
 

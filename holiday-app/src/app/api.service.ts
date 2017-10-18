@@ -11,9 +11,10 @@ export class ApiService {
 
   constructor(private http: Http) {
     this.title = "Just Pick It!";
-    this.getExternal("http://52.58.65.213:3978/server?id=jpi").subscribe(data => {
-      this.address = "http://" + data;
-    });
+  }
+
+  init() {
+    return this.getExternal("http://52.58.65.213:3978/server?id=jpi");
   }
 
   get(params: string) {
@@ -51,5 +52,21 @@ export class ApiService {
 
   tryLogin(data: any) {
     return this.post('login', data);
+  }
+
+  trimmedLink(link: string) {
+    let trimmedLink = link;
+    if(trimmedLink.startsWith("http://")) {
+      trimmedLink = trimmedLink.substring(7);
+    } else if(trimmedLink.startsWith("https://")) {
+      trimmedLink = trimmedLink.substring(8);
+    }
+
+    if(trimmedLink.startsWith("www.")) trimmedLink = trimmedLink.substring(4);
+
+    let dot = trimmedLink.indexOf(".");
+    if(dot!==-1) trimmedLink = trimmedLink.substring(0, dot);
+
+    return trimmedLink;
   }
 }

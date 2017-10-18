@@ -23,12 +23,14 @@ export class RandomComponent implements OnInit {
 
     this.api.get('get-places?lobby=' + this.api.lobbyID + '&sort=' + 0).subscribe(data => {
       this.places = data;
+      for(let p of this.places) if(p.archived) this.places.splice(this.places.indexOf(p), 1);
+
       this.start();
     });
   }
 
   start() {
-    let timer = TimerObservable.create(1, 50);
+    let timer = TimerObservable.create(1, 10);
     this.sub = timer.subscribe(t => {
         this.randomise();
     });
@@ -39,6 +41,12 @@ export class RandomComponent implements OnInit {
   }
 
   randomise() {
+    if(this.places.length===1) {
+      this.r = 0;
+      this.stop();
+      return;
+    }
+
     let n = this.rand();
 
     while(n==this.r) {

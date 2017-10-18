@@ -16,9 +16,9 @@
 
     <div *ngIf="!addingPlace">
       <!--Adding-->
-      <button (click)="addingPlace=true" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New place</button>
+      <button (click)="openAddPlaceForm()" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New place</button>
       <!--Randomiser-->
-      <button *ngIf="places.length>0" (click)="randomiser()" type="button" class="btn btn-info"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Randomiser</button>
+      <button *ngIf="canGoToRandomiser()" (click)="randomiser()" type="button" class="btn btn-info"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>Randomiser</button>
       <br><br>
     </div>
 
@@ -39,7 +39,7 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="link">Link</label>  
             <div class="col-md-4">
-            <input #link name="link" type="text" placeholder="airbnb.co.uk/rooms/123456" class="form-control input-md" required="">
+            <input #link name="link" type="text" [placeholder]="links[randLink]" class="form-control input-md" required="">
             </div>
           </div>
 
@@ -57,14 +57,25 @@
                   <ul *dropdownMenu class="dropdown-menu" role="menu">
                     <!--Loop through currency types-->
                     <li *ngFor="let item of currency; let i = index" role="menuitem">
-                        <a class="dropdown-item" (click)="currencyMode=i">{{item}} {{currencyLabel[i]}}</a>
+                        <a class="dropdown-item" (click)="updateCurrencyMode(i)">{{item}} {{currencyLabel[i]}}</a>
                         <hr *ngIf="i!=currency.length-1">
                     </li>
                   </ul>
                 </div>
-
-                <input [(ngModel)]="price" name="price" (keypress)="pricePress($event)" placeholder="20.00" class="form-control" required="">
-                <!--<span class="help-block">(Price per person)</span> -->
+                
+                <!-- Normal currency mode -->
+                <div *ngIf="currencyMode!==3">
+                  <input [(ngModel)]="price" name="price" (keypress)="pricePress($event)" [placeholder]="randPricePlaceholder" class="form-control" required="">                
+                </div>
+                <!-- Scale mode -->
+                <div *ngIf="currencyMode===3">
+                  <button type="button" (click)="addToScale()" class="btn btn-success btn-no-shadow dropdown-toggle scale-btn">+</button>
+                  <button type="button" (click)="removeFromScale()" class="btn btn-success btn-no-shadow dropdown-toggle scale-btn">-</button>                  
+                  <span *ngFor="let s of scale" type="button" class="btn btn-no-shadow dropdown-toggle fake-btn">
+                    <!-- {{currency[currencyMode]}} -->
+                    £
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -73,7 +84,7 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="desc">Description</label>
             <div class="col-md-4">                     
-              <textarea [(ngModel)]="desc" name="desc" class="form-control" placeholder="We should choose this place because it's really close to the beach!" maxlength="140"></textarea>
+              <textarea [(ngModel)]="desc" name="desc" class="form-control" [placeholder]="placeholders[randPlaceholder]" maxlength="140"></textarea>
               <span *ngIf="desc.length>0" class="help-block" [style.color]="desc.length==140 ? '#d9534f' : ''">{{140-desc.length}}/140 characters remaining</span> 
             </div>
           </div>
@@ -107,6 +118,7 @@
         <a [ngClass]="sortMode==2? 'curSort' : 'sortOpt'" (click)="sort(2)">best</a>
         <a [ngClass]="sortMode==3? 'curSort' : 'sortOpt'" (click)="sort(3)">worst</a>
         <a [ngClass]="sortMode==4? 'curSort' : 'sortOpt'" (click)="sort(4)">price</a>
+        <a *ngIf="getNumArchived()>0" [ngClass]="sortMode==5? 'curSort' : 'sortOpt'" (click)="sort(5)">archived</a>        
       </p>
     </div>
 
@@ -120,30 +132,44 @@
       <div *ngFor="let a of places; let i = index">
 
         <div class="col-sm-6 col-md-4" *ngIf="show(i)" [ngClass]="{new: showNewLabel(a)}">
-          <div class="thumbnail" [style.transform]="'rotate(' + a.rot + 'deg)'" [ngClass]="getVoteClass(a)=='btn-danger' ? 'downvoted' : ''">
+          <div class="thumbnail expandable" [style.transform]="'rotate(' + a.rot + 'deg)'" [ngClass]="getVoteClass(a)=='btn-danger' ? 'downvoted' : ''">
+          <!-- <div class="thumbnail" [ngClass]="getVoteClass(a)=='btn-danger' ? 'downvoted' : ''"> -->
             <!--Thumbnail/link-->
             <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
               <a href="{{a.link}}" target="_blank"><img class="thumbnail-img" [src]="a.image"></a>
-              <h2 *ngIf="showLink==i"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>View</h2>
+              <h2 *ngIf="showLink==i"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>{{api.trimmedLink(a.link)}}</h2>
             </div>
 
             <div class="caption">
-              <!--Amount of votes-->
-              <button (click)="voteModal.showModal(a)" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
-              <!--Voting buttons-->
-              <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
-              <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
-              <button *ngIf="a.author==api.name" (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
-              <button *ngIf="a.author==api.name" (click)="editModal.showModal(a)" class="btn btn-primary btn-xs glyphicon glyphicon-edit pull-right" aria-hidden="true"></button>
-              <hr>
+              <span *ngIf="!a.archived">
+                <!--Amount of votes-->
+                <button (click)="voteModal.showModal(a)" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
+
+                <!--Voting buttons-->
+                <button [disabled]="!a.upvoters.includes(api.name) && a.downvoters.includes(api.name)" (click)="vote(i, 1)" class="btn btn-danger btn-xs glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"></button>
+                <button [disabled]="!a.downvoters.includes(api.name) && a.upvoters.includes(api.name)" (click)="vote(i, 0)" class="btn btn-success btn-xs glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true"></button>
+                <button *ngIf="a.author==api.name" (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
+                <button *ngIf="a.author==api.name" (click)="editModal.showModal(a)" class="btn btn-primary btn-xs glyphicon glyphicon-edit pull-right" aria-hidden="true"></button>
+                <hr>
+              </span>
+              <span *ngIf="a.archived && a.author==api.name">
+                <button style="visibility: hidden" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
+                <button (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
+                <button (click)="restore(a)" class="btn btn-success btn-xs glyphicon glyphicon-repeat pull-right" aria-hidden="true"></button>
+                <hr>
+              </span>
 
               <!--Description-->
-              <div class="desc">{{a.desc}}</div>
+              <div class="desc">
+                <!-- <strong>{{a.link}}</strong>
+                <br> -->
+                {{a.desc}}
+              </div>
 
               <!--If it's new-->
               <span *ngIf="showNewLabel(a)" class="label label-success">NEW</span>
               <!--Meta data-->
-              <span class="panel-title">{{a.price}}</span>
+              <span class="panel-title">{{trimmedPrice(a.price)}}</span>
               <span class="panel-title pull-right">Added by <span (click)="search=a.author" class="author">{{a.author}}</span></span>
               
             </div>

@@ -16,8 +16,21 @@
                 </div>
                 
                 <a href="{{link}}">{{link}}</a><br/><hr><br/>
-                <span class="panel-title">Image</span><br/> <input class="form-control" [(ngModel)]="image" placeholder="Choose a new image URL"><br/><br/>
-                <span class="panel-title">Price ({{currency}})</span><br/> <input class="form-control" [(ngModel)]="price" (keypress)="pricePress($event)" placeholder="Set a new price"><br/><br/>
+                <span class="panel-title">Image</span><br/> <input class="form-control" [(ngModel)]="image" placeholder="Choose a new image URL"><br>
+
+                <span class="panel-title">Price ({{currency}})</span><br/>
+                <div *ngIf="currency!=='Scale'">
+                    <input class="form-control" [(ngModel)]="price" (keypress)="pricePress($event)" placeholder="Set a new price">                
+                </div>
+                <div *ngIf="currency==='Scale'">
+                    <button type="button" (click)="addToScale()" class="btn btn-success btn-no-shadow dropdown-toggle scale-btn">+</button>
+                    <button type="button" (click)="removeFromScale()" class="btn btn-success btn-no-shadow dropdown-toggle scale-btn">-</button>                  
+                    <span *ngFor="let s of price.split('')" type="button" class="btn btn-no-shadow dropdown-toggle fake-btn">
+                        £
+                    </span>
+                </div>
+                <br/>
+
                 <span class="panel-title">Description ({{140-desc.length}}/140)</span><br/> <textarea class="form-control" [(ngModel)]="desc" placeholder="Choose a new description" maxlength="140"></textarea><br/>
                 
                 <button (click)="update()" class="btn btn-primary btn-modal" role="button">Update</button>

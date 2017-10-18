@@ -12,12 +12,12 @@
     <p>Your Lobby code is: <strong>{{api.lobbyID}}</strong></p>
 
     <!--Description-->
-    <p>Still can't decide? You should just pick this place:</p>
+    <p>Still can't decide? Looks like you're going to...</p>
 
     <div class="thumb-container">
       <div *ngIf="r!=-1" class="thumbnail">
           <!--Thumbnail/link-->
-          <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
+          <div class="image">
             <img *ngIf="sub && sub.closed" (click)="start()" class="thumbnail-img" [src]="places[r].image">
             <img *ngIf="sub && !sub.closed" (click)="stop()" class="thumbnail-img" [src]="places[r].image">
           </div>
@@ -25,12 +25,12 @@
           <div class="caption">
             <!--Description-->
             <div class="desc">
-                {{places[r].desc}}
-                <span [style.visibility]="sub && sub.closed ? 'visible': 'hidden'">
-                   - 
+                <span [style.visibility]="(sub && sub.closed) || !sub ? 'visible': 'hidden'">
                   <a href="{{places[r].link}}" class="view" target="_blank">
-                    <strong>View this place</strong>
+                    <strong>Visit {{api.trimmedLink(places[r].link)}}</strong>
                   </a>
+                  <br>
+                  {{places[r].desc}}                
                 </span>
             </div>
           </div>

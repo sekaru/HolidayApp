@@ -6,7 +6,7 @@
     <p>Your lobby is:</p>
     <pre #inputTarget>{{link}}</pre>
 
-    <p>Share this link with whoever you're planning your holiday with so they can join your new lobby.</p>
+    <p>Share this link with your friends so they can join your new lobby</p>
     <button class="btn btn-warning btn-lg full-btn" type="button" [ngxClipboard]="inputTarget" (cbOnSuccess)="copied=true"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>{{getCopyText()}}</button>
     <br/>
     <a class="btn btn-success btn-lg" (click)="joinLobby()" role="button"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>Enter Lobby</a>

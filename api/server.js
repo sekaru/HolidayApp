@@ -237,8 +237,6 @@ function randRot() {
 
 // deleting a place
 app.post('/delete', function (req, res) {
-  console.log(JSON.stringify(req.body));
-
   var place = db.get('places')
                     .find({lobby: req.body.lobby, link: req.body.link})
                     .value();
@@ -247,9 +245,16 @@ app.post('/delete', function (req, res) {
     return res.json({resp: false});
   }
 
-  db.get('places')
-    .remove({lobby: req.body.lobby, link: req.body.link})
-    .write();
+  if(place.archived) {
+    db.get('places')
+      .remove({lobby: req.body.lobby, link: req.body.link})
+      .write();
+  } else {
+    db.get('places')
+      .find({lobby: req.body.lobby, link: req.body.link})
+      .assign({archived: true})
+      .write();
+  }
 
   console.log('Deleted: ' + JSON.stringify({lobby: req.query.lobby, link: req.query.link}));
 
@@ -285,7 +290,7 @@ app.get('/get-places', function (req, res) {
   }
 
   // price
-  if(sort=='price') lobbyPlaces = sortPrice(lobbyPlaces, sort);
+  if(sort=='price') lobbyPlaces = sortPrice(lobbyPlaces);
   
   // ascending sort
   if(ascSorts.indexOf(parseInt(req.query.sort))!=-1) {
@@ -295,10 +300,13 @@ app.get('/get-places', function (req, res) {
   res.json(lobbyPlaces);
 });
 
-function sortPrice(array, key) {
+function sortPrice(array) {
     return array.sort(function(a, b) {
-        var x = parseInt(a[key].substring(1));
-        var y = parseInt(b[key].substring(1));
+        var aa = a.price.startsWith("Scale") ? a.price.split("Scale")[1].length*10 : a.price.substring(1);
+        var bb = b.price.startsWith("Scale") ? b.price.split("Scale")[1].length*10 : b.price.substring(1);
+
+        var x = parseInt(aa);
+        var y = parseInt(bb);
 
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
@@ -331,6 +339,24 @@ app.post('/vote', function (req, res) {
                     .assign({votes: votes, upvoters: place.upvoters, downvoters: place.downvoters})
                     .write();
   }
+
+  res.json({resp: true});
+});
+
+// unarchiving a place
+app.post('/restore', function (req, res) {
+  var place = db.get('places')
+                    .find({lobby: req.body.lobby, link: req.body.link})
+                    .value();
+
+  if(!place || !place.archived) {
+    return res.json({resp: false});
+  }
+
+  db.get('places')
+    .find({lobby: req.body.lobby, link: req.body.link})
+    .assign({archived: false})
+    .write();
 
   res.json({resp: true});
 });

@@ -133,7 +133,6 @@
 
         <div class="col-sm-6 col-md-4" *ngIf="show(i)" [ngClass]="{new: showNewLabel(a)}">
           <div class="thumbnail expandable" [style.transform]="'rotate(' + a.rot + 'deg)'" [ngClass]="getVoteClass(a)=='btn-danger' ? 'downvoted' : ''">
-          <!-- <div class="thumbnail" [ngClass]="getVoteClass(a)=='btn-danger' ? 'downvoted' : ''"> -->
             <!--Thumbnail/link-->
             <div class="image" (mouseover)="checkCard($event, i)" (mouseout)="checkCard($event, i)">
               <a href="{{a.link}}" target="_blank"><img class="thumbnail-img" [src]="a.image"></a>
@@ -152,10 +151,13 @@
                 <button *ngIf="a.author==api.name" (click)="editModal.showModal(a)" class="btn btn-primary btn-xs glyphicon glyphicon-edit pull-right" aria-hidden="true"></button>
                 <hr>
               </span>
-              <span *ngIf="a.archived && a.author==api.name">
-                <button style="visibility: hidden" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>
-                <button (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
-                <button (click)="restore(a)" class="btn btn-success btn-xs glyphicon glyphicon-repeat pull-right" aria-hidden="true"></button>
+              <span *ngIf="a.archived">
+                <button style="visibility: hidden" class="votes btn btn-xs" [ngClass]="getVoteClass(a)">{{a.votes}}</button>                
+                <span *ngIf="a.author==api.name">
+                  <button (click)="delete(i)" class="btn btn-warning btn-xs glyphicon glyphicon-remove pull-right" aria-hidden="true"></button>
+                  <button (click)="restore(a)" class="btn btn-success btn-xs glyphicon glyphicon-repeat pull-right" aria-hidden="true"></button>
+                  <button (click)="editModal.showModal(a)" class="btn btn-primary btn-xs glyphicon glyphicon-edit pull-right" aria-hidden="true"></button>                  
+                </span>
                 <hr>
               </span>
 

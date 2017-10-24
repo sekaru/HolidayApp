@@ -140,6 +140,11 @@ button:disabled {
         font-weight: 400;
     }
 
+    .thumbnail-img {
+        max-height: 25vh;
+        min-height: 25vh;   
+    }
+
     .desc {
         font-size: 1em;
         min-height: 4em;

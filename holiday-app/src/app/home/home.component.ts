@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ng2-cookies';
+import { CarouselConfig } from 'ngx-bootstrap/carousel';
 
 @Component({
   selector: 'app-home',
-  providers: [CookieService],
+  providers: [CookieService, {provide: CarouselConfig, useValue: {interval: 5000, noPause: true}}],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

@@ -145,6 +145,10 @@ button:disabled {
         min-height: 25vh;   
     }
 
+    h2 { 
+        top: 9.5vh;
+     }
+
     .desc {
         font-size: 1em;
         min-height: 4em;

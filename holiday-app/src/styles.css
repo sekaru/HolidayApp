@@ -105,17 +105,17 @@ hr {
 }
 
 .expandable:hover {
-  animation: 0.25s expand ease-out;
+  animation: 0.3s expand ease-out;
   animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  animation-fill-mode: backwards;
 }
 
 @keyframes expand {
   from {
     transform: translateY(0) scale(1);
   }
-  80% {
-    transform: scale(1.075);
+  50% {
+    transform: scale(1.05);
   }
   to {
     transform: translateY(0) scale(1);

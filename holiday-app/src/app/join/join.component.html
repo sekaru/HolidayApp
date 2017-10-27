@@ -11,7 +11,7 @@
 
     <p>Enter your lobby code below:</p>
     <div class="input-group">
-      <input #inputCode (keyup.enter)="joinLobby(inputCode.value)" class="form-control" placeholder="Lobby code">
+      <input #inputCode (keyup.enter)="joinLobby(inputCode.value)" class="form-control" placeholder="Lobby code" style="text-transform:uppercase">
       <span class="input-group-btn">
         <button (click)="joinLobby(inputCode.value)" class="btn btn-warning btn-no-shadow" type="button"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>Go</button>
       </span>

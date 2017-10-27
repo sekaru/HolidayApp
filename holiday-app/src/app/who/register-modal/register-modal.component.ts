@@ -29,13 +29,13 @@ export class RegisterModalComponent implements OnInit {
   }
 
   registerUser(name: string, pass: string, pass2: string) {
-    if(pass!=pass2) {
+    if(pass!==pass2) {
       this.error = "Those passwords don't match";
       return;
     }
 
     this.api.registerUser({lobby: this.api.lobbyID, name: name, pass: pass}).subscribe(data => {
-      if(data.resp==true) {
+      if(data.resp===true) {
         this.hideModal();
         this.api.name = name;
 

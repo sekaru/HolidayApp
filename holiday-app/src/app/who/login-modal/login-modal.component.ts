@@ -35,7 +35,7 @@ export class LoginModalComponent implements OnInit {
   }
 
   tryLogin(password: string) {
-    this.api.tryLogin({name: this.name, pass: password}).subscribe(data => {
+    this.api.tryLogin({lobby: this.api.lobbyID, name: this.name, pass: password}).subscribe(data => {
       if(data.resp==true) {
         this.hideModal();
         this.api.name = this.name;

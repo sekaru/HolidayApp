@@ -19,6 +19,8 @@
       <button (click)="openAddPlaceForm()" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New place</button>
       <!--Randomiser-->
       <button *ngIf="canGoToRandomiser()" (click)="randomiser()" type="button" class="btn btn-info"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>Randomiser</button>
+      <!--Logout button-->
+      <button (click)="logout()" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</button>
       <br><br>
     </div>
 
@@ -181,9 +183,6 @@
       </div>
     </div>
 
-    <!--Logout button-->
-    <button *ngIf="!sorting" (click)="logout()" type="button" class="btn btn-danger btn-lg full-btn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</button>
-  
     <edit-modal #editModal></edit-modal>
     <vote-modal #voteModal></vote-modal>
   </div>

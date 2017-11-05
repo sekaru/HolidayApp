@@ -98,18 +98,15 @@ app.post('/register', function (req, res) {
   }
 
   // hash the password
-  bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(req.body.pass, salt, function(err, hash) {
+  bcrypt.hash(req.body.pass, 10, function(err, hash) {
+      // push them to the db
+      var colour = randomColor();
+      db.get('users')
+        .push({lobby: req.body.lobby, name: req.body.name, pass: hash, colour: colour})
+        .write();
 
-        // push them to the db
-        var colour = randomColor();
-        db.get('users')
-          .push({lobby: req.body.lobby, name: req.body.name, pass: hash, colour: colour})
-          .write();
-
-        console.log("Added new user: " + JSON.stringify({lobby: req.body.lobbyID, name: req.body.name}));
-        res.json({resp: true});
-    });
+      console.log("Added new user: " + JSON.stringify({lobby: req.body.lobbyID, name: req.body.name}));
+      res.json({resp: true});
   });
 });
 
@@ -144,20 +141,19 @@ app.post('/login', function (req, res) {
   }
 
   var user = db.get('users')
-                .find({name: req.body.name})
+                .find({lobby: req.body.lobby, name: req.body.name})
                 .value();
   if(user) {
     bcrypt.compare(req.body.pass, user.pass, function(err, result) {
-      var wrongPass = {resp: false, err: "err_wrong_pass", msg: "Incorrect password"};
       if(result && !err) {
         console.log("User logged in: " + JSON.stringify({lobby: req.body.lobbyID, name: req.body.name}));
         res.json({resp: true});
       } else {
-        res.json(wrongPass);
+        res.json({resp: false, err: "err_wrong_pass", msg: "Incorrect password"});
       }
     });
   } else {
-    res.json(wrongPass);
+    res.json({resp: false, err: "err_user_doesnt_exist", msg: "User doesn't exist"});
   }
 });
 

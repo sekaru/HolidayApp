@@ -81,10 +81,11 @@
 
 .desc {
     color: #666;
-    font-size: 0.9em;
+    font-size: 1em;
     margin-bottom: 0.5em;
     min-height: 5.5em;
     max-height: 5.5em;
+    overflow: hidden;
 }
 
 .votes {

@@ -57,7 +57,7 @@
     filter: brightness(50%) saturate(1.5);
 }
 
-#place-link { 
+.place-link { 
    position: absolute; 
    margin-left: 5%;
    width: 90%;
@@ -165,5 +165,14 @@ button:disabled {
 
     .glyphicon-thumbs-up, .glyphicon-thumbs-down, .glyphicon-remove, .glyphicon-edit, .glyphicon-repeat {
         width: auto;
+    }
+
+    .thumbnail-img {
+        -webkit-filter: brightness(50%) saturate(1.5);
+        filter: brightness(50%) saturate(1.5);
+    }
+
+    .place-link {
+        transform: translateY(-75%);   
     }
 }

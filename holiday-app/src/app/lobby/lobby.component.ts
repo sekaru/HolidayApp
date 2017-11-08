@@ -141,6 +141,10 @@ export class LobbyComponent implements OnInit {
     this.showLink = e.type == 'mouseover' ? i : -1;
   }
 
+  isMobile() {
+    return window.innerWidth<=768;
+  }
+
   showNewLabel(place: any):boolean {
     if(place.upvoters.indexOf(this.api.name)!=-1 || place.downvoters.indexOf(this.api.name)!=-1) return false;
     return true;

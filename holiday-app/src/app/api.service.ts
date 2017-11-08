@@ -14,7 +14,7 @@ export class ApiService {
   }
 
   init() {
-    return this.getExternal("http://52.58.65.213:3978/server?id=jpi");
+    return this.getExternal("http://sleepystudios.net/waker.txt");
   }
 
   get(params: string) {

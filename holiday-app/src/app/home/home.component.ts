@@ -51,6 +51,9 @@ export class HomeComponent implements OnInit {
           }
         });
       });
+    }, err => {
+      self.api.address = "http://localhost:3000";
+      console.log("Defaulting to localhost...");
     });
   }
 

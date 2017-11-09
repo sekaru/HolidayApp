@@ -59,8 +59,10 @@
 
 .place-link { 
    position: absolute; 
-   margin-left: 5%;
-   width: 90%;
+   margin: auto;
+   display: flex;
+   align-items: center;
+   justify-content: center;
    text-align: center; 
 
    color: white;
@@ -72,11 +74,10 @@
    white-space: nowrap;
    overflow: hidden;
 
-   top: 50%;
+   top: 0;
    left: 0;
    bottom: 0;
    right: 0;
-   transform: translateY(-50%);
 }
 
 .desc {
@@ -170,9 +171,5 @@ button:disabled {
     .thumbnail-img {
         -webkit-filter: brightness(50%) saturate(1.5);
         filter: brightness(50%) saturate(1.5);
-    }
-
-    .place-link {
-        transform: translateY(-75%);   
     }
 }

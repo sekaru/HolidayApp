@@ -189,36 +189,40 @@ app.post('/add-place', function (req, res) {
     // return res.json({resp: false, err: "err_duplicate_place", msg: "That place is already in your lobby"});
     if(!req.body.image) req.body.image = fallback;
 
-    duplicate.assign({link: req.body.link, price: req.body.price, desc: req.body.desc, image: req.body.image})
+    duplicate.assign({link: req.body.link, price: req.body.price, desc: req.body.desc, image: req.body.image, latlng: req.body.latlng})
              .write();
 
     return res.json({resp: true});
   }
 
   db.get('places')
-    .push({lobby: req.body.lobby, author: req.body.author, link: req.body.link, price: req.body.price, desc: req.body.desc, votes: 1, upvoters: [req.body.author], downvoters: [], rot: randRot(), image: ""})
+    .push({lobby: req.body.lobby, author: req.body.author, 
+           link: req.body.link, price: req.body.price, desc: req.body.desc, 
+           votes: 1, upvoters: [req.body.author], downvoters: [], rot: randRot(), image: req.body.image})
     .write();
 
-  var resolver = new ImageResolver();
-  resolver.register(new ImageResolver.FileExtension());
-  resolver.register(new ImageResolver.MimeType());
-  resolver.register(new ImageResolver.Opengraph());
-  resolver.register(new ImageResolver.Webpage());
-
-  resolver.resolve(req.body.link, function (result) {
-      if(result) {
-        db.get('places')
-          .find({lobby: req.body.lobby, link: req.body.link})
-          .assign({image: result.image})
-          .write();
-      } else {
-        db.get('places')
-          .find({lobby: req.body.lobby, link: req.body.link})
-          .assign({image: fallback})
-          .write();
-        console.log("No image found for " + req.body.link);
-      }
-  });
+  if(!req.body.image) {
+    var resolver = new ImageResolver();
+    resolver.register(new ImageResolver.FileExtension());
+    resolver.register(new ImageResolver.MimeType());
+    resolver.register(new ImageResolver.Opengraph());
+    resolver.register(new ImageResolver.Webpage());
+  
+    resolver.resolve(req.body.link, function (result) {
+        if(result) {
+          db.get('places')
+            .find({lobby: req.body.lobby, link: req.body.link})
+            .assign({image: result.image})
+            .write();
+        } else {
+          db.get('places')
+            .find({lobby: req.body.lobby, link: req.body.link})
+            .assign({image: fallback})
+            .write();
+          console.log("No image found for " + req.body.link);
+        }
+    });
+  }
 
   console.log("Added new place: " + JSON.stringify(req.body));
 

@@ -159,7 +159,6 @@ app.post('/login', function (req, res) {
 
 // logging in (via cookie) 
 app.post('/cookie-login', function (req, res) {
-  
   if(!req.body.lobby || !req.body.name) {
     return res.json({resp: false, err: "err_missing_details", msg: "Nice try!"});
   }
@@ -176,8 +175,14 @@ app.post('/cookie-login', function (req, res) {
 
 // adding a place
 app.post('/add-place', function (req, res) {
+  var lobby = db.get('lobbies')
+                .find({id: req.body.lobby})
+                .value();
+
+  if(!lobby) return es.json({resp: false, err: "err_lobby_doesnt_exist", msg: "The specified lobby doesn't exist"});
+
   if(!req.body.link || req.body.link.length<=7 || !req.body.price || req.body.price.length<=1) {
-    return res.json({resp: false, err: "err_missing_details", msg: "You haven't filled in all the required fields"})
+    return res.json({resp: false, err: "err_missing_details", msg: "You haven't filled in all the required fields"});
   }
 
   var duplicate = db.get('places')
@@ -189,7 +194,7 @@ app.post('/add-place', function (req, res) {
     // return res.json({resp: false, err: "err_duplicate_place", msg: "That place is already in your lobby"});
     if(!req.body.image) req.body.image = fallback;
 
-    duplicate.assign({link: req.body.link, price: req.body.price, desc: req.body.desc, image: req.body.image, latlng: req.body.latlng})
+    duplicate.assign({link: req.body.link, price: req.body.price, desc: req.body.desc, image: req.body.image})
              .write();
 
     return res.json({resp: true});
@@ -198,7 +203,7 @@ app.post('/add-place', function (req, res) {
   db.get('places')
     .push({lobby: req.body.lobby, author: req.body.author, 
            link: req.body.link, price: req.body.price, desc: req.body.desc, 
-           votes: 1, upvoters: [req.body.author], downvoters: [], rot: randRot(), image: req.body.image})
+           votes: 1, upvoters: [req.body.author], downvoters: [], rot: randRot(), image: req.body.image, latlng: req.body.latlng})
     .write();
 
   if(!req.body.image) {

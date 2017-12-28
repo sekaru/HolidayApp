@@ -366,8 +366,18 @@ app.post('/restore', function (req, res) {
   res.json({resp: true});
 });
 
-// finding the airbnb id
-// app.get('/get-id', function (req, res) {
-//   var m = req.query.url.match(/\d+/g)
-//   res.json({resp: m[0]});
-// });
+// setting a location
+app.put('/set-loc', function (req, res) {
+  var place = db.get('places')
+                .find({lobby: req.body.lobby, link: req.body.link})
+                .value();
+  
+  if(!place) return res.json({resp: false, err: 'err_place_doesnt_exist', msg: 'That place doesn\'t exist'});
+
+  db.get('places')
+    .find({lobby: req.body.lobby, link: req.body.link})
+    .assign({latlng: req.body.latlng})
+    .write();
+
+  res.json({resp: true});
+});

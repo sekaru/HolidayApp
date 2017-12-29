@@ -101,12 +101,19 @@ app.post('/register', function (req, res) {
   bcrypt.hash(req.body.pass, 10, function(err, hash) {
       // push them to the db
       var colour = randomColor();
+      var user = {
+        lobby: req.body.lobby, 
+        name: req.body.name, 
+        pass: hash, 
+        colour: colour
+      }
+
       db.get('users')
-        .push({lobby: req.body.lobby, name: req.body.name, pass: hash, colour: colour})
+        .push(user)
         .write();
 
       console.log("Added new user: " + JSON.stringify({lobby: req.body.lobbyID, name: req.body.name}));
-      res.json({resp: true});
+      res.json({resp: true, user: user});
   });
 });
 

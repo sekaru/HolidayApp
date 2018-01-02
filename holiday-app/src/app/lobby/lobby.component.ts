@@ -197,7 +197,9 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   randomiser() {
-    this.router.navigateByUrl('/random', { skipLocationChange: true });
+    // this.router.navigateByUrl('/random', { skipLocationChange: true });
+    let index = Math.floor(Math.random()*this.places.length);
+    window.open(this.places[index].link, "_blank");
   }
 
   logout() {

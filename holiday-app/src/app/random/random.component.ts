@@ -30,7 +30,7 @@ export class RandomComponent implements OnInit {
   }
 
   start() {
-    let timer = TimerObservable.create(1, 10);
+    let timer = TimerObservable.create(1, 50);
     this.sub = timer.subscribe(t => {
         this.randomise();
     });

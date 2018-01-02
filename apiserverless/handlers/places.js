@@ -20,7 +20,7 @@ module.exports.getplaces = (event, context, callback) => {
   switch(parseInt(event.queryStringParameters.sort)) {
     case 0:
     case 1:
-      sort = 'lobby'
+      sort = 'timestamp';
       break;
     case 2:
     case 3:
@@ -117,7 +117,8 @@ module.exports.addplace = (event, context, callback) => {
         downvoters: [],
         image: body.image,
         latlng: body.latlng || {},
-        archived: false
+        archived: false,
+        timestamp: new Date().getTime()
       }
 
       if(!place.image) {

@@ -1,0 +1,184 @@
+service: jpiserverless
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  environment:
+    LOBBIES_TABLE: ${self:service}-${opt:stage, self:provider.stage}_LOBBIES
+    USERS_TABLE: ${self:service}-${opt:stage, self:provider.stage}_USERS
+    PLACES_TABLE: ${self:service}-${opt:stage, self:provider.stage}_PLACES
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:*"
+
+plugins:
+  - serverless-plugin-optimize
+  - serverless-dynamodb-local
+  - serverless-offline
+  
+custom:
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    migration:
+      dir: offline/migrations
+
+functions:
+  lobbycode:
+    handler: handlers/lobbies.lobbycode
+    events:
+     - http:
+         path: lobby-code
+         method: get
+         cors: true
+  lobby:
+    handler: handlers/lobbies.lobby
+    events:
+     - http:
+         path: lobby
+         method: get
+         cors: true         
+  getusers:
+    handler: handlers/users.getusers
+    events:
+     - http:
+         path: get-users
+         method: get
+         cors: true         
+  getcolour:
+    handler: handlers/users.getcolour
+    events:
+     - http:
+         path: get-colour
+         method: get
+         cors: true         
+  getplaces:
+    handler: handlers/places.getplaces
+    events:
+     - http:
+         path: get-places
+         method: get
+         cors: true         
+  makelobby:
+    handler: handlers/lobbies.makelobby
+    events:
+     - http:
+         path: make-lobby
+         method: post
+         cors: true         
+  register:
+    handler: handlers/users.register
+    events:
+     - http:
+         path: register
+         method: post
+         cors: true         
+  login:
+    handler: handlers/users.login
+    events:
+     - http:
+         path: login
+         method: post
+         cors: true         
+  cookielogin:
+    handler: handlers/users.cookielogin
+    events:
+     - http:
+         path: cookie-login
+         method: post
+         cors: true         
+  addplace:
+    handler: handlers/places.addplace
+    events:
+     - http:
+         path: add-place
+         method: post
+         cors: true         
+  delete:
+    handler: handlers/places.delete
+    events:
+     - http:
+         path: delete
+         method: post
+         cors: true         
+  restore:
+    handler: handlers/places.restore
+    events:
+     - http:
+         path: restore
+         method: post 
+         cors: true         
+  vote:
+    handler: handlers/places.vote
+    events:
+     - http:
+         path: vote
+         method: post
+         cors: true                
+  updateplace:
+    handler: handlers/places.updateplace
+    events:
+     - http:
+         path: update-place
+         method: put
+         cors: true         
+
+resources:
+  Resources:
+    LobbiesTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.LOBBIES_TABLE}
+    UsersTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.USERS_TABLE}
+    PlacesTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.PLACES_TABLE}

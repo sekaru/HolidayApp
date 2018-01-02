@@ -1,0 +1,28 @@
+{
+  "name": "jpiserverless",
+  "version": "1.0.0",
+  "description": "Serverless API for Just Pick It",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sekaru/JustPickIt.git"
+  },
+  "author": "Tudor Sandulescu",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.176.0",
+    "serverless-dynamodb-local": "^0.2.26",
+    "serverless-offline": "^3.16.0",
+    "serverless-plugin-optimize": "^3.0.4-rc.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "image-resolver": "^0.6.1",
+    "lodash": "^4.17.4",
+    "randomcolor": "^0.5.3",
+    "uuid": "^3.1.0"
+  }
+}

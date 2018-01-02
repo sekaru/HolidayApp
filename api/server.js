@@ -186,7 +186,7 @@ app.post('/add-place', function (req, res) {
                 .find({id: req.body.lobby})
                 .value();
 
-  if(!lobby) return es.json({resp: false, err: "err_lobby_doesnt_exist", msg: "The specified lobby doesn't exist"});
+  if(!lobby) return res.json({resp: false, err: "err_lobby_doesnt_exist", msg: "The specified lobby doesn't exist"});
 
   if(!req.body.link || req.body.link.length<=7 || !req.body.price || req.body.price.length<=1) {
     return res.json({resp: false, err: "err_missing_details", msg: "You haven't filled in all the required fields"});

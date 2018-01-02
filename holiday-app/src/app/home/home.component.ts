@@ -18,13 +18,13 @@ export class HomeComponent implements OnInit {
     let self = this;
     this.api.init().subscribe(data => {
       self.api.getExternal(data + "/server?id=jpi").subscribe(data => {
-        self.api.address = "http://" + data;
+        self.api.address = data;
 
         // check if they've entered a code
         this.activatedRoute.queryParams.subscribe(params => {
           if(params.lobby) {
             this.api.get('lobby?id=' + params.lobby).subscribe(data => {
-              if(data.resp==true) {
+              if(data.resp===true) {
                 // are they using another lobby?
                 if(this.cookieService.check('lobby')) {
                   if(this.cookieService.get('lobby')!==params.lobby) {

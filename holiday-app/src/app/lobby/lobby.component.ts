@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { Router } from '@angular/router';
 import { CookieService } from 'ng2-cookies';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-lobby',
@@ -10,8 +11,9 @@ import { CookieService } from 'ng2-cookies';
   templateUrl: './lobby.component.html',
   styleUrls: ['./lobby.component.css']
 })
-export class LobbyComponent implements OnInit {
+export class LobbyComponent implements OnInit, OnDestroy {
   error: string = "";
+  sub: any;
 
   colour: string;
   places: any[] = [];
@@ -56,9 +58,13 @@ export class LobbyComponent implements OnInit {
 
     // update places every so often
     let timer = TimerObservable.create(1, 2500);
-    timer.subscribe(t => {
+    this.sub = timer.subscribe(t => {
         this.updatePlaces();
     });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   updatePlaces() {
@@ -183,7 +189,7 @@ export class LobbyComponent implements OnInit {
 
   delete(index: number) {
     this.api.post('delete', {lobby: this.api.lobbyID, link: this.places[index].link}).subscribe(data => {;
-      if(data.resp==true) {
+      if(data.resp===true) {
         this.places.splice(index, 1);
         if(this.places.length===this.getNumArchived()) this.sort(5);
       }
@@ -235,6 +241,7 @@ export class LobbyComponent implements OnInit {
     this.randLink = Math.floor(Math.random()*this.links.length);    
     this.randPricePlaceholder = (Math.floor(Math.random()*140)+10).toFixed(2);
     this.randPlaceholder = Math.floor(Math.random()*this.placeholders.length);
+    this.updateCurrencyMode(this.currencyMode);
   }
 
   restore(place: any) {

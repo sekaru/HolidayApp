@@ -53,7 +53,7 @@ export class EditModalComponent implements OnInit {
 
     let place = {lobby: this.api.lobbyID, author: this.api.name, link: this.link, price: this.currency + this.price, desc: this.desc, image: this.image} ;
 
-    this.api.post('add-place', place).subscribe(data => {
+    this.api.put('update-place', place).subscribe(data => {
       if(data.resp==true) {
         this.error = "";
         this.hideModal();

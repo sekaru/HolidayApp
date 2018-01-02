@@ -54,7 +54,7 @@ module.exports.lobby = (event, context, callback) => {
       res.statusCode = 404;
       res.body = JSON.stringify({resp: false, err: "err_lobby_not_found", msg: "Couldn't find that lobby"});
     } else {
-      res.body = JSON.stringify({resp: true, code: result.id});         
+      res.body = JSON.stringify({resp: true, code: result.Item.id});         
     }
 
     callback(null, res);     

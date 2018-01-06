@@ -14,7 +14,7 @@ export class RandomComponent implements OnInit {
   r: number = -1;
   sub: any;
 
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(public api: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.api.get('get-colour?lobby=' + this.api.lobbyID + '&name=' + this.api.name).subscribe(data => {

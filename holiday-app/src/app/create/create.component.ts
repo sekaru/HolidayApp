@@ -14,7 +14,7 @@ export class CreateComponent implements OnInit {
   link: string;
   copied: boolean = false;
 
-  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) {
+  constructor(public api: ApiService, private router: Router, private cookieService: CookieService) {
     this.getCode();
   }
 

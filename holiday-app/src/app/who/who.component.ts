@@ -13,7 +13,7 @@ export class WhoComponent implements OnInit {
   users: any[] = [];
   loginHover: number;
 
-  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
+  constructor(public api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.api.get('get-users?id=' + this.api.lobbyID).subscribe(data => {

@@ -14,7 +14,7 @@ export class RegisterModalComponent implements OnInit {
 
   @ViewChild('registerModal') public childModal:ModalDirective;
 
-  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
+  constructor(public api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
   }

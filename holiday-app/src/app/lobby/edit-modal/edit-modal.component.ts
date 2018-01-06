@@ -19,7 +19,7 @@ export class EditModalComponent implements OnInit {
 
   @ViewChild('editModal') public childModal:ModalDirective;
 
-  constructor(private api: ApiService) { }
+  constructor(public api: ApiService) { }
 
   ngOnInit() {
   }

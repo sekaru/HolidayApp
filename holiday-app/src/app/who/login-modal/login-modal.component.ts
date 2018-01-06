@@ -18,7 +18,7 @@ export class LoginModalComponent implements OnInit {
 
   @ViewChild('loginModal') public childModal:ModalDirective;
  
-  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
+  constructor(public api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
   }

@@ -11,7 +11,7 @@ import { CarouselConfig } from 'ngx-bootstrap/carousel';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private api: ApiService, private router: Router, private activatedRoute: ActivatedRoute, private cookieService: CookieService) {
+  constructor(public api: ApiService, private router: Router, private activatedRoute: ActivatedRoute, private cookieService: CookieService) {
   }
 
   ngOnInit() {

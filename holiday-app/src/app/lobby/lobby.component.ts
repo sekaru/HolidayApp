@@ -46,7 +46,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
                             'Miles away from the touristy area, great for actually experiencing the city!',
                             'In the heart of the old town where we\'ll be spending most of our time!'];
 
-  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
+  constructor(public api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.api.get('get-colour?lobby=' + this.api.lobbyID + '&name=' + this.api.name).subscribe(data => {

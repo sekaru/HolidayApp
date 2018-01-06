@@ -9,7 +9,7 @@ import { ApiService } from '../api.service';
 export class FooterComponent implements OnInit {
   url: string;
 
-  constructor(private api: ApiService) { }
+  constructor(public api: ApiService) { }
 
   ngOnInit() {
   }

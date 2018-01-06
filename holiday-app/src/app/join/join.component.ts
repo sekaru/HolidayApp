@@ -12,7 +12,7 @@ import { CookieService } from 'ng2-cookies';
 export class JoinComponent implements OnInit {
   error: string = "";
 
-  constructor(private api: ApiService, private router: Router, private cookieService: CookieService) { }
+  constructor(public api: ApiService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
   }
